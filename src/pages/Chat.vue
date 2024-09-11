@@ -246,4 +246,36 @@ const friends = [
   align-items: center;
 }
 
+/* 针对 WebKit 浏览器 (如 Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 1px; /* 滚动条的宽度 */
+  height: 8px; /* 滚动条的高度（用于水平滚动条） */
+}
+
+::-webkit-scrollbar-track {
+  background: #2e2e2e; /* 滚动条轨道的背景色 */
+  border-radius: 4px; /* 圆角 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #555; /* 滚动条滑块的颜色 */
+  border-radius: 4px; /* 滑块的圆角 */
+  border: 2px solid #2e2e2e; /* 为滑块加上边框以显示间隙 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #777; /* 滑块在悬停时的颜色 */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #999; /* 滑块在点击时的颜色 */
+}
+
+/* 针对 Firefox 浏览器 */
+* {
+  scrollbar-width: thin; /* 滚动条的宽度 */
+  scrollbar-color: #555 #2e2e2e; /* 滑块颜色 #555 和轨道颜色 #2e2e2e */
+}
+
+
 </style>
