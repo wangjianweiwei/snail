@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from "vue";
+import {tr} from "vuetify/locale";
 
 let a = [
   "https://adminpro-vuetify-main.netlify.app/assets/user-5-TcGtWTp3.jpg",
@@ -7,17 +8,12 @@ let a = [
   "https://adminpro-vuetify-main.netlify.app/assets/user-2-idGLMY7R.jpg",
   "https://adminpro-vuetify-main.netlify.app/assets/user-3-HJ3opN5n.jpg",
 ]
-const getAvatar = () => {
-  let index = Math.floor((Math.random() * a.length))
 
-  return a[index]
+const currentUser = {
+  id: 1,
+  avatar: "https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png"
 }
-
-const currentUser = 1
-const avatars = {
-  "1": "https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png",
-  "2": "https://cdn.vuetifyjs.com/images/lists/3.jpg"
-}
+const friend = ref(null)
 const friends = [
   {type: 'subheader', title: 'Today'},
   {
@@ -251,50 +247,62 @@ const messages = [
   }
 ]
 
+
+const SelectFriend = (v) => {
+  friend.value = friends.find((x) => {
+    return x.value === v.id
+  })
+}
 </script>
 
 <template>
   <div style="height: 100%" class="py-8">
     <v-row justify="center" no-gutters style="height: 100%">
       <v-col lg="10" xl="8">
-        <v-card rounded="lg" style="height: 100%">
-          <v-row no-gutters style="height: 8%" class="border-b-sm" align="center">
-            <v-col cols="3">
-              <v-sheet class="pa-3 d-flex justify-start">
-                <v-avatar
-                  image="https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png"></v-avatar>
-                <v-text-field class="ms-4" rounded="xl" prepend-inner-icon="mdi-magnify" density="compact"
-                              placeholder="Search"></v-text-field>
-              </v-sheet>
+        <v-card rounded="lg" style="height: 100%" border="sm">
+          <!--头部区域-->
+          <v-row no-gutters style="height: 8%" align="center">
+            <!--我的头像区域-->
+            <v-col cols="3" style="height: 100%" class="pa-4 border-b-sm d-flex justify-start align-center">
+              <v-avatar
+                image="https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png"></v-avatar>
+              <v-text-field class="ms-4"
+                            rounded="xl"
+                            prepend-inner-icon="mdi-magnify"
+                            density="compact"
+                            placeholder="Search">
+              </v-text-field>
             </v-col>
             <v-divider vertical></v-divider>
-            <v-col cols="9">
-              <v-sheet class="pa-3 align-center d-flex justify-space-between">
-                <div>
-                  <v-list
-                    density="comfortable"
-                    lines="two"
-                    variant="elevated"
-                  >
-                    <v-list-item
-                      prepend-avatar="https://cdn.vuetifyjs.com/images/lists/3.jpg"
-                      title="Harriet McBride"
-                      subtitle="UI/UX Designer"
-                    >
-
-                    </v-list-item>
-                  </v-list>
-                </div>
-                <div>
-                  <v-btn icon="mdi-phone-outline" variant="text" color=""></v-btn>
-                  <v-btn icon="mdi-video-outline" variant="text" color=""></v-btn>
-                  <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
-                  <v-btn icon="mdi-dots-vertical" variant="text" color=""></v-btn>
-                </div>
-              </v-sheet>
+            <!--好友工具栏区域-->
+            <v-col v-if="friend"
+                   cols="9"
+                   style="height: 100%"
+                   class="border-b-sm pa-4 align-center d-flex justify-space-between">
+              <v-list
+                density="comfortable"
+                lines="two"
+              >
+                <v-list-item
+                  :prepend-avatar="friend.prependAvatar"
+                  :title="friend.title"
+                  subtitle="UI/UX Designer"
+                >
+                </v-list-item>
+              </v-list>
+              <div>
+                <v-btn icon="mdi-phone-outline" variant="text" color=""></v-btn>
+                <v-btn icon="mdi-video-outline" variant="text" color=""></v-btn>
+                <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
+                <v-btn icon="mdi-dots-vertical" variant="text" color=""></v-btn>
+              </div>
             </v-col>
+            <!--空白好友工具栏区域-->
+            <v-col v-else style="background-color: #20202e;height: 100%"></v-col>
           </v-row>
+          <!--底部区域-->
           <v-row no-gutters style="height: 92%">
+            <!--好友列表区域-->
             <v-col cols="3" style="overflow-y: scroll">
               <v-list
                 activatable
@@ -303,6 +311,7 @@ const messages = [
                 lines="two"
                 item-props
                 variant="elevated"
+                @click:activate="SelectFriend"
               >
                 <template v-slot:subtitle="{ subtitle }">
                   <div v-html="subtitle"></div>
@@ -310,27 +319,38 @@ const messages = [
               </v-list>
             </v-col>
             <v-divider vertical></v-divider>
-            <v-col cols="9" style="height: 100%">
+            <!--聊天区域-->
+            <v-col v-if="friend" cols="9" style="height: 100%">
+              <!--消息记录区域-->
               <v-row no-gutters style="height: 90%;background-color: #20202e">
                 <v-col class="pa-3" style="overflow-y: scroll">
                   <v-list
+                    lines="two"
                     bg-color="#20202e"
                   >
                     <v-list-item
                       v-for="(n, i) in messages"
                       :key="i"
-                      :class="{'text-right': n.user_id === currentUser, 'text-left': n.user_id !== currentUser}"
-                      :prepend-avatar="n.user_id === currentUser ? '' : avatars[n.user_id]"
-                      :append-avatar="n.user_id === currentUser ? avatars[n.user_id] : ''"
+                      :class="{'text-right': n.user_id === currentUser.id, 'text-left': n.user_id !== currentUser.id}"
+
                     >
                       <template #title>
-                        <p class="text-md-body-1 rounded-lg pa-2 mb-2 message-content font-weight-regular"
-                           :style="{'background-color': n.user_id === currentUser?'#696CFF': '#2b2c40'}">
+                        <p class="text-md-body-1 rounded-lg pa-2 mb-2 message-content"
+                           :style="{'background-color': n.user_id === currentUser.id ? '#696CFF': '#2b2c40'}">
                           {{ n.message.content }}</p>
+                      </template>
+                      <template #append v-if="n.user_id === currentUser.id">
+                        <v-avatar size="small" :image="currentUser.avatar"></v-avatar>
+                      </template>
+                      <template #prepend v-if="n.user_id !== currentUser.id">
+                        <v-avatar size="small" :image="friend.prependAvatar"></v-avatar>
                       </template>
                       <template #subtitle>
                         <div style="font-size: 0.8rem;font-weight: 500">
-                          <v-icon v-if="currentUser === n.user_id" size="sm" icon="mdi-check-bold" color="success"
+                          <v-icon v-if="currentUser.id === n.user_id"
+                                  size="sm"
+                                  icon="mdi-check-bold"
+                                  color="success"
                                   class="mr-1"></v-icon>
                           <span>{{ n.time }}</span>
                         </div>
@@ -340,9 +360,10 @@ const messages = [
                   </v-list>
                 </v-col>
               </v-row>
-              <v-row no-gutters style="height: 10%;background-color: #20202e">
+              <!--消息发送区域-->
+              <v-row no-gutters style="height: 10%;background-color: #20202e" align="center">
                 <v-col>
-                  <v-sheet class="pa-3" style="background-color: #20202e">
+                  <v-sheet class="pa-3 align-center" style="background-color: #20202e">
                     <v-text-field variant="solo-filled" no-resize center-affix>
                       <template #append-inner>
                         <v-btn icon="mdi-microphone-outline" variant="text" color=""></v-btn>
@@ -354,6 +375,12 @@ const messages = [
                   </v-sheet>
                 </v-col>
               </v-row>
+            </v-col>
+            <!--空白聊天区域-->
+            <v-col v-else cols="9" style="height: 100%;background-color: #20202e"
+                   class="d-flex flex-column justify-center align-center">
+              <v-icon size="100" icon="mdi-message-question" class="mb-2"></v-icon>
+              <p class="text-grey-darken-1 text-sm-body-2 font-weight-black">通过选择左侧的联系人开始联系</p>
             </v-col>
           </v-row>
         </v-card>
@@ -370,8 +397,8 @@ const messages = [
 
 /* 针对 WebKit 浏览器 (如 Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 1px; /* 滚动条的宽度 */
-  height: 8px; /* 滚动条的高度（用于水平滚动条） */
+  width: 3px; /* 滚动条的宽度 */
+  height: 3px; /* 滚动条的高度（用于水平滚动条） */
 }
 
 ::-webkit-scrollbar-track {
