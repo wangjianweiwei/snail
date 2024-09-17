@@ -1,110 +1,111 @@
 <script setup>
-import {ref} from "vue";
+import {ref, reactive} from "vue";
 import {tr} from "vuetify/locale";
 
-let a = [
-  "https://adminpro-vuetify-main.netlify.app/assets/user-5-TcGtWTp3.jpg",
-  "https://adminpro-vuetify-main.netlify.app/assets/user-6-Bw2gSpv_.jpg",
-  "https://adminpro-vuetify-main.netlify.app/assets/user-2-idGLMY7R.jpg",
-  "https://adminpro-vuetify-main.netlify.app/assets/user-3-HJ3opN5n.jpg",
-]
 
-const currentUser = {
+const drawer = ref(false)
+const drawerWidth = ref(0)
+const avatarCol = ref(null)
+const currentUser = reactive({
   id: 1,
+  status: "success",
+  settings: {
+    two_step: false,
+    notify: false
+  },
   avatar: "https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png"
-}
+})
 const friend = ref(null)
 const friends = [
-  {type: 'subheader', title: 'Today'},
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-    title: 'Brunch this weekend?',
+    title: 'Gavin Griffith',
     value: 1,
-    subtitle: `<span class="text-primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+    subtitle: "I will purchase it for sure. 👍",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-    title: 'Summer BBQ',
+    title: 'Harriet McBride',
     value: 2,
-    subtitle: `<span class="text-primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
+    subtitle: "If it takes long you can mail me at m",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-    title: 'Oui oui',
+    title: 'Danny Conner',
     value: 3,
-    subtitle: '<span class="text-primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
+    subtitle: 'Cake pie jelly jelly beans. Marzipan lemon dr',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-    title: 'Birthday gift',
+    title: 'Janie West',
     value: 4,
-    subtitle: '<span class="text-primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
+    subtitle: 'Chupa chups candy canes chocolate bar mar',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-    title: 'Recipe to try',
+    title: 'Albert Underwood',
     value: 5,
-    subtitle: '<span class="text-primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+    subtitle: 'Toffee caramels jelly-o tart gummi bears ca',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-    title: 'Brunch this weekend?',
+    title: 'Gavin Griffith',
     value: 6,
-    subtitle: `<span class="text-primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+    subtitle: "I will purchase it for sure. 👍",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-    title: 'Summer BBQ',
+    title: 'Harriet McBride',
     value: 7,
-    subtitle: `<span class="text-primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
+    subtitle: "If it takes long you can mail me at m",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-    title: 'Oui oui',
+    title: 'Danny Conner',
     value: 8,
-    subtitle: '<span class="text-primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
+    subtitle: 'Cake pie jelly jelly beans. Marzipan lemon dr',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-    title: 'Birthday gift',
+    title: 'Janie West',
     value: 9,
-    subtitle: '<span class="text-primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
+    subtitle: 'Chupa chups candy canes chocolate bar mar',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-    title: 'Recipe to try',
+    title: 'Albert Underwood',
     value: 10,
-    subtitle: '<span class="text-primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+    subtitle: 'Toffee caramels jelly-o tart gummi bears ca',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-    title: 'Brunch this weekend?',
+    title: 'Gavin Griffith',
     value: 11,
-    subtitle: `<span class="text-primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+    subtitle: "I will purchase it for sure. 👍",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-    title: 'Summer BBQ',
+    title: 'Harriet McBride',
     value: 12,
-    subtitle: `<span class="text-primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
+    subtitle: "If it takes long you can mail me at m",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-    title: 'Oui oui',
+    title: 'Danny Conner',
     value: 13,
-    subtitle: '<span class="text-primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
+    subtitle: 'Cake pie jelly jelly beans. Marzipan lemon dr',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-    title: 'Birthday gift',
+    title: 'Janie West',
     value: 14,
-    subtitle: '<span class="text-primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
+    subtitle: 'Chupa chups candy canes chocolate bar mar',
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-    title: 'Recipe to try',
+    title: 'Albert Underwood',
     value: 15,
-    subtitle: '<span class="text-primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+    subtitle: 'Toffee caramels jelly-o tart gummi bears ca',
   },
 ]
 const messages = [
@@ -253,139 +254,211 @@ const SelectFriend = (v) => {
     return x.value === v.id
   })
 }
+
+const updateDrawerWidth = () => {
+  drawerWidth.value = window.document.getElementById("avatarCol").getBoundingClientRect().width
+}
+
 </script>
 
 <template>
-  <div style="height: 100%" class="py-8">
-    <v-row justify="center" no-gutters style="height: 100%">
-      <v-col lg="10" xl="8">
-        <v-card rounded="lg" style="height: 100%" border="sm">
-          <!--头部区域-->
-          <v-row no-gutters style="height: 8%" align="center">
-            <!--我的头像区域-->
-            <v-col cols="3" style="height: 100%" class="pa-4 border-b-sm d-flex justify-start align-center">
-              <v-avatar
-                image="https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png"></v-avatar>
-              <v-text-field class="ms-4"
-                            rounded="xl"
-                            prepend-inner-icon="mdi-magnify"
-                            density="compact"
-                            placeholder="Search">
-              </v-text-field>
-            </v-col>
-            <v-divider vertical></v-divider>
-            <!--好友工具栏区域-->
-            <v-col v-if="friend"
-                   cols="9"
-                   style="height: 100%"
-                   class="border-b-sm pa-4 align-center d-flex justify-space-between">
-              <v-list
-                density="comfortable"
-                lines="two"
-              >
+  <div style="height: 100%" class="py-lg-5">
+    <v-layout style="height: 100%">
+      <v-row justify="center" no-gutters style="height: 100%">
+        <v-col lg="10" xl="9">
+          <v-card rounded="lg" style="height: 100%">
+            <!--头部区域-->
+            <v-row no-gutters style="height: 10%" align="center">
+              <!--我的头像区域-->
+              <v-col id="avatarCol"
+                     cols="3"
+                     style="height: 100%"
+                     class="pa-4 border-b-sm d-flex justify-start align-center"
+                     v-resize="updateDrawerWidth">
+                <v-navigation-drawer
+                  absolute
+                  v-model="drawer"
+                  :width="drawerWidth"
+                  temporary
+                >
+                  <div class="px-4 py-3">
+                    <div class="d-flex justify-end">
+                      <v-btn icon="mdi-close"
+                             variant="text"
+                             size="small" @click="drawer = false"></v-btn>
+                    </div>
+                    <div class="text-center">
+                      <v-badge dot location="bottom end" :color="currentUser.status">
+                        <v-avatar :image="currentUser.avatar" size="70" variant="flat"></v-avatar>
+                      </v-badge>
+                      <p class="text-h6">John Doe</p>
+                      <p class="text-capitalize text-body-2 mb-0">develop</p>
+                    </div>
+                    <div class="mt-5">
+                      <p class="text-disabled mb-1">状态</p>
+                      <v-radio-group v-model="currentUser.status">
+                        <v-radio label="在线" value="success" density="comfortable" color="success"></v-radio>
+                        <v-radio label="离开" value="warning" density="comfortable" color="warning"></v-radio>
+                        <v-radio label="请勿打扰" value="error" density="comfortable" color="error"></v-radio>
+                        <v-radio label="离线" value="grey" density="comfortable" color="grey"></v-radio>
+                      </v-radio-group>
+                    </div>
+                    <div class="mt-5">
+                      <p class="text-disabled mb-1">设置</p>
+                      <div class="d-flex justify-space-between align-center px-2">
+                        <div class="d-flex justify-start">
+                          <v-icon size="small" icon="mdi-lock-outline"></v-icon>
+                          <p class="text-body-1 ml-2 text-high-emphasis">两步验证</p>
+                        </div>
+                        <v-switch density="compact" center-affix v-model="currentUser.settings.two_step"></v-switch>
+                      </div>
+                      <div class="d-flex justify-space-between align-center px-2">
+                        <div class="d-flex justify-start">
+                          <v-icon size="small" icon="mdi-bell-outline"></v-icon>
+                          <p class="text-body-1 ml-2 text-high-emphasis">通知</p>
+                        </div>
+                        <v-switch density="compact" center-affix v-model="currentUser.settings.notify"></v-switch>
+                      </div>
+                      <div class="d-flex justify-space-between align-center px-2">
+                        <div class="d-flex justify-start">
+                          <v-icon size="small" icon="mdi-account-plus-outline"></v-icon>
+                          <p class="text-body-1 ml-2 text-high-emphasis">邀请朋友</p>
+                        </div>
+                        <v-switch style="visibility: hidden" density="compact" center-affix></v-switch>
+                      </div>
+                      <div class="d-flex justify-space-between align-center px-2">
+                        <div class="d-flex justify-start text-subtitle-2">
+                          <v-icon size="small" icon="mdi-delete-outline"></v-icon>
+                          <p class="text-body-1 ml-2 text-high-emphasis">删除账户</p>
+                        </div>
+                        <v-switch style="visibility: hidden" density="compact" center-affix hide-details></v-switch>
+                      </div>
+
+                    </div>
+                    <div class="mt-5">
+                      <v-btn block prepend-icon="mdi-logout">退出登录</v-btn>
+                    </div>
+                  </div>
+                </v-navigation-drawer>
+                <v-badge dot location="bottom end" :color="currentUser.status">
+                  <v-avatar @click="drawer = true" :image="currentUser.avatar"></v-avatar>
+                </v-badge>
+              </v-col>
+              <v-divider vertical></v-divider>
+              <!--好友工具栏区域-->
+              <v-col v-if="friend"
+                     cols="9"
+                     style="height: 100%"
+                     class="border-b-sm pa-4 align-center d-flex justify-space-between">
                 <v-list-item
                   :prepend-avatar="friend.prependAvatar"
                   :title="friend.title"
                   subtitle="UI/UX Designer"
                 >
                 </v-list-item>
-              </v-list>
-              <div>
-                <v-btn icon="mdi-phone-outline" variant="text" color=""></v-btn>
-                <v-btn icon="mdi-video-outline" variant="text" color=""></v-btn>
-                <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
-                <v-btn icon="mdi-dots-vertical" variant="text" color=""></v-btn>
-              </div>
-            </v-col>
-            <!--空白好友工具栏区域-->
-            <v-col v-else style="background-color: #20202e;height: 100%"></v-col>
-          </v-row>
-          <!--底部区域-->
-          <v-row no-gutters style="height: 92%">
-            <!--好友列表区域-->
-            <v-col cols="3" style="overflow-y: scroll">
-              <v-list
-                activatable
-                density="comfortable"
-                :items="friends"
-                lines="two"
-                item-props
-                variant="elevated"
-                @click:activate="SelectFriend"
-              >
-                <template v-slot:subtitle="{ subtitle }">
-                  <div v-html="subtitle"></div>
-                </template>
-              </v-list>
-            </v-col>
-            <v-divider vertical></v-divider>
-            <!--聊天区域-->
-            <v-col v-if="friend" cols="9" style="height: 100%">
-              <!--消息记录区域-->
-              <v-row no-gutters style="height: 90%;background-color: #20202e">
-                <v-col class="pa-3" style="overflow-y: scroll">
-                  <v-list
-                    lines="two"
-                    bg-color="#20202e"
-                  >
-                    <v-list-item
-                      v-for="(n, i) in messages"
-                      :key="i"
-                      :class="{'text-right': n.user_id === currentUser.id, 'text-left': n.user_id !== currentUser.id}"
+                <div>
+                  <v-btn icon="mdi-phone-outline" variant="text" color=""></v-btn>
+                  <v-btn icon="mdi-video-outline" variant="text" color=""></v-btn>
+                  <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
+                  <v-btn icon="mdi-dots-vertical" variant="text" color=""></v-btn>
+                </div>
+              </v-col>
+              <!--空白好友工具栏区域-->
+              <v-col v-else style="background-color: #20202e;height: 100%"></v-col>
+            </v-row>
+            <!--底部区域-->
+            <v-row no-gutters style="height: 90%">
+              <!--好友列表区域-->
+              <v-col cols="3" style="overflow-y: scroll">
+                <v-list
+                  activatable
+                  :items="friends"
+                  lines="two"
+                  item-props
+                  variant="elevated"
+                  @click:activate="SelectFriend"
+                >
+                  <template v-slot:subtitle="{ subtitle }">
+                    <p class="text-truncate mt-1">{{ subtitle }}</p>
+                  </template>
+                  <template v-slot:append="{ item }">
+                    <div class="d-flex flex-column align-self-start text-center">
+                      <span class="text-disabled" style="font-size: 0.6rem;font-weight: 450">23:30:50</span>
 
+                      <v-badge class="mt-1" v-if="item.value === 1" inline content="99+" color="red-darken-2"></v-badge>
+                    </div>
+                  </template>
+                </v-list>
+              </v-col>
+              <v-divider vertical></v-divider>
+              <!--聊天区域-->
+              <v-col v-if="friend" cols="9" style="height: 100%">
+                <!--消息记录区域-->
+                <v-row no-gutters style="height: 90%;background-color: #20202e">
+                  <v-col class="pa-3" style="overflow-y: scroll">
+                    <v-list
+                      lines="two"
+                      bg-color="#20202e"
                     >
-                      <template #title>
-                        <p class="text-md-body-1 rounded-lg pa-2 mb-2 message-content"
-                           :style="{'background-color': n.user_id === currentUser.id ? '#696CFF': '#2b2c40'}">
-                          {{ n.message.content }}</p>
-                      </template>
-                      <template #append v-if="n.user_id === currentUser.id">
-                        <v-avatar size="small" :image="currentUser.avatar"></v-avatar>
-                      </template>
-                      <template #prepend v-if="n.user_id !== currentUser.id">
-                        <v-avatar size="small" :image="friend.prependAvatar"></v-avatar>
-                      </template>
-                      <template #subtitle>
-                        <div style="font-size: 0.8rem;font-weight: 500">
-                          <v-icon v-if="currentUser.id === n.user_id"
-                                  size="sm"
-                                  icon="mdi-check-bold"
-                                  color="success"
-                                  class="mr-1"></v-icon>
-                          <span>{{ n.time }}</span>
-                        </div>
+                      <v-list-item
+                        v-for="(n, i) in messages"
+                        :key="i"
+                        :class="{'text-right': n.user_id === currentUser.id, 'text-left': n.user_id !== currentUser.id}"
 
-                      </template>
-                    </v-list-item>
-                  </v-list>
-                </v-col>
-              </v-row>
-              <!--消息发送区域-->
-              <v-row no-gutters style="height: 10%;background-color: #20202e" align="center">
-                <v-col>
-                  <v-sheet class="pa-3 align-center" style="background-color: #20202e">
-                    <v-text-field variant="solo-filled" no-resize center-affix>
-                      <template #append-inner>
-                        <v-btn icon="mdi-microphone-outline" variant="text" color=""></v-btn>
-                        <v-btn icon="mdi-attachment" variant="text" color=""></v-btn>
-                        <v-btn icon="mdi-emoticon-outline" variant="text" color=""></v-btn>
-                        <v-btn icon="mdi-send-outline" variant="text" color=""></v-btn>
-                      </template>
-                    </v-text-field>
-                  </v-sheet>
-                </v-col>
-              </v-row>
-            </v-col>
-            <!--空白聊天区域-->
-            <v-col v-else cols="9" style="height: 100%;background-color: #20202e"
-                   class="d-flex flex-column justify-center align-center">
-              <v-icon size="100" icon="mdi-message-question" class="mb-2"></v-icon>
-              <p class="text-grey-darken-1 text-sm-body-2 font-weight-black">通过选择左侧的联系人开始联系</p>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-col>
-    </v-row>
+                      >
+                        <template #title>
+                          <p class="text-sm-body-2 rounded-lg pa-2 mb-2 message-content font-weight-medium"
+                             :style="{'background-color': n.user_id === currentUser.id ? '#696CFF': '#2b2c40'}">
+                            {{ n.message.content }}</p>
+                        </template>
+                        <template #append v-if="n.user_id === currentUser.id">
+                          <v-avatar size="small" :image="currentUser.avatar"></v-avatar>
+                        </template>
+                        <template #prepend v-if="n.user_id !== currentUser.id">
+                          <v-avatar size="small" :image="friend.prependAvatar"></v-avatar>
+                        </template>
+                        <template #subtitle>
+                          <div class="text-disabled" style="font-size: 0.6rem;font-weight: 450">
+                            <v-icon v-if="currentUser.id === n.user_id"
+                                    size="sm"
+                                    icon="mdi-check-bold"
+                                    color="success"
+                                    class="mr-1"></v-icon>
+                            <span>{{ n.time }}</span>
+                          </div>
+
+                        </template>
+                      </v-list-item>
+                    </v-list>
+                  </v-col>
+                </v-row>
+                <!--消息发送区域-->
+                <v-row no-gutters style="height: 10%;background-color: #20202e" align="center">
+                  <v-col class="pa-4">
+                    <v-sheet>
+                      <v-text-field variant="solo-filled" density="comfortable" no-resize center-affix>
+                        <template #append-inner>
+                          <v-btn icon="mdi-microphone-outline" variant="text" color=""></v-btn>
+                          <v-btn icon="mdi-attachment" variant="text" color=""></v-btn>
+                          <v-btn icon="mdi-emoticon-outline" variant="text" color=""></v-btn>
+                          <v-btn icon="mdi-send-outline" variant="text" color=""></v-btn>
+                        </template>
+                      </v-text-field>
+                    </v-sheet>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <!--空白聊天区域-->
+              <v-col v-else cols="9" style="height: 100%;background-color: #20202e"
+                     class="d-flex flex-column justify-center align-center">
+                <v-icon size="100" icon="mdi-message-question-outline" class="mb-2"></v-icon>
+                <p class="text-grey-darken-1 text-sm-body-2 font-weight-black">通过选择左侧的联系人开始联系</p>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-layout>
   </div>
 </template>
 
@@ -430,4 +503,9 @@ const SelectFriend = (v) => {
   display: inline-block;
   color: #dbdbeb;
 }
+
+.v-navigation-drawer {
+  transition-duration: 0.5s !important; /* 自定义过渡时间 */
+}
 </style>
+
