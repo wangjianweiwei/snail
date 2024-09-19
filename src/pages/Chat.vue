@@ -793,7 +793,7 @@ const sendMsg = () => {
               <v-col v-if="friend" cols="9" style="height: 100%">
                 <!--消息记录区域-->
                 <v-row no-gutters style="height: 90%;background-color: #20202e">
-                  <v-col class="pa-3">
+                  <v-col class="px-3">
                     <v-infinite-scroll height="100%" side="start" @load="load">
                       <template #default>
                         <v-list-item
@@ -835,7 +835,7 @@ const sendMsg = () => {
                 <v-row no-gutters style="height: 10%;background-color: #20202e" align="center">
                   <v-col class="pa-4">
                     <v-sheet>
-                      <v-text-field v-model="currentMsg" variant="solo-filled" density="comfortable" no-resize
+                      <v-text-field v-model="currentMsg" variant="solo-filled" no-resize
                                     center-affix @keydown.enter="sendMsg">
                         <template #append-inner>
                           <v-btn icon="mdi-microphone-outline" variant="text" color=""></v-btn>
