@@ -20,7 +20,7 @@ const Login = () => {
 <template>
   <v-app>
     <v-row class="d-flex justify-center">
-      <v-col class="pa-12" lg="2" xl="3" sm="8" xs="10" align-self="center">
+      <v-col class="pa-12" lg="4" xl="3" sm="8" xs="10" align-self="center">
         <v-card class="pa-12" :loading="loading" rounded="lg">
           <template v-slot:loader="{ isActive }">
             <v-progress-linear
@@ -35,28 +35,20 @@ const Login = () => {
               👋🏻</p>
             <p class="text-body-2 text-disabled">Please sign-in to your account and start the adventure</p>
             <form class="mt-10">
-              <div class="text-subtitle-1 text-medium-emphasis">Account</div>
-
               <v-text-field
                 rounded="lg"
-                density="compact"
-                placeholder="Email address"
+                density="comfortable"
+                label="Account"
                 prepend-inner-icon="mdi-email-outline"
                 variant="outlined"
               ></v-text-field>
 
-              <div class="text-subtitle-1 text-medium-emphasis mt-7">
-                Password
-
-
-              </div>
-
               <v-text-field
                 rounded="lg"
-                :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                density="compact"
-                placeholder="Enter your password"
+                density="comfortable"
+                label="Password"
                 prepend-inner-icon="mdi-lock-outline"
+                class="mt-7"
                 variant="outlined"
               ></v-text-field>
               <div class="d-flex align-center justify-space-between mt-5">
