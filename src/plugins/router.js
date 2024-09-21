@@ -15,7 +15,7 @@ const routes = [
           {
             path: "profile",
             component: () => import('../pages/UserProfile.vue'),
-            meta: {subMenu: "profile", subMenuIcon: "mdi-account-outline", fullPath: "/dashboards/profile"}
+            meta: {subMenu: "profile", subMenuIcon: "mdi-account-outline", fullPath: "/dashboards/profile", requiresAuth: true}
           },
           {
             path: "settings",
@@ -49,17 +49,17 @@ const routes = [
           {
             path: "chat",
             component: () => import('../pages/Chat.vue'),
-            meta: {subMenu: "chat", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat"}
+            meta: {subMenu: "chat", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: true}
           },
           {
             path: "todo",
             component: () => import('../pages/Todo.vue'),
-            meta: {subMenu: "todo", subMenuIcon: "mdi-calendar-check", fullPath: "/apps/todo"}
+            meta: {subMenu: "todo", subMenuIcon: "mdi-calendar-check", fullPath: "/apps/todo", requiresAuth: true}
           },
           {
             path: 'photos',
             component: () => import('../pages/Photos.vue'),
-            meta: {subMenu: "photos", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos"}
+            meta: {subMenu: "photos", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos", requiresAuth: true}
           },
         ]
       },
@@ -87,4 +87,18 @@ const router = createRouter({
   routes,
 })
 
+
+router.beforeEach((to, from,next) => {
+  console.log(to.fullPath)
+  console.log(to.fullPath)
+  if (from.fullPath !== "/login" && to.meta.requiresAuth && !window.localStorage.getItem("token")) {
+    next({path: "/login", query: to.path === '/' ? {} : { from: to.path }})
+  }else {
+      next()
+  }
+  console.log(to)
+  console.log(from)
+  console.log(next)
+
+})
 export {router, routes}
