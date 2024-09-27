@@ -26,9 +26,7 @@ const route = useRoute()
             <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
             <v-btn icon="mdi-weather-night" variant="text" color=""></v-btn>
             <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
-            <v-menu
-              min-width="200px"
-            >
+            <v-menu location="bottom">
               <template v-slot:activator="{ props }">
                 <v-avatar
                   class="ml-2"
@@ -37,7 +35,7 @@ const route = useRoute()
                 >
                 </v-avatar>
               </template>
-              <v-list width="260" density="compact" rounded border="sm">
+              <v-list width="230" density="compact" rounded border="sm">
                 <v-list-item
                   title="asd"
                   subtitle="admin"

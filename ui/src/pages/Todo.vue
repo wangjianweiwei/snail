@@ -99,135 +99,142 @@ const getDate = (date) => {
 
 }
 
+
+const Load = ({done}) => {
+  done("empty")
+}
 </script>
 
 <template>
-  <v-row justify="center" no-gutters>
-    <v-col lg="12" xl="9">
-      <v-sheet class="mx-12 my-8" rounded="lg">
-        <v-row no-gutters>
-          <v-col cols="1" lg="3" xl="3">
-            <v-sheet rounded="lg" height="100%">
-              <v-locale-provider locale="zhHans">
-                <v-date-picker
-                  :data-format-as="dataFormats"
-                  rounded="lg"
-                  title="select date"
-                  header="选择一个日期"
-                  show-adjacent-months
-                  width="100%"
-                  v-model="datePickerVal"
-                  @update:modelValue="fetchTodos()"
-                >
-                </v-date-picker>
-              </v-locale-provider>
-              <v-divider></v-divider>
-              <div class="pa-5">
-                <h4>Event Filters</h4>
-              </div>
-            </v-sheet>
-          </v-col>
-          <v-divider vertical></v-divider>
-          <v-col cols="11" lg="9" xl="9">
-            <v-sheet rounded="lg">
-              <div class="pa-5 d-flex justify-start">
-                <v-btn-toggle
-                  v-model="selectedFilter"
-                  rounded="lg"
-                  density="compact"
-                  border
-                  group
-                  divided
-                  mandatory
-                  color="#696CFF"
-                  variant="flat"
-                  @update:modelValue="fetchTodos()"
-                >
-                  <v-btn :key="i" :value="o" v-for="(o, i) in filter">
-                    {{ o.name }}
-                  </v-btn>
-                </v-btn-toggle>
-              </div>
-              <v-divider></v-divider>
-              <div class="pt-4 px-4">
-                <v-text-field
-                  variant="outlined"
-                  density="comfortable"
-                  label="添加一个待办事项....."
-                  :loading="NewTaskLoading && 'primary'"
-                  @keyup.enter="addTask"
-                  v-model="NewTaskName">
-                </v-text-field>
-              </div>
-              <div class="py-4">
-                <v-hover v-for="(task, i) in tasks" :key="task.id" :model-value="task.hover">
-                  <template v-slot:default="{ isHovering, props }">
-                    <v-list-item
-                      :id="task.id"
-                      v-bind="props">
-                      <template v-slot:prepend>
-                        <v-checkbox-btn
-                          v-model="task.is_completed"
-                          @update:modelValue="taskCheckboxUpdate(task)">
-                        </v-checkbox-btn>
-                      </template>
-                      <template #title>
-                        <v-text-field
-                          :key="i"
-                          variant="solo-filled"
-                          v-model="task.title"
-                          :disabled="task.is_completed"
-                          @blur="updateTask(task.id, {title: task.title}, null)"
-                          @keyup.enter="(e) => e.target.blur()"
-                          :loading="task.loading"
-                          density="compact">
-                          <template #append-inner>
-                            <v-icon
-                              v-if="task.is_completed"
-                              color="success">
-                              mdi-check
-                            </v-icon>
-                          </template>
-                          <template #append>
-                            <v-menu>
-                              <template v-slot:activator="{ props }">
-                                <v-btn icon="mdi-dots-vertical" variant="text" size="small" v-bind="props"></v-btn>
-                              </template>
-                              <v-list density="compact" rounded>
-                                <v-list-item
-                                  value="1"
-                                  variant="elevated"
-                                  title="计划"
-                                  @click="planDateDialog = {view: true, task: {id: task.id, title: task.title, plan_at: task.plan_at ? new Date(task.plan_at): new Date()}}"
-                                  prepend-icon="mdi-update">
-                                </v-list-item>
-                                <v-list-item
-                                  value="2"
-                                  variant="elevated"
-                                  title="置顶"
-                                  prepend-icon="mdi-format-vertical-align-top">
-                                </v-list-item>
-                                <v-list-item
-                                  value="3"
-                                  variant="elevated"
-                                  title="删除"
-                                  @click="deleteTask(task, i)"
-                                  prepend-icon="mdi-trash-can-outline">
-                                </v-list-item>
-                              </v-list>
-                            </v-menu>
-                          </template>
-                        </v-text-field>
-                      </template>
-                    </v-list-item>
-                  </template>
-                </v-hover>
-              </div>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-sheet>
-    </v-col>
+  <div style="height: 100%;overflow: scroll" class="py-lg-5">
+    <v-layout style="height: 100%">
+      <v-row justify="center" style="height: 100%" no-gutters>
+        <v-col lg="10" xl="9" style="height: 100%">
+          <v-card style="height: 100%" rounded="lg">
+            <v-row no-gutters style="height: 100%">
+              <v-col cols="3" class="border-e-sm" style="height: 100%">
+                <v-locale-provider locale="zhHans">
+                  <v-date-picker
+                    :data-format-as="dataFormats"
+                    header="选择一个日期"
+                    show-adjacent-months
+                    width="100%"
+                    v-model="datePickerVal"
+                    @update:modelValue="fetchTodos()"
+                  >
+                  </v-date-picker>
+                </v-locale-provider>
+                <v-divider></v-divider>
+              </v-col>
+              <v-col cols="9" style="height: 100%">
+                <v-row no-gutters style="height: 16%">
+                  <v-col cols="12" class="border-b-sm d-flex align-center px-5">
+                    <v-btn-toggle
+                      v-model="selectedFilter"
+                      rounded="lg"
+                      density="compact"
+                      border
+                      group
+                      divided
+                      mandatory
+                      color="#696CFF"
+                      variant="flat"
+                      @update:modelValue="fetchTodos()"
+                    >
+                      <v-btn :key="i" :value="o" v-for="(o, i) in filter">
+                        {{ o.name }}
+                      </v-btn>
+                    </v-btn-toggle>
+                  </v-col>
+                  <v-col cols="12" class="px-5 d-flex align-center">
+                    <v-text-field
+                      variant="outlined"
+                      density="compact"
+                      label="添加一个待办事项....."
+                      :loading="NewTaskLoading && 'primary'"
+                      @keyup.enter="addTask"
+                      v-model="NewTaskName">
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row style="height: 84%" no-gutters>
+                  <v-col cols="12" style="height: 100%;">
+                    <v-infinite-scroll height="100%" @load="Load">
+                      <v-hover v-for="(task, i) in tasks" :key="task.id" :model-value="task.hover">
+                        <template v-slot:default="{ isHovering, props }">
+                          <v-list-item
+                            :id="task.id"
+                            v-bind="props">
+                            <template v-slot:prepend>
+                              <v-checkbox-btn
+                                v-model="task.is_completed"
+                                @update:modelValue="taskCheckboxUpdate(task)">
+                              </v-checkbox-btn>
+                            </template>
+                            <template #title>
+                              <v-text-field
+                                :key="i"
+                                variant="solo-filled"
+                                v-model="task.title"
+                                :disabled="task.is_completed"
+                                @blur="updateTask(task.id, {title: task.title}, null)"
+                                @keyup.enter="(e) => e.target.blur()"
+                                :loading="task.loading"
+                                density="compact">
+                                <template #append-inner>
+                                  <v-icon
+                                    v-if="task.is_completed"
+                                    color="success">
+                                    mdi-check
+                                  </v-icon>
+                                </template>
+                                <template #append>
+                                  <v-menu>
+                                    <template v-slot:activator="{ props }">
+                                      <v-btn icon="mdi-dots-vertical" variant="text" size="small"
+                                             v-bind="props"></v-btn>
+                                    </template>
+                                    <v-list density="compact" rounded>
+                                      <v-list-item
+                                        value="1"
+                                        variant="elevated"
+                                        title="计划"
+                                        @click="planDateDialog = {view: true, task: {id: task.id, title: task.title, plan_at: task.plan_at ? new Date(task.plan_at): new Date()}}"
+                                        prepend-icon="mdi-update">
+                                      </v-list-item>
+                                      <v-list-item
+                                        value="2"
+                                        variant="elevated"
+                                        title="置顶"
+                                        prepend-icon="mdi-format-vertical-align-top">
+                                      </v-list-item>
+                                      <v-list-item
+                                        value="3"
+                                        variant="elevated"
+                                        title="删除"
+                                        @click="deleteTask(task, i)"
+                                        prepend-icon="mdi-trash-can-outline">
+                                      </v-list-item>
+                                    </v-list>
+                                  </v-menu>
+                                </template>
+                              </v-text-field>
+                            </template>
+                          </v-list-item>
+                        </template>
+                      </v-hover>
+                    <template #empty>
+                      <p class="text-body-2 text-disabled my-8">没有更多啦</p>
+                    </template>
+                    </v-infinite-scroll>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-layout>
     <v-dialog max-width="400" v-model="planDateDialog.view">
       <template v-slot:default>
         <v-card title="选择一个计划时间">
@@ -255,10 +262,40 @@ const getDate = (date) => {
         </v-card>
       </template>
     </v-dialog>
-  </v-row>
+  </div>
+
 
 </template>
 
 <style scoped>
+/* 针对 WebKit 浏览器 (如 Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 3px; /* 滚动条的宽度 */
+  height: 3px; /* 滚动条的高度（用于水平滚动条） */
+}
 
+::-webkit-scrollbar-track {
+  background: #2e2e2e; /* 滚动条轨道的背景色 */
+  border-radius: 4px; /* 圆角 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #555; /* 滚动条滑块的颜色 */
+  border-radius: 4px; /* 滑块的圆角 */
+  border: 2px solid #2e2e2e; /* 为滑块加上边框以显示间隙 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #777; /* 滑块在悬停时的颜色 */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #999; /* 滑块在点击时的颜色 */
+}
+
+/* 针对 Firefox 浏览器 */
+* {
+  scrollbar-width: thin; /* 滚动条的宽度 */
+  scrollbar-color: #555 #2e2e2e; /* 滑块颜色 #555 和轨道颜色 #2e2e2e */
+}
 </style>
