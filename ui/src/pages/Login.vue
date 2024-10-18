@@ -21,6 +21,10 @@ const Login = () => {
 
 }
 
+const GithubLogin = () => {
+  window.location = "https://github.com/login/oauth/authorize?client_id=17f2d31fca5f88282646&redirect_uri=http://localhost:3000&socpe=user"
+  // router.push("https://github.com/login/oauth/authorize?client_id=17f2d31fca5f88282646&redirect_uri=http://127.0.0.1:3000/login")
+}
 </script>
 
 <template>
@@ -84,7 +88,7 @@ const Login = () => {
             </div>
             <div class="mt-7 d-flex justify-center align-center">
               <v-btn size="small" icon="mdi-wechat" class="mr-3" color="#22ac38"></v-btn>
-              <v-btn size="small" icon="mdi-github" class="mr-3" color="white"></v-btn>
+              <v-btn size="small" icon="mdi-github" class="mr-3" color="white" @click="GithubLogin"></v-btn>
               <v-btn size="small" icon="mdi-google" class="mr-3" color="#EA4335"></v-btn>
               <v-btn size="small" icon="mdi-facebook" class="mr-3" color="#497ce2"></v-btn>
               <v-btn size="small" icon="mdi-twitter" color="#1da1f2"></v-btn>

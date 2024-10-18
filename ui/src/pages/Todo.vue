@@ -128,7 +128,7 @@ const Load = ({done}) => {
               </v-col>
               <v-col cols="9" style="height: 100%">
                 <v-row no-gutters style="height: 16%">
-                  <v-col cols="12" class="border-b-sm d-flex align-center px-5">
+                  <v-col cols="12" class="border-b-sm d-flex align-center justify-space-between px-5">
                     <v-btn-toggle
                       v-model="selectedFilter"
                       rounded="lg"
@@ -144,6 +144,20 @@ const Load = ({done}) => {
                       <v-btn :key="i" :value="o" v-for="(o, i) in filter">
                         {{ o.name }}
                       </v-btn>
+                    </v-btn-toggle>
+                    <v-btn-toggle
+                      rounded="lg"
+                      density="compact"
+                      border
+                      group
+                      divided
+                      mandatory
+                      color="#696CFF"
+                    >
+                      <v-btn>列表</v-btn>
+                      <v-btn>天</v-btn>
+                      <v-btn>周</v-btn>
+                      <v-btn>月</v-btn>
                     </v-btn-toggle>
                   </v-col>
                   <v-col cols="12" class="px-5 d-flex align-center">
