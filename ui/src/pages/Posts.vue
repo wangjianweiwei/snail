@@ -1,88 +1,114 @@
 <template>
-  <div class="px-12 py-6">
-    <v-row>
-      <v-col cols="2" class="my-4">
-        <v-card class="position-fixed">
-          <v-list rounded="lg" variant="text" bg-color="#232332">
-            <v-list-subheader>分类</v-list-subheader>
-            <v-list-item
-              v-for="(item, i) in category"
-              :key="i"
-              rounded="lg"
-              :value="item"
-            >
-              <v-list-item-subtitle v-text="item.text"></v-list-item-subtitle>
-            </v-list-item>
-          </v-list>
-        </v-card>
-      </v-col>
-      <v-col cols="10">
-        <v-hover v-for="item in items">
-          <template #default="{ isHovering, props }">
-            <v-card
-              v-bind="props"
-              :color="isHovering ? 'primary': ''"
-              rounded="lg"
-              :variant="isHovering ? 'flat' : 'text'"
-              class="my-4"
-              :key="item.id"
-
-            >
-              <v-card-item>
-                <v-card-title>
-                  {{ item.title }}
-                </v-card-title>
-
-                <v-card-subtitle>
-                  <span>{{ item.create_at }}</span>
-                  <v-chip class="ma-2">{{ item.category }}</v-chip>
-                  <v-chip class="ma-2" v-for="tag in item.tags">{{ tag }}</v-chip>
-                </v-card-subtitle>
-              </v-card-item>
-
-              <v-card-text>
-                {{ item.abstract }}
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="" variant="text" border :to="`/dashboards/posts/${item.id}/preview`">阅读全文</v-btn>
-              </v-card-actions>
-            </v-card>
-            <v-divider></v-divider>
-          </template>
-        </v-hover>
-        <v-fab
-          icon="mdi-plus"
-          class="mb-4"
-          location="bottom right"
-          size="50"
-          app
-          appear
-        >
-          <v-icon icon="mdi-plus"></v-icon>
-          <v-dialog activator="parent" max-width="500">
-            <template v-slot:default="{ isActive }">
-              <v-card rounded="lg">
-                <v-card-title>
-                  新建文章
-                </v-card-title>
-
-                <v-card-text>
-                  <v-text-field density="compact" label="文章名称" variant="outlined"></v-text-field>
-                </v-card-text>
-
-                <v-card-actions>
-                  <v-btn
-                    text="创建"
-                    @click="isActive.value = false"
-                  ></v-btn>
-                </v-card-actions>
-              </v-card>
-            </template>
-          </v-dialog>
-        </v-fab>
-      </v-col>
-    </v-row>
-
+  <div class="py-lg-5">
+    <v-layout>
+      <v-row justify="center">
+        <v-col cols="2">
+          <v-row>
+            <v-col cols="12">
+              <v-sheet rounded="lg" elevation="12">
+                <v-list density="compact" lines="one" rounded="lg">
+                  <v-list-item
+                    rounded="lg"
+                    class="mx-2 my-1"
+                    value="首页"
+                    subtitle="首页"
+                    prepend-icon="mdi-page-first"
+                  >
+                  </v-list-item>
+                  <v-list-item
+                    value="分类"
+                    class="mx-2 my-1"
+                    rounded="lg"
+                    subtitle="分类"
+                    prepend-icon="mdi-view-grid-plus-outline"
+                  >
+                  </v-list-item>
+                  <v-list-item
+                    value="标签"
+                    class="mx-2 my-1"
+                    rounded="lg"
+                    subtitle="标签"
+                    prepend-icon="mdi-tag-outline"
+                  >
+                  </v-list-item>
+                  <v-list-item
+                    value="时间线"
+                    class="mx-2 my-1"
+                    rounded="lg"
+                    subtitle="时间线"
+                    prepend-icon="mdi-timeline-check-outline"
+                  >
+                  </v-list-item>
+                </v-list>
+              </v-sheet>
+            </v-col>
+            <v-col cols="12">
+              <v-sheet rounded="lg" elevation="12">
+                <v-list density="compact" lines="one" rounded="lg">
+                  <v-list-item
+                    value="首页"
+                    color=""
+                    subtitle="首页"
+                    prepend-icon="$vuetify"
+                  >
+                  </v-list-item>
+                  <v-list-item
+                    value="分类"
+                    color=""
+                    subtitle="分类"
+                    prepend-icon="$vuetify"
+                  >
+                  </v-list-item>
+                  <v-list-item
+                    value="标签"
+                    color=""
+                    subtitle="标签"
+                    prepend-icon="$vuetify"
+                  >
+                  </v-list-item>
+                </v-list>
+              </v-sheet>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="6">
+          <v-sheet rounded="lg" class="px-2 pb-5" elevation="12">
+            <v-list>
+              <v-list-item
+                v-for="item in items"
+                rounded="lg"
+                class="my-2 pa-4"
+                :key="item.id"
+                :value="item.id"
+                :title="item.title"
+              >
+                <v-list-item>
+                  <v-list-subheader>
+                    <div class="mt-3" style="font-size: 0.73rem;font-weight: 450">
+                      <span class="text-disabled mdi mdi-calendar-month-outline"></span>
+                      <span>发表于 {{ item.create_at }}</span>
+                      <v-divider
+                        class="ms-3"
+                        vertical
+                      ></v-divider>
+                      <span class="text-disabled mdi mdi-calendar-month-outline"></span>
+                      <span>更新于 {{ item.create_at }}</span>
+                    </div>
+                    <div class="mt-2">
+                      <v-chip class="mr-2" size="small">{{ item.category }}</v-chip>
+                      <v-chip class="mr-2" size="small" v-for="tag in item.tags">{{ tag }}</v-chip>
+                    </div>
+                  </v-list-subheader>
+                </v-list-item>
+              </v-list-item>
+            </v-list>
+            <div>
+              <v-pagination :length="4"></v-pagination>
+            </div>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-layout>
   </div>
 
 </template>
@@ -93,7 +119,7 @@ const items = []
 for (let i = 0; i < 20; i++) {
   items.push({
     id: i,
-    title: `${i}-Brunch this weekend?`,
+    title: `${i}-MacOS M2 Tensorflow GPU环境搭建`,
     abstract: '介绍Stable Diffusion的图生图(img2img)。顾名思义，除了根据正向和反向提示词之外，还需要基于一张图片生成图。',
     create_at: "2024-07-21 15:43:35",
     category: "Jenkins",
@@ -101,11 +127,11 @@ for (let i = 0; i < 20; i++) {
   })
 }
 const category = [
-    { text: 'All(53)', icon: 'mdi-clock' },
-    { text: 'Real-Time(20)', icon: 'mdi-clock' },
-    { text: 'Audience(8)', icon: 'mdi-account' },
-    { text: 'Conversions(17)', icon: 'mdi-flag' },
-  ]
+  {text: 'All(53)', icon: 'mdi-clock'},
+  {text: 'Real-Time(20)', icon: 'mdi-clock'},
+  {text: 'Audience(8)', icon: 'mdi-account'},
+  {text: 'Conversions(17)', icon: 'mdi-flag'},
+]
 const debug = (a) => {
   console.log(a)
 
