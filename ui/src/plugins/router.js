@@ -15,7 +15,12 @@ const routes = [
           {
             path: "profile",
             component: () => import('../pages/UserProfile.vue'),
-            meta: {subMenu: "profile", subMenuIcon: "mdi-account-outline", fullPath: "/dashboards/profile", requiresAuth: true}
+            meta: {
+              subMenu: "profile",
+              subMenuIcon: "mdi-account-outline",
+              fullPath: "/dashboards/profile",
+              requiresAuth: true
+            }
           },
           {
             path: "settings",
@@ -24,16 +29,35 @@ const routes = [
           },
           {
             path: 'posts',
+            redirect: '/posts/list',
             component: () => import('../pages/Posts.vue'),
             meta: {subMenu: "posts", subMenuIcon: "mdi-post-outline", fullPath: "/dashboards/posts"},
-          },
-          {
-            path: 'posts/:id/compose',
-            component: () => import('../pages/PostsEditor.vue'),
-          },
-          {
-            path: 'posts/:id/preview',
-            component: () => import('../pages/PostsPreview.vue'),
+            children: [
+              {
+                path: '/posts/list',
+                component: () => import('../pages/PostList.vue'),
+              },
+              {
+                path: '/posts/category',
+                component: () => import('../pages/PostCategory.vue'),
+              },
+              {
+                path: '/posts/tag',
+                component: () => import('../pages/PostTag.vue'),
+              },
+              {
+                path: '/posts/timeline',
+                component: () => import('../pages/PostTimeline.vue'),
+              },
+              {
+                path: '/posts/:id/compose',
+                component: () => import('../pages/PostsEditor.vue'),
+              },
+              {
+                path: '/posts/:id/preview',
+                component: () => import('../pages/PostsPreview.vue'),
+              },
+            ]
           },
         ]
       },
@@ -88,13 +112,13 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from,next) => {
+router.beforeEach((to, from, next) => {
   console.log(to.fullPath)
   console.log(to.fullPath)
   if (from.fullPath !== "/login" && to.meta.requiresAuth && !window.localStorage.getItem("token")) {
-    next({path: "/login", query: to.path === '/' ? {} : { from: to.path }})
-  }else {
-      next()
+    next({path: "/login", query: to.path === '/' ? {} : {from: to.path}})
+  } else {
+    next()
   }
   console.log(to)
   console.log(from)

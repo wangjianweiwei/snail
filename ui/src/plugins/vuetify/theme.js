@@ -4,7 +4,7 @@ const theme = {
   defaultTheme: 'dark',
   themes: {
     light: {
-      dark: true,
+      dark: false,
       colors: {
         'primary': '#696CFF',
         'on-primary': '#fff',
