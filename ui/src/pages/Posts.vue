@@ -1,106 +1,40 @@
 <template>
   <div class="py-lg-5">
-    <v-layout>
-      <v-row justify="center" no-gutters>
-        <v-col cols="2">
-          <v-row class="position-fixed">
-            <v-col cols="12">
-              <v-list density="compact" rounded="lg" variant="flat" color="#696CFF">
-                  <v-list-item
-                    rounded
-                    color="#696CFF"
-                    class="mx-2 my-1"
-                    value="首页"
-                    subtitle="首页"
-                    to="/posts/list"
-                    prepend-icon="mdi-page-first"
-                  >
-                  </v-list-item>
-                  <v-list-item
-                    value="分类"
-                    color="#696CFF"
-                    class="mx-2 my-1"
-                    rounded
-                    subtitle="分类"
-                    to="/posts/category"
-                    prepend-icon="mdi-view-grid-plus-outline"
-                  >
-                  </v-list-item>
-                  <v-list-item
-                    value="标签"
-                    color="#696CFF"
-                    class="mx-2 my-1"
-                    rounded
-                    subtitle="标签"
-                    to="/posts/tag"
-                    prepend-icon="mdi-tag-outline"
-                  >
-                  </v-list-item>
-                  <v-list-item
-                    value="时间线"
-                    color="#696CFF"
-                    class="mx-2 my-1"
-                    rounded
-                    subtitle="时间线"
-                    to="/posts/timeline"
-                    prepend-icon="mdi-timeline-check-outline"
-                  >
-                  </v-list-item>
-                </v-list>
-            </v-col>
-            <v-col cols="12">
-              <v-sheet rounded="lg" elevation="12">
-                <v-list density="compact" lines="one" rounded="lg">
-                  <v-list-item
-                    value="首页"
-                    color=""
-                    subtitle="首页"
-                    prepend-icon="$vuetify"
-                  >
-                  </v-list-item>
-                  <v-list-item
-                    value="分类"
-                    color=""
-                    subtitle="分类"
-                    prepend-icon="$vuetify"
-                  >
-                  </v-list-item>
-                  <v-list-item
-                    value="标签"
-                    color=""
-                    subtitle="标签"
-                    prepend-icon="$vuetify"
-                  >
-                  </v-list-item>
-                </v-list>
-              </v-sheet>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col cols="6">
-          <v-sheet rounded="lg" class="px-2 pb-5" elevation="12">
-            <v-slide-x-reverse-transition>
-              <router-view></router-view>
-            </v-slide-x-reverse-transition>
-          </v-sheet>
-        </v-col>
-      </v-row>
-    </v-layout>
+    <v-row justify="center" no-gutters>
+      <v-col cols="11" md="6" sm="10">
+        <p class="text-h3 mb-2 mt-4 font-weight-black">Programming Language</p>
+        <p>Latest news, updates, and stories about Vuetify.</p>
+        <v-divider class="my-5"></v-divider>
+        <div :key="n" v-for="n in 10">
+          <p class="text-h4 mb-5 hover-transition">State of the Union 2024</p>
+          <p class="mb-5">🖊️ John Leider • 📅 September 8th, 2024</p>
+          <p class="text-medium-emphasis font-weight-light">It’s been a long road to get where we are today, and
+            looking back, I can’t help but feel proud of how far Vuetify has come. From humble beginnings to now
+            surpassing Vuetify 2’s usage, the journey has been anything but easy, but we’ve always had our
+            community
+            to lean on. Today, I want to take some time to reflect on our past, acknowledge our wins and
+            challenges,
+            and share where we’re headed…</p>
+          <div class="text-end pt-5">
+            <v-btn variant="text" append-icon="mdi-page-next-outline">Read More</v-btn>
+          </div>
+          <v-divider class="my-5"></v-divider>
+        </div>
+        <div class="mt-8">
+          <v-pagination variant="text" active-color="primary" size="x-large" :length="10"></v-pagination>
+        </div>
+      </v-col>
+    </v-row>
   </div>
 
 </template>
 
 <script setup>
 
-
-const category = [
-  {text: 'All(53)', icon: 'mdi-clock'},
-  {text: 'Real-Time(20)', icon: 'mdi-clock'},
-  {text: 'Audience(8)', icon: 'mdi-account'},
-  {text: 'Conversions(17)', icon: 'mdi-flag'},
-]
-const debug = (a) => {
-  console.log(a)
-
-}
 </script>
+
+<style>
+.hover-transition {
+  transition: color 0.5s ease;
+}
+</style>
