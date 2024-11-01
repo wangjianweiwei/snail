@@ -10,13 +10,13 @@ const routes = [
       {
         path: '/dashboards',
         redirect: '/dashboards/posts',
-        meta: {parentMenu: "Dashboards", parentMenuIcon: "mdi-home"},
+        meta: {parentMenu: "首页", parentMenuIcon: "mdi-home"},
         children: [
           {
             path: "profile",
             component: () => import('../pages/UserProfile.vue'),
             meta: {
-              subMenu: "profile",
+              subMenu: "关于我",
               subMenuIcon: "mdi-account-outline",
               fullPath: "/dashboards/profile",
               requiresAuth: true
@@ -25,36 +25,35 @@ const routes = [
           {
             path: "settings",
             component: () => import('../pages/Settings.vue'),
-            meta: {subMenu: "settings", subMenuIcon: "mdi-cogs", fullPath: "/dashboards/settings"}
+            meta: {subMenu: "设置", subMenuIcon: "mdi-cogs", fullPath: "/dashboards/settings"}
           },
           {
             path: 'posts',
-            redirect: '/posts/list',
-            component: () => import('../pages/Posts.vue'),
-            meta: {subMenu: "posts", subMenuIcon: "mdi-post-outline", fullPath: "/dashboards/posts"},
+            redirect: '/dashboards/posts/list',
+            meta: {subMenu: "博客", subMenuIcon: "mdi-post-outline", fullPath: "/dashboards/posts"},
             children: [
               {
-                path: '/posts/list',
-                component: () => import('../pages/PostList.vue'),
+                path: 'list',
+                component: () => import('../pages/Posts.vue'),
               },
               {
-                path: '/posts/category',
+                path: 'category',
                 component: () => import('../pages/PostCategory.vue'),
               },
               {
-                path: '/posts/tag',
+                path: 'tag',
                 component: () => import('../pages/PostTag.vue'),
               },
               {
-                path: '/posts/timeline',
+                path: 'timeline',
                 component: () => import('../pages/PostTimeline.vue'),
               },
               {
-                path: '/posts/:id/compose',
+                path: 'compose/:id',
                 component: () => import('../pages/PostsEditor.vue'),
               },
               {
-                path: '/posts/:id/preview',
+                path: 'preview/:id',
                 component: () => import('../pages/PostsPreview.vue'),
               },
             ]
@@ -63,33 +62,33 @@ const routes = [
       },
       {
         path: '/apps',
-        meta: {parentMenu: "Apps", parentMenuIcon: "mdi-apps"},
+        meta: {parentMenu: "我的应用", parentMenuIcon: "mdi-apps"},
         children: [
           {
             path: "email",
             component: () => import('../pages/Email.vue'),
-            meta: {subMenu: "email", subMenuIcon: "mdi-email-check-outline", fullPath: "/apps/email"}
+            meta: {subMenu: "我的邮箱", subMenuIcon: "mdi-email-check-outline", fullPath: "/apps/email"}
           },
           {
             path: "chat",
             component: () => import('../pages/Chat.vue'),
-            meta: {subMenu: "chat", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: true}
+            meta: {subMenu: "聊会儿天", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: true}
           },
           {
             path: "todo",
             component: () => import('../pages/Todo.vue'),
-            meta: {subMenu: "todo", subMenuIcon: "mdi-calendar-check", fullPath: "/apps/todo", requiresAuth: true}
+            meta: {subMenu: "待办事项", subMenuIcon: "mdi-calendar-check", fullPath: "/apps/todo", requiresAuth: true}
           },
           {
             path: 'photos',
             component: () => import('../pages/Photos.vue'),
-            meta: {subMenu: "photos", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos", requiresAuth: true}
+            meta: {subMenu: "我的照片", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos", requiresAuth: true}
           },
         ]
       },
       {
         path: '/tools',
-        meta: {parentMenu: "Tools", parentMenuIcon: "mdi-toolbox-outline"},
+        meta: {parentMenu: "工具箱", parentMenuIcon: "mdi-toolbox-outline"},
         children: [
           {
             path: "base64",

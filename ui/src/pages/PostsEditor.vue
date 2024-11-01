@@ -46,10 +46,14 @@ onMounted(() => {
 <template>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
 
+  <div class="py-lg-5">
+    <v-row justify="center" no-gutters>
+      <v-col cols="11" md="6" sm="10">
+        <div id="postsEditor"></div>
+      </v-col>
+    </v-row>
+  </div>
 
-  <v-sheet class="px-12 pt-3">
-    <div id="postsEditor"></div>
-  </v-sheet>
 
 </template>
 
