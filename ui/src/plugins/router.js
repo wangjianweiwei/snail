@@ -62,7 +62,7 @@ const routes = [
       },
       {
         path: '/apps',
-        meta: {parentMenu: "我的应用", parentMenuIcon: "mdi-apps"},
+        meta: {parentMenu: "应用", parentMenuIcon: "mdi-apps"},
         children: [
           {
             path: "email",
@@ -88,7 +88,7 @@ const routes = [
       },
       {
         path: '/tools',
-        meta: {parentMenu: "工具箱", parentMenuIcon: "mdi-toolbox-outline"},
+        meta: {parentMenu: "工具", parentMenuIcon: "mdi-toolbox-outline"},
         children: [
           {
             path: "base64",
