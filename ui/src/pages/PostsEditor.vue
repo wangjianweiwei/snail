@@ -35,7 +35,6 @@ function save() {
 </script>
 
 <template>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
 
   <div style="height: 100%">
     <v-row justify="center" no-gutters style="height: 100%">

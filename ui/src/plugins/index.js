@@ -12,6 +12,7 @@ import "quill/dist/quill.snow.css";
 
 import "quill/dist/quill.core.css"
 import "@/quill-snow.less"
+import "@/assets/css/atom-one-dark.min.css"
 
 
 export function registerPlugins(app) {
