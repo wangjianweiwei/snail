@@ -1,4 +1,3 @@
-@import url(@/variable.less);
 
 .toolbar-shadow {
   visibility: hidden;
@@ -14,18 +13,56 @@
     text-align: center;
     border: none;
     padding: 10px;
+
+    .ql-picker:hover,
+    button:hover {
+      background-color: #2d2f3f !important; /* 设置背景颜色为黄色 */
+    }
+
+    .ql-picker-options {
+      background-color: #424242;
+      border: 1px solid #616161;
+    }
+
+    button,
+    .ql-picker {
+      background-color: transparent;
+      border: none;
+      margin-right: 8px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+
+    button:active,
+    .ql-picker:active {
+      background-color: #757575;
+    }
+
+    .ql-picker-options {
+      background-color: #1f202c;
+      border: none;
+    }
+
+    .ql-picker-label {
+      border: none;
+    }
+
+    .ql-stroke,
+    .ql-fill {
+      stroke-width: 1.5px;
+    }
   }
 
   &.ql-container {
     color: white;
     margin: 0 auto;
-    height: auto !important;
-    min-height: 100vh;
+    height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, PingFang SC, "Apple Color Emoji", Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
     border: none;
-    overflow: visible !important;
+    //overflow: visible !important;
   }
 
 
