@@ -16,7 +16,7 @@
             challenges,
             and share where we’re headed…</p>
           <div class="text-end pt-4">
-            <v-btn variant="text" append-icon="mdi-page-next-outline" to="/dashboards/posts/preview/10">Read More</v-btn>
+            <v-btn variant="text" append-icon="mdi-page-next-outline" to="/posts/preview/10">Read More</v-btn>
           </div>
           <v-divider class="my-6"></v-divider>
         </div>
@@ -24,7 +24,15 @@
           <v-pagination variant="text" active-color="primary" size="x-large" :length="10"></v-pagination>
         </div>
       </v-col>
+    <v-fab
+      icon="mdi-plus"
+      location="bottom right"
+      size="50"
+      app
+      appear
+    ></v-fab>
     </v-row>
+
   </div>
 
 </template>

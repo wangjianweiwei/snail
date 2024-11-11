@@ -9,7 +9,7 @@
         <p class="text-h4 mb-2 hover-transition">State of the Union 2024</p>
         <p class="mb-4">🖊️ John Leider • 📅 September 8th, 2024</p>
         <div>
-          <v-btn variant="tonal" append-icon="mdi-square-edit-outline" to="/dashboards/posts/compose/10">编辑</v-btn>
+          <v-btn variant="tonal" append-icon="mdi-square-edit-outline" to="/posts/compose/10">编辑</v-btn>
           <span class="mx-2"></span>
 
           <v-btn variant="tonal" append-icon="mdi-publish" color="success">发布</v-btn>

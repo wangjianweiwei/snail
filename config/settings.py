@@ -20,7 +20,7 @@ class DevelopmentSetting(Setting):
         "connections": {"default": "sqlite://db.sqlite3"},
         "apps": {
             "models": {
-                "models": ["models.auth", "aerich.models"],
+                "models": ["models.auth", "models.posts", "aerich.models"],
                 "default_connection": "default",
             },
         },

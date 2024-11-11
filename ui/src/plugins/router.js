@@ -8,9 +8,40 @@ const routes = [
     component: () => import('../@layouts/default.vue'),
     children: [
       {
+        path: '/posts',
+        redirect: '/posts/list',
+        meta: {parentMenu: "博客", parentMenuIcon: "mdi-post-outline", fullPath: "/posts", hasSub: false},
+        children: [
+          {
+            path: 'list',
+            component: () => import('../pages/Posts.vue'),
+          },
+          {
+            path: 'category',
+            component: () => import('../pages/PostCategory.vue'),
+          },
+          {
+            path: 'tag',
+            component: () => import('../pages/PostTag.vue'),
+          },
+          {
+            path: 'timeline',
+            component: () => import('../pages/PostTimeline.vue'),
+          },
+          {
+            path: 'compose/:id',
+            component: () => import('../pages/PostsEditor.vue'),
+          },
+          {
+            path: 'preview/:id',
+            component: () => import('../pages/PostsPreview.vue'),
+          },
+        ]
+      },
+      {
         path: '/dashboards',
-        redirect: '/dashboards/posts',
-        meta: {parentMenu: "首页", parentMenuIcon: "mdi-home"},
+        redirect: '/dashboards/profile',
+        meta: {parentMenu: "首页", parentMenuIcon: "mdi-home", hasSub: true},
         children: [
           {
             path: "profile",
@@ -26,43 +57,12 @@ const routes = [
             path: "settings",
             component: () => import('../pages/Settings.vue'),
             meta: {subMenu: "设置", subMenuIcon: "mdi-cogs", fullPath: "/dashboards/settings"}
-          },
-          {
-            path: 'posts',
-            redirect: '/dashboards/posts/list',
-            meta: {subMenu: "博客", subMenuIcon: "mdi-post-outline", fullPath: "/dashboards/posts"},
-            children: [
-              {
-                path: 'list',
-                component: () => import('../pages/Posts.vue'),
-              },
-              {
-                path: 'category',
-                component: () => import('../pages/PostCategory.vue'),
-              },
-              {
-                path: 'tag',
-                component: () => import('../pages/PostTag.vue'),
-              },
-              {
-                path: 'timeline',
-                component: () => import('../pages/PostTimeline.vue'),
-              },
-              {
-                path: 'compose/:id',
-                component: () => import('../pages/PostsEditor.vue'),
-              },
-              {
-                path: 'preview/:id',
-                component: () => import('../pages/PostsPreview.vue'),
-              },
-            ]
-          },
+          }
         ]
       },
       {
         path: '/apps',
-        meta: {parentMenu: "应用", parentMenuIcon: "mdi-apps"},
+        meta: {parentMenu: "应用", parentMenuIcon: "mdi-apps", hasSub: true},
         children: [
           {
             path: "email",
@@ -88,7 +88,7 @@ const routes = [
       },
       {
         path: '/tools',
-        meta: {parentMenu: "工具", parentMenuIcon: "mdi-toolbox-outline"},
+        meta: {parentMenu: "工具", parentMenuIcon: "mdi-toolbox-outline", hasSub: true},
         children: [
           {
             path: "base64",

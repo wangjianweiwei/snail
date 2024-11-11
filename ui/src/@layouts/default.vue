@@ -37,13 +37,14 @@ const route = useRoute()
                   :color="route.meta.parentMenu === menu.meta.parentMenu ?'#696CFF': ''"
                   class="text-none text-subtitle-1 mr-2"
                   :prepend-icon="menu.meta.parentMenuIcon"
-                  append-icon="mdi-chevron-down"
+                  :append-icon="menu.meta.hasSub ? 'mdi-chevron-down': ''"
                   v-bind="props"
+                  :to="menu.meta.fullPath"
                 >
                   {{ menu.meta.parentMenu }}
                 </v-btn>
               </template>
-              <v-list density="compact" border="sm" rounded width="200px">
+              <v-list v-if="menu.meta.hasSub" density="comfortable" border="sm" rounded width="200px">
                 <v-list-item
                   v-for="child in menu.children.filter(n => {return n.meta?.subMenu})"
                   class="mx-2 my-1"
