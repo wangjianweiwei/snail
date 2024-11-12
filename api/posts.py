@@ -1,3 +1,5 @@
+import math
+
 from fastapi import APIRouter, Body, File, UploadFile
 from models.posts import Posts
 
@@ -13,10 +15,10 @@ async def query(page: int, size: int):
     """
     posts = Posts.filter(status=1)
     count = await posts.count()
-    paged = await posts.order_by(Posts.created_at.desc()).offset((page - 1) * size).limit(size).values()
+    paged = await posts.order_by("-created_at").offset((page - 1) * size).limit(size)
 
     return {
-        "data": {"count": count, "paged": paged, "page": page, "size": size},
+        "data": {"count": count, "paged": paged, "page_count": math.ceil(count / size or 1)},
         "status": True,
         "msg": None
     }
@@ -71,19 +73,31 @@ async def destroy(pk: int = Body(embed=True)):
 
 
 @router.post("/create")
-async def create(
-        title: str = Body(embed=True),
-        content: str = Body(embed=True)
-):
+async def create(title: str = Body(embed=True)):
     """
     创建
 
     :return:
     """
-    post = Posts(title=title, content=content, abstract="123123")
+    post = Posts(title=title, content=None, abstract="", status=1)
     await post.save()
     return {
         "data": post.title,
+        "status": True,
+        "msg": None
+    }
+
+
+@router.put("/compose")
+async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True)):
+    """
+    保存
+
+    :return:
+    """
+    await Posts.filter(pk=pk).update(content=content)
+    return {
+        "data": None,
         "status": True,
         "msg": None
     }
@@ -103,20 +117,19 @@ async def publish(pk: int):
         "msg": None
     }
 
+# @router.post("/image/upload")
+# async def image_upload(file: UploadFile = File(), pk: int = Body()):
+#     """
+#     上传图片
+#
+#     :return:
+#     """
 
-@router.post("/image/upload")
-async def image_upload(file: UploadFile = File(), pk: int = Body()):
-    """
-    上传图片
 
-    :return:
-    """
-
-
-@router.post("/image/signature")
-async def image_signature(pk: int = Body(embed=True), path: str = Body(embed=True)):
-    """
-    图片签名
-
-    :return:
-    """
+# @router.post("/image/signature")
+# async def image_signature(pk: int = Body(embed=True), path: str = Body(embed=True)):
+#     """
+#     图片签名
+#
+#     :return:
+#     """

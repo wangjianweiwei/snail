@@ -4,11 +4,15 @@
 import Quill from "quill";
 import hljs from 'highlight.js';
 import {onMounted} from "vue";
+import {useRoute} from "vue-router";
+
 import {ImageUploader} from "@/plugins/quilljsModules";
+import {composePostApi} from "@/services";
 
 Quill.register('modules/imageUploader', ImageUploader);
 
-
+const route = useRoute()
+const postId = route.params.id
 const options = {
   debug: 'info',
   modules: {
@@ -28,8 +32,9 @@ onMounted(() => {
   window.quill = quill
 })
 
-function save() {
-  alert("save")
+async function save() {
+  let content = quill.getContents()
+  await composePostApi(postId, content)
 }
 
 </script>

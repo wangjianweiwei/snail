@@ -21,3 +21,23 @@ export async function deleteTodo(item_id) {
   let response = await request.delete(`/api/todo/${item_id}`)
   return response.data
 }
+
+export async function getPostsApi(page, size) {
+  let response = await request.get("/api/posts/", {params: {page: page, size: size}})
+  return response.data.data
+}
+
+export async function createPostApi(title) {
+  let response = await request.post("/api/posts/create", {title: title, content: "12312312"})
+  return response.data.data
+}
+
+export async function retrievePostApi(pk) {
+  let response = await request.get("/api/posts/retrieve", {params: {pk: pk}})
+  return response.data.data
+}
+
+export async function composePostApi(pk, content) {
+  let response = await request.put("/api/posts/compose", {pk: pk, content: content})
+  return response.data.data
+}
