@@ -3,16 +3,18 @@
 
 import Quill from "quill";
 import hljs from 'highlight.js';
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 
 import {ImageUploader} from "@/plugins/quilljsModules";
-import {composePostApi} from "@/services";
+import {composePostApi, retrievePostApi} from "@/services";
 
 Quill.register('modules/imageUploader', ImageUploader);
 
 const route = useRoute()
+const post = ref({})
 const postId = route.params.id
+const snackbar = ref(false)
 const options = {
   debug: 'info',
   modules: {
@@ -27,14 +29,21 @@ const options = {
 };
 let quill = null
 
-onMounted(() => {
+onMounted(async () => {
+  post.value = await retrievePostApi(postId)
   quill = new Quill('#postsEditor', options);
+  quill.setContents(post.value.content)
   window.quill = quill
 })
 
 async function save() {
   let content = quill.getContents()
   await composePostApi(postId, content)
+  snackbar.value = true
+}
+
+function f() {
+
 }
 
 </script>
@@ -86,6 +95,28 @@ async function save() {
         </v-row>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="snackbar"
+      offset="100"
+      timeout="2000"
+      timer
+      transition="scroll-x-reverse-transition"
+      multi-line
+      rounded="lg"
+      location="top right"
+      text="保存成功 🤓"
+      close-on-content-click
+    >
+      <template v-slot:actions>
+        <v-btn
+          color="blue"
+          variant="text"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 
 

@@ -17,7 +17,22 @@ class DevelopmentSetting(Setting):
     timezone = 'Asia/Shanghai'
 
     tortoise_orm = {
-        "connections": {"default": "sqlite://db.sqlite3"},
+        "connections": {
+            "default": {
+                "engine": "tortoise.backends.mysql",  # 数据库引擎 Mysql or Mariadb
+                "credentials": {
+                    "host": "127.0.0.1",
+                    "port": "3306",
+                    "user": "root",
+                    "password": "123456",
+                    "database": "snail",
+                    "minsize": 1,
+                    "maxsize": 5,
+                    "charset": "utf8mb4",
+                    "echo": True
+                }
+            }
+        },
         "apps": {
             "models": {
                 "models": ["models.auth", "models.posts", "aerich.models"],
