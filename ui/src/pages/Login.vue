@@ -1,11 +1,35 @@
 <script setup>
 import {useRoute, useRouter} from 'vue-router'
-import {ref} from "vue";
+import {ref, onMounted} from "vue";
+import {loginApi} from '@/services'
 
 const router = useRouter()
 const route = useRoute()
 
+
 const loading = ref(false)
+const snackbar = ref(false)
+
+onMounted(() => {
+  let code = route.query.code
+  console.log("code", code)
+  if (code) {
+    loading.value = true
+    loginApi(code).then((response) => {
+      console.log(response)
+      console.log(data, "loginApi")
+      loading.value = false
+    })
+
+
+  }
+
+})
+
+const noSupport = () => {
+  snackbar.value = true
+}
+
 const Login = () => {
   loading.value = true
   window.localStorage.setItem("token", "ok")
@@ -22,14 +46,47 @@ const Login = () => {
 }
 
 const GithubLogin = () => {
-  window.location = "https://github.com/login/oauth/authorize?client_id=17f2d31fca5f88282646&redirect_uri=http://localhost:3000&socpe=user"
+  window.location = "https://github.com/login/oauth/authorize?client_id=17f2d31fca5f88282646&redirect_uri=http://localhost:3000/login&socpe=user"
   // router.push("https://github.com/login/oauth/authorize?client_id=17f2d31fca5f88282646&redirect_uri=http://127.0.0.1:3000/login")
 }
+
+const loginMethods = [
+  {
+    method: "Wechat",
+    icon: "mdi-wechat",
+    click: noSupport,
+    color: "#22ac38"
+  },
+  {
+    method: "github",
+    icon: "mdi-github",
+    click: GithubLogin,
+    color: "white"
+  },
+  {
+    method: "google",
+    icon: "mdi-google",
+    click: noSupport,
+    color: "#EA4335"
+  },
+  {
+    method: "facebook",
+    icon: "mdi-facebook",
+    click: noSupport,
+    color: "#497ce2"
+  },
+  {
+    method: "twitter",
+    icon: "mdi-twitter",
+    click: noSupport,
+    color: "#1da1f2"
+  }
+]
 </script>
 
 <template>
   <v-app>
-    <v-row class="d-flex justify-center">
+    <v-row no-gutters class="d-flex justify-center">
       <v-col class="pa-12" lg="4" xl="3" sm="8" xs="10" align-self="center">
         <v-card class="pa-12" :loading="loading" rounded="lg">
           <template v-slot:loader="{ isActive }">
@@ -43,61 +100,40 @@ const GithubLogin = () => {
           <p class="text-h5 font-weight-bold">Welcome to
             <span class="text-decoration-underline" style="color: #696CFF">me.discuss.pub</span>👋🏻</p>
           <p class="text-body-2 text-disabled">Please sign-in to your account and start the adventure</p>
-          <form class="mt-10">
-            <v-text-field
-              rounded="lg"
-              density="comfortable"
-              label="Account"
-              prepend-inner-icon="mdi-email-outline"
-              variant="outlined"
-            ></v-text-field>
-
-            <v-text-field
-              rounded="lg"
-              density="comfortable"
-              label="Password"
-              prepend-inner-icon="mdi-lock-outline"
-              class="mt-7"
-              variant="outlined"
-            ></v-text-field>
-            <div class="d-flex align-center justify-space-between mt-5">
-              <v-checkbox label="记住密码">
-
-              </v-checkbox>
-              <a
-                class="text-caption text-decoration-none text-blue"
-                href="#"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Forgot login password?</a>
-            </div>
-            <div class="mt-5">
-              <v-btn block rounded="lg" @click="Login">Login</v-btn>
-            </div>
-            <div class="mt-7">
-              <span>New on our platform? <a class="text-caption text-decoration-none text-blue"
-                                            href="#"
-                                            rel="noopener noreferrer"
-                                            target="_blank">Create an account</a></span>
-            </div>
-            <div class="d-flex justify-space-between align-center mt-7">
-              <v-divider></v-divider>
-              <span class="mx-4">or</span>
-              <v-divider></v-divider>
-            </div>
-            <div class="mt-7 d-flex justify-center align-center">
-              <v-btn size="small" icon="mdi-wechat" class="mr-3" color="#22ac38"></v-btn>
-              <v-btn size="small" icon="mdi-github" class="mr-3" color="white" @click="GithubLogin"></v-btn>
-              <v-btn size="small" icon="mdi-google" class="mr-3" color="#EA4335"></v-btn>
-              <v-btn size="small" icon="mdi-facebook" class="mr-3" color="#497ce2"></v-btn>
-              <v-btn size="small" icon="mdi-twitter" color="#1da1f2"></v-btn>
-            </div>
-          </form>
+          <div class="mt-7">
+            <span>New on our platform? </span>
+          </div>
+          <v-divider class="my-3"></v-divider>
+          <div class="mt-7 d-flex justify-center align-center">
+            <v-btn v-for="n in loginMethods" :icon="n.icon" class="mr-3"
+                   :color="n.color"
+                   @click="n.click"></v-btn>
+          </div>
         </v-card>
       </v-col>
     </v-row>
-
+    <v-snackbar
+      v-model="snackbar"
+      offset="100"
+      timeout="2000"
+      timer
+      transition="scroll-x-reverse-transition"
+      multi-line
+      rounded="lg"
+      location="top right"
+      text="暂不支持 🤓"
+      close-on-content-click
+    >
+      <template v-slot:actions>
+        <v-btn
+          color="blue"
+          variant="text"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 
 </template>

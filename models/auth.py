@@ -7,8 +7,9 @@ class User(Model):
     id = fields.IntField(pk=True)
     username = fields.CharField(max_length=255, unique=True)
     email = fields.CharField(max_length=255, unique=True, null=True)
-    salt = fields.BinaryField()  # 存储盐
-    password_hash = fields.BinaryField()
+    salt = fields.BinaryField(null=True)  # 存储盐
+    avatar_url = fields.CharField(max_length=255, null=True)
+    password_hash = fields.BinaryField(null=True)
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
 

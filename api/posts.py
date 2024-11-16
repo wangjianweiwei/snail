@@ -1,6 +1,8 @@
 import math
 
+from delta import Delta
 from fastapi import APIRouter, Body, File, UploadFile
+
 from models.posts import Posts
 
 router = APIRouter()
@@ -40,13 +42,13 @@ async def retrieve(pk: int):
 
 
 @router.put("/update")
-async def update(pk: int = Body(embed=True)):
+async def update(pk: int = Body(embed=True), title: str = Body(embed=True)):
     """
     更新
 
     :return:
     """
-    await Posts.filter(pk=pk).update(title="斯蒂芬森地方")
+    await Posts.filter(pk=pk).update(title=title)
 
     return {
         "data": None,
@@ -82,7 +84,7 @@ async def create(title: str = Body(embed=True)):
     post = Posts(title=title, content=None, abstract="", status=1)
     await post.save()
     return {
-        "data": post.title,
+        "data": post,
         "status": True,
         "msg": None
     }
@@ -95,7 +97,9 @@ async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True)):
 
     :return:
     """
-    await Posts.filter(pk=pk).update(content=content)
+    snapshot = Delta(content["ops"])
+    abstract = snapshot.document()[:128]
+    await Posts.filter(pk=pk).update(content=content, abstract=abstract)
     return {
         "data": None,
         "status": True,
@@ -117,14 +121,14 @@ async def publish(pk: int):
         "msg": None
     }
 
+
 # @router.post("/image/upload")
-# async def image_upload(file: UploadFile = File(), pk: int = Body()):
+# async def image_upload(image: Body(embed=True), pk: int = Body()):
 #     """
 #     上传图片
 #
 #     :return:
 #     """
-
 
 # @router.post("/image/signature")
 # async def image_signature(pk: int = Body(embed=True), path: str = Body(embed=True)):

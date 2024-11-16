@@ -16,8 +16,7 @@ const route = useRoute()
   <v-app>
     <v-app-bar class="border-b-sm">
       <template v-slot:prepend>
-        <v-btn style="text-transform: none" prepend-icon="$vuetify" variant="plain" color="" size="x-large"><h4>
-          me.discuss.pub</h4></v-btn>
+        <v-btn style="text-transform: none" variant="plain" color="" size="x-large"><h4><h1 style="display: inline">👋</h1>&nbsp;me.discuss.pub</h4></v-btn>
       </template>
       <template v-slot:append>
         <div class="d-flex align-center">

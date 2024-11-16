@@ -7,13 +7,14 @@ import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 
 import {ImageUploader} from "@/plugins/quilljsModules";
-import {composePostApi, retrievePostApi} from "@/services";
+import {composePostApi, retrievePostApi, updatePostApi} from "@/services";
 
 Quill.register('modules/imageUploader', ImageUploader);
 
 const route = useRoute()
 const post = ref({})
 const postId = route.params.id
+const titleEdit = ref(false)
 const snackbar = ref(false)
 const options = {
   debug: 'info',
@@ -42,20 +43,23 @@ async function save() {
   snackbar.value = true
 }
 
-function f() {
-
+async function updateTitle() {
+  await updatePostApi({title: post.value.title, pk: post.value.id})
+  titleEdit.value = false
 }
 
 </script>
 
 <template>
-
   <div style="height: 100%">
     <v-row justify="center" no-gutters style="height: 100%">
-      <v-col cols="11" md="6" sm="10" style="height: 100%">
-        <v-row no-gutters style="height: 45px" class="d-flex justify-center align-center pa-1">
+      <v-row no-gutters style="height: 48px">
+        <v-col cols="2" class="d-flex align-center pl-5">
+          <v-text-field v-if="titleEdit" variant="outlined" density="compact" v-model="post.title" @keydown.enter="updateTitle" @focusout="updateTitle" autofocus></v-text-field>
+          <v-btn style="text-transform: none" v-else variant="plain" color="" append-icon="mdi-pencil" @click="titleEdit = true" :text="post.title"></v-btn>
+        </v-col>
+        <v-col cols="8" class="d-flex justify-center align-center">
           <div id="toolbar">
-
             <select class="ql-size">
               <option value="small"></option>
               <option selected></option>
@@ -77,6 +81,8 @@ function f() {
               <option value="right"></option>
               <option value="justify"></option>
             </select>
+            <button class="ql-indent" value="-1"></button>
+            <button class="ql-indent" value="+1"></button>
             <button class="ql-code-block" value="code"></button>
             <button class="ql-link"></button>
             <button class="ql-image"></button>
@@ -88,12 +94,14 @@ function f() {
               </svg>
             </button>
           </div>
-        </v-row>
-        <v-divider></v-divider>
-        <v-row no-gutters style="height: calc(100% - 47px);overflow-y: scroll">
+        </v-col>
+      </v-row>
+      <v-divider></v-divider>
+      <v-row justify="center" no-gutters style="height: calc(100% - 48px)">
+        <v-col id="postsEditor" cols="11" md="6" sm="10" style="height: 100%">
           <div id="postsEditor" style="height: 100%;width: 100%"></div>
-        </v-row>
-      </v-col>
+        </v-col>
+      </v-row>
     </v-row>
     <v-snackbar
       v-model="snackbar"

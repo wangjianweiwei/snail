@@ -4,7 +4,7 @@ import {createWebHistory, createRouter} from 'vue-router'
 const routes = [
   {
     path: '/',
-    redirect: '/dashboards',
+    redirect: '/posts/list',
     component: () => import('../@layouts/default.vue'),
     children: [
       {

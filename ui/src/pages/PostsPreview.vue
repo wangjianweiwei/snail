@@ -32,8 +32,8 @@ onMounted(async () => {
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="6" sm="10">
-        <p class="text-h4 mb-2 hover-transition">State of the Union 2024</p>
-        <p class="mb-4">🖊️ John Leider • 📅 September 8th, 2024</p>
+        <p class="text-h4 mb-2 hover-transition">{{post.title}}</p>
+        <p class="mb-4">🖊️ John Leider • 📅 {{post.created_at}}</p>
         <div>
           <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/compose/${postId}`">编辑</v-btn>
           <span class="mx-2"></span>
@@ -42,7 +42,7 @@ onMounted(async () => {
           <span class="mx-2"></span>
           <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error">删除</v-btn>
         </div>
-        <v-divider class="mb-6 mt-3"></v-divider>
+        <v-divider class="mt-3"></v-divider>
        <div id="postsEditor">
 
         </div>

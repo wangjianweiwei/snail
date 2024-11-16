@@ -2,11 +2,11 @@
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="6" sm="10">
-        <p class="text-h3 mb-2 mt-4 font-weight-black">Programming Language</p>
+        <p class="text-h5 mb-2 mt-4 font-weight-black">Programming Language</p>
         <p>Latest news, updates, and stories about Vuetify.</p>
         <v-divider class="my-6"></v-divider>
         <div :key="post.id" v-for="post in posts">
-          <p class="text-h4 mb-2 hover-transition">{{ post.title }}</p>
+          <p class="text-h5 mb-2 hover-transition">{{ post.title }}</p>
           <p class="mb-4">🖊️ John Leider • 📅 {{ post.created_at }}</p>
           <p class="text-medium-emphasis font-weight-light">{{ post.abstract }}</p>
           <div class="text-end pt-4">
@@ -36,6 +36,7 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
 import {getPostsApi, createPostApi} from "@/services";
+import {router} from "@/plugins/router";
 
 const posts = ref([])
 const postCount = ref(0)
@@ -53,7 +54,8 @@ async function getPosts() {
 async function createPost() {
   let data = await createPostApi("心情文章")
   console.log(data)
-  await getPosts()
+  await router.push(`/posts/compose/${data["id"]}`)
+  // await getPosts()
 }
 
 /*切换页码*/

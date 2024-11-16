@@ -37,7 +37,17 @@ export async function retrievePostApi(pk) {
   return response.data.data
 }
 
+export async function updatePostApi(data) {
+  let response = await request.put("/api/posts/update", data)
+}
+
 export async function composePostApi(pk, content) {
   let response = await request.put("/api/posts/compose", {pk: pk, content: content})
+  return response.data.data
+}
+
+
+export async function loginApi(code) {
+  let response = await request.post("/api/auth/login", {code: code})
   return response.data.data
 }
