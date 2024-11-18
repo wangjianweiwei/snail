@@ -12,6 +12,7 @@ class User(Model):
     password_hash = fields.BinaryField(null=True)
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
+    otp_code = fields.CharField(max_length=32, unique=True)
 
     def set_password(self, password: str) -> None:
         self.salt = bcrypt.gensalt(14)

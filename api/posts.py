@@ -1,7 +1,7 @@
 import math
 
 from delta import Delta
-from fastapi import APIRouter, Body, File, UploadFile
+from fastapi import APIRouter, Body, File, UploadFile, Depends
 
 from models.posts import Posts
 
@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get("/")
-async def query(page: int, size: int):
+async def query(page: int, size: int, ):
     """
     列表页
 

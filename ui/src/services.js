@@ -47,7 +47,17 @@ export async function composePostApi(pk, content) {
 }
 
 
-export async function loginApi(code) {
-  let response = await request.post("/api/auth/login", {code: code})
+export async function loginApi(email, otp_code) {
+  let response = await request.post("/api/auth/login", {email: email, otp_code: otp_code})
+  return response.data.data
+}
+
+export async function createOtpQrcodeApi(email) {
+  let response = await request.get("/api/auth/otp_qrcode", {params: {email: email}})
+  return response.data.data
+}
+
+export async function registerApi(email, secret) {
+  let response = await request.post("/api/auth/register", {email: email, secret: secret})
   return response.data.data
 }
