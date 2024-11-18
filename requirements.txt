@@ -1,3 +1,4 @@
+-i https://mirrors.aliyun.com/pypi/simple
 fastapi==0.115.0
 uvicorn~=0.30.6
 tortoise-orm==0.21.6
