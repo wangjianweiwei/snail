@@ -8,6 +8,12 @@ const {global} = useTheme()
 
 
 const route = useRoute()
+const router = useRouter()
+
+async function logout() {
+  localStorage.removeItem("token")
+  await router.push("/login")
+}
 
 </script>
 
@@ -16,7 +22,9 @@ const route = useRoute()
   <v-app>
     <v-app-bar class="border-b-sm">
       <template v-slot:prepend>
-        <v-btn style="text-transform: none" variant="plain" color="" size="x-large"><h4><h1 style="display: inline">👋</h1>&nbsp;me.discuss.pub</h4></v-btn>
+        <v-btn style="text-transform: none" variant="plain" color="" size="x-large">
+          <h4><h1 style="display: inline">👋</h1>&nbsp;me.discuss.pub</h4>
+        </v-btn>
       </template>
       <template v-slot:append>
         <div class="d-flex align-center">
@@ -68,7 +76,7 @@ const route = useRoute()
             <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
           </div>
           <div class="mr-6">
-            <v-menu location="bottom" >
+            <v-menu location="bottom">
               <template v-slot:activator="{ props }">
                 <v-avatar
                   class="ml-2"
@@ -110,7 +118,7 @@ const route = useRoute()
                 <v-list-item
                   key="Logout"
                   value="Logout"
-                  to="Logout">
+                  @click="logout">
                   <template #default>
                     <p class="text-sm-body-2">
                       <v-icon icon="mdi-logout"></v-icon>

@@ -9,6 +9,7 @@ const route = useRoute()
 const loading = ref(false)
 const email = ref(null)
 const otp_code = ref(null)
+const clickConfirm = ref(false)
 
 const Login = async () => {
   loading.value = true
@@ -29,7 +30,7 @@ const Login = async () => {
 <template>
   <v-app>
     <v-row no-gutters class="d-flex justify-center">
-      <v-col class="pa-12" lg="4" xl="3" sm="8" xs="10" align-self="center">
+      <v-col class="pa-10" lg="4" xl="3" sm="8" xs="10" align-self="center">
         <v-card class="pa-5" :loading="loading" rounded="lg">
           <template v-slot:loader="{ isActive }">
             <v-progress-linear
@@ -39,24 +40,34 @@ const Login = async () => {
               indeterminate
             ></v-progress-linear>
           </template>
-          <p class="text-h5 font-weight-bold">Welcome to
-            <span class="text-decoration-underline" style="color: #696CFF">me.discuss.pub</span>👋🏻</p>
-          <p class="text-body-2 text-disabled">Please sign-in to your account and start the adventure</p>
-          <div class="mt-12">
-            <v-text-field density="compact" variant="outlined" label="邮箱" v-model="email"></v-text-field>
+          <div>
+            <p class="text-h5 font-weight-bold">Welcome to
+              <span class="text-decoration-underline" style="color: #696CFF">me.discuss.pub </span>👋🏻</p>
+            <p class="text-body-2 text-disabled">Please sign-in to your account and start the adventure</p>
           </div>
-          <div class="mt-3">
-            <v-otp-input focus-all :length="6" v-model="otp_code"></v-otp-input>
+
+          <v-divider class="mt-4 mb-8"></v-divider>
+
+          <div v-if="!clickConfirm">
+            <v-text-field density="compact" variant="outlined" label="输入邮箱进行登录😎"
+                          v-model="email"></v-text-field>
+            <v-btn class="mt-8" block text="确认" @click="clickConfirm = true"></v-btn>
           </div>
-          <div class="mt-3">
-            <v-btn block text="登陆" @click="Login"></v-btn>
+          <div v-else>
+            <div class="text-body-2">
+              <p class="font-weight-bold mb-2">确认你的身份</p>
+              <p>
+                <span>从你的密码管理APP中查看 <span class="font-weight-bold text-primary">{{ email }}</span> 的登录验证码</span>
+              </p>
+            </div>
+            <v-otp-input max-width="100%" class="mt-2" focus-all :length="6"
+                         v-model="otp_code"></v-otp-input>
+            <v-btn class="mt-8" block text="登陆" @click="Login"></v-btn>
           </div>
-          <v-divider class="my-7"></v-divider>
-          <div class="mt-7">
-            <span>New on our platform? </span><a class="text-caption text-decoration-none text-blue"
-                                                 href="/register"
-                                                 rel="noopener noreferrer"
-                                                 target="_blank">Create an account</a>
+
+          <v-divider class="mt-8 mb-4"></v-divider>
+          <div class="d-flex justify-end align-center">
+            <v-btn text="创建一个账号？" variant="text" to="/register"></v-btn>
           </div>
         </v-card>
       </v-col>
@@ -66,5 +77,7 @@ const Login = async () => {
 </template>
 
 <style scoped>
-
+.v-otp-input__content {
+  padding: 0.5rem 0 !important;
+}
 </style>

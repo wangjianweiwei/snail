@@ -3,13 +3,14 @@ import math
 from delta import Delta
 from fastapi import APIRouter, Body, File, UploadFile, Depends
 
+from util import Token
 from models.posts import Posts
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(Token.user)])
 
 
 @router.get("/")
-async def query(page: int, size: int, ):
+async def query(page: int, size: int):
     """
     列表页
 

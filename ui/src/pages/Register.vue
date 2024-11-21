@@ -59,26 +59,27 @@ const register = async () => {
             ></v-progress-linear>
           </template>
           <p class="text-h5 font-weight-bold">Welcome to
-            <span class="text-decoration-underline" style="color: #696CFF">me.discuss.pub</span>👋🏻</p>
+            <span class="text-decoration-underline" style="color: #696CFF">me.discuss.pub </span>👋🏻</p>
           <p class="text-body-2 text-disabled">Please sign-in to your account and start the adventure</p>
-          <div class="mt-12">
-            <v-text-field :disabled="qrcode" density="compact" variant="outlined" label="邮箱"
+          <v-divider class="mt-4 mb-8"></v-divider>
+          <div>
+            <v-text-field :disabled="qrcode" density="compact" variant="outlined" label="输入邮箱开始注册😎"
                           v-model="email"></v-text-field>
           </div>
-          <div class="my-4" v-if="!qrcode">
+          <div class="my-8" v-if="!qrcode">
             <v-btn text="确认" block @click="createOtpQrcode"></v-btn>
           </div>
           <v-row class="mt-8" no-gutters v-else>
             <v-col cols="6">
               <p class="text-body-2">扫描二维码</p>
               <v-img
-              :width="150"
-              aspect-ratio="16/9"
-              cover
-              class="mt-2"
-              rounded
-              :src="`data:image/png;base64,${qrcode}`"
-            ></v-img>
+                :width="150"
+                aspect-ratio="16/9"
+                cover
+                class="mt-2"
+                rounded
+                :src="`data:image/png;base64,${qrcode}`"
+              ></v-img>
             </v-col>
             <v-col cols="6" style="font-size: 0.75rem">
               <p>1. 请使用您手机中的认证应用（如 Google Authenticator、Microsoft Authenticator 等）扫描左侧二维码。</p>
@@ -86,8 +87,14 @@ const register = async () => {
               <p class="mt-1">3. 输入动态验证码以完成注册。</p>
               <p class="text-disabled mt-3">提示：请妥善保存此二维码。如果需要在新设备上重新设置验证，可以再次扫描。</p>
             </v-col>
-            <v-col cols="12" class="mt-5"><v-btn text="注册" block @click="register"></v-btn></v-col>
+            <v-col cols="12" class="mt-5">
+              <v-btn text="注册" block @click="register"></v-btn>
+            </v-col>
           </v-row>
+          <v-divider class="mt-8 mb-4"></v-divider>
+          <div class="d-flex justify-end align-center">
+            <v-btn text="去登录" variant="text" to="/login"></v-btn>
+          </div>
         </v-card>
       </v-col>
     </v-row>

@@ -14,6 +14,7 @@ const routes = [
         children: [
           {
             path: 'list',
+            meta: {requiresAuth: true},
             component: () => import('../pages/Posts.vue'),
           },
           {
@@ -30,10 +31,12 @@ const routes = [
           },
           {
             path: 'compose/:id',
+            meta: {requiresAuth: true},
             component: () => import('../pages/PostsEditor.vue'),
           },
           {
             path: 'preview/:id',
+            meta: {requiresAuth: true},
             component: () => import('../pages/PostsPreview.vue'),
           },
         ]
@@ -118,14 +121,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   console.log(to.fullPath)
   console.log(to.fullPath)
-  if (from.fullPath !== "/login" && to.meta.requiresAuth && !window.localStorage.getItem("token")) {
+  if (from.fullPath !== "/login" && to.meta.requiresAuth && !localStorage.getItem("token")) {
     next({path: "/login", query: to.path === '/' ? {} : {from: to.path}})
   } else {
     next()
   }
-  console.log(to)
-  console.log(from)
-  console.log(next)
 
 })
 export {router, routes}

@@ -1,7 +1,9 @@
-from typing import Any, Optional
 from datetime import datetime, timedelta
 
-from tortoise.fields import DatetimeField as BaseDatetimeField
+from fastapi import Header
+from fastapi.exceptions import HTTPException
+from starlette.status import HTTP_401_UNAUTHORIZED  # noqa
+from tortoise.fields import DatetimeField as BaseDatetimeField  # noqa
 from jwt.exceptions import PyJWTError
 from jwt.api_jwt import decode as jwt_decode, encode as jwt_encode
 
@@ -38,35 +40,11 @@ class Token:
 
             return o
         except PyJWTError as e:
-            raise Exception("Invalid token") from e
+            raise HTTPException(status_code=HTTP_401_UNAUTHORIZED)
 
     @classmethod
-    def user(cls, token: str):
+    def user(cls, token: str = Header()):
         token = cls.validate(token)
-        pk = token.__payload.get("pk")
-
+        pk = token.__payload.get("id")
+        print(token.__payload)
         return pk
-
-
-class PasswordAuth:
-
-    def auth(self):
-        raise NotImplemented
-
-
-class GithubAuth(PasswordAuth):
-
-    def auth(self):
-        token = Token.create()
-
-        return token.token
-
-
-class DatetimeField(BaseDatetimeField):
-
-    def __init__(self, auto_now: bool = False, auto_now_add: bool = False, format="%Y-%m-%d %H:%M:%S", **kwargs: Any, ):
-        self.format = format
-        super().__init__(auto_now, auto_now_add, **kwargs)
-
-    def to_python_value(self, value: Any) -> Optional[datetime]:
-        return super().to_python_value(value)
