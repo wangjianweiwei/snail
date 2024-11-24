@@ -36,7 +36,7 @@ const dataFormats = {
 async function fetchTodos() {
   tasks.splice(0, tasks.length);
   let todos = await getTodos(selectedFilter.value.status, selectedFilter.value.date())
-  tasks.push(...todos)
+  tasks.push(...todos.paged)
 }
 
 onMounted(async () => {
@@ -83,10 +83,10 @@ const deleteTask = async (task, index) => {
 }
 
 const updateTask = async (task_id, task, cb) => {
-  task.loading = true
+  // task.loading = true
 
   await updateTodo(task_id, task)
-  task.loading = false
+  // task.loading = false
 
   await fetchTodos()
   if (cb) {
