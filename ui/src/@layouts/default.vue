@@ -90,17 +90,19 @@ async function logout() {
                 <v-list-item
                   title="admin"
                   subtitle="wangjianwei">
-                <template #prepend>
-                  <v-avatar
-                  color="primary"
-                  class="ml-2"
-                >
-                  <span class="text-h6">wangjianwei</span>
-                </v-avatar>
-                </template>
+                  <template #prepend>
+                    <v-avatar
+                      color="primary"
+                      class="ml-2"
+                    >
+                      <span class="text-h6">wangjianwei</span>
+                    </v-avatar>
+                  </template>
                 </v-list-item>
                 <v-divider class="my-2"></v-divider>
                 <v-list-item
+                  rounded
+                  class="mx-2 my-1"
                   key="Profile"
                   value="Profile"
                   to="Profile">
@@ -112,6 +114,8 @@ async function logout() {
                   </template>
                 </v-list-item>
                 <v-list-item
+                  rounded
+                  class="mx-2 my-1"
                   key="child.meta.subMenu"
                   value="child.meta.subMenu"
                   to="child.meta.fullPath">
@@ -124,6 +128,8 @@ async function logout() {
                 </v-list-item>
                 <v-divider class="my-2"></v-divider>
                 <v-list-item
+                  rounded
+                  class="mx-2 my-1"
                   key="Logout"
                   value="Logout"
                   @click="logout">

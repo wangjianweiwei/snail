@@ -198,6 +198,7 @@ const Load = ({done}) => {
                                 <template #append-inner>
                                   <v-icon
                                     v-if="task.is_completed"
+                                    size="xs"
                                     color="success">
                                     mdi-check
                                   </v-icon>
@@ -211,20 +212,24 @@ const Load = ({done}) => {
                                     <v-list density="compact" rounded>
                                       <v-list-item
                                         value="1"
-                                        variant="elevated"
+                                        rounded
+                                        class="mx-2 my-1"
                                         title="计划"
                                         @click="planDateDialog = {view: true, task: {id: task.id, title: task.title, plan_at: task.plan_at ? new Date(task.plan_at): new Date()}}"
                                         prepend-icon="mdi-update">
                                       </v-list-item>
                                       <v-list-item
+                                        rounded
+                                        class="mx-2 my-1"
                                         value="2"
-                                        variant="elevated"
                                         title="置顶"
                                         prepend-icon="mdi-format-vertical-align-top">
                                       </v-list-item>
                                       <v-list-item
+                                        base-color="error"
+                                        rounded
+                                        class="mx-2 my-1"
                                         value="3"
-                                        variant="elevated"
                                         title="删除"
                                         @click="deleteTask(task, i)"
                                         prepend-icon="mdi-trash-can-outline">
