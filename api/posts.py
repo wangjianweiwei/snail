@@ -1,12 +1,34 @@
 import math
+from typing import Any
+from datetime import datetime
+from typing_extensions import Self
 
 from delta import Delta
+from pydantic import BaseModel
 from fastapi import APIRouter, Body, File, UploadFile, Depends
 
 from util import Token
 from models.posts import Posts
 
-router = APIRouter(dependencies=[Depends(Token.user)])
+router = APIRouter()
+
+
+class PostSchema(BaseModel):
+    id: int
+    title: str
+    created_at: str
+    abstract: str
+    wordcount: int
+    content: Any = None
+
+    @staticmethod
+    def format_datetime(dt: datetime) -> str:
+        return dt.strftime('%Y.%m.%d  %H:%M:%S')  # 自定义时间格式
+
+    @classmethod
+    def from_orm(cls, post: Posts) -> Self:
+        return cls(id=post.id, title=post.title, created_at=cls.format_datetime(post.created_at),
+                   abstract=post.abstract, content=post.content, wordcount=post.wordcount)
 
 
 @router.get("/")
@@ -18,10 +40,13 @@ async def query(page: int, size: int):
     """
     posts = Posts.filter(status=1)
     count = await posts.count()
-    paged = await posts.order_by("-created_at").offset((page - 1) * size).limit(size)
-
+    values = ("id", "title", "created_at", "abstract", "wordcount")
+    paged = await posts.order_by("-created_at").offset((page - 1) * size).limit(size).values(*values)
+    print(paged)
     return {
-        "data": {"count": count, "paged": paged, "page_count": math.ceil(count / size or 1)},
+        "data": {"count": count,
+                 "paged": [PostSchema.from_orm(Posts(**post)) for post in paged],
+                 "page_count": math.ceil(count / size or 1)},
         "status": True,
         "msg": None
     }
@@ -36,14 +61,14 @@ async def retrieve(pk: int):
     post = await Posts.filter(pk=pk).first()
 
     return {
-        "data": post,
+        "data": PostSchema.from_orm(post),
         "status": True,
         "msg": None
     }
 
 
 @router.put("/update")
-async def update(pk: int = Body(embed=True), title: str = Body(embed=True)):
+async def update(pk: int = Body(embed=True), title: str = Body(embed=True), user=Depends(Token.user)):
     """
     更新
 
@@ -59,11 +84,12 @@ async def update(pk: int = Body(embed=True), title: str = Body(embed=True)):
 
 
 @router.delete("/destroy")
-async def destroy(pk: int = Body(embed=True)):
+async def destroy(pk: int = Body(embed=True), user=Depends(Token.user)):
     """
     删除
 
     :param pk:
+    :param user:
     :return:
     """
     await Posts.filter(pk=pk).delete()
@@ -76,7 +102,7 @@ async def destroy(pk: int = Body(embed=True)):
 
 
 @router.post("/create")
-async def create(title: str = Body(embed=True)):
+async def create(title: str = Body(embed=True), user=Depends(Token.user)):
     """
     创建
 
@@ -92,15 +118,16 @@ async def create(title: str = Body(embed=True)):
 
 
 @router.put("/compose")
-async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True)):
+async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True), user=Depends(Token.user)):
     """
     保存
 
     :return:
     """
     snapshot = Delta(content["ops"])
-    abstract = snapshot.document()[:128]
-    await Posts.filter(pk=pk).update(content=content, abstract=abstract)
+    document = snapshot.document()
+    print(pk, len(document))
+    await Posts.filter(pk=pk).update(content=content, abstract=document[:128], wordcount=len(document))
     return {
         "data": None,
         "status": True,
@@ -109,7 +136,7 @@ async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True)):
 
 
 @router.get("/publish")
-async def publish(pk: int):
+async def publish(pk: int, user=Depends(Token.user)):
     """
     发布
 
@@ -121,7 +148,6 @@ async def publish(pk: int):
         "status": True,
         "msg": None
     }
-
 
 # @router.post("/image/upload")
 # async def image_upload(image: Body(embed=True), pk: int = Body()):

@@ -62,3 +62,8 @@ export async function registerApi(email, secret) {
   let response = await request.post("/api/auth/register", {email: email, secret: secret})
   return response.data.data
 }
+
+export async function checkInitializationApi() {
+  let response = await request.get("/api/auth/check_initialization")
+  return response.data.data
+}

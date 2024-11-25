@@ -2,15 +2,19 @@
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="6" sm="10">
-        <p class="text-h5 mb-2 mt-4 font-weight-black">Programming Language</p>
+        <p class="text-h4 mb-2 mt-4 font-weight-black">博客</p>
         <p>Latest news, updates, and stories about Vuetify.</p>
         <v-divider class="my-6"></v-divider>
         <div :key="post.id" v-for="post in posts">
           <p class="text-h5 mb-2 hover-transition">{{ post.title }}</p>
-          <p class="mb-4">🖊️ John Leider • 📅 {{ post.created_at }}</p>
+          <p class="mb-4">
+            <span class="mr-1"> 📅 {{ post.created_at }}</span>
+            <span class="ml-1">🖊️ {{ post.wordcount }}字</span>
+          </p>
           <p class="text-medium-emphasis font-weight-light">{{ post.abstract }}</p>
           <div class="text-end pt-4">
-            <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/preview/${post.id}`">Read More</v-btn>
+            <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/preview/${post.id}`"
+                   text="read more"></v-btn>
           </div>
           <v-divider class="my-6"></v-divider>
         </div>
@@ -20,6 +24,7 @@
         </div>
       </v-col>
       <v-fab
+        v-if="authState"
         icon="mdi-plus"
         location="bottom right"
         size="50"
@@ -34,10 +39,12 @@
 </template>
 
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {onMounted, ref} from "vue";
 import {getPostsApi, createPostApi} from "@/services";
 import {router} from "@/plugins/router";
 
+const authState = localStorage.getItem("token")
+console.log(authState)
 const posts = ref([])
 const postCount = ref(0)
 const page = ref(1)

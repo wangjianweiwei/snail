@@ -14,7 +14,7 @@ const routes = [
         children: [
           {
             path: 'list',
-            meta: {requiresAuth: true},
+            meta: {requiresAuth: false},
             component: () => import('../pages/Posts.vue'),
           },
           {
@@ -36,7 +36,7 @@ const routes = [
           },
           {
             path: 'preview/:id',
-            meta: {requiresAuth: true},
+            meta: {requiresAuth: false},
             component: () => import('../pages/PostsPreview.vue'),
           },
         ]
@@ -75,7 +75,7 @@ const routes = [
           {
             path: "chat",
             component: () => import('../pages/Chat.vue'),
-            meta: {subMenu: "聊会儿天", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: true}
+            meta: {subMenu: "聊会儿天", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: false}
           },
           {
             path: "todo",
@@ -107,8 +107,8 @@ const routes = [
     component: () => import('../pages/Login.vue')
   },
   {
-    path: '/register',
-    component: () => import('../pages/Register.vue')
+    path: '/initialization',
+    component: () => import('../pages/Initialization.vue')
   }
 ]
 

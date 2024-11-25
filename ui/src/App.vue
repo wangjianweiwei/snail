@@ -1,5 +1,14 @@
 <script setup>
+import {onMounted} from "vue";
+import {checkInitializationApi} from "@/services";
+import {router} from "@/plugins/router";
 
+onMounted(async () => {
+  let initialization = await checkInitializationApi()
+  if (!initialization) {
+    await router.push("/initialization")
+  }
+})
 
 </script>
 

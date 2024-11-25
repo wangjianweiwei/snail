@@ -6,7 +6,7 @@ import {useTheme} from 'vuetify'
 
 const {global} = useTheme()
 
-
+const authState = localStorage.getItem("token")
 const route = useRoute()
 const router = useRouter()
 
@@ -76,20 +76,28 @@ async function logout() {
             <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
           </div>
           <div class="mr-6">
-            <v-menu location="bottom">
+            <v-menu v-if="authState" location="bottom">
               <template v-slot:activator="{ props }">
                 <v-avatar
+                  color="primary"
                   class="ml-2"
                   v-bind="props"
-                  image="https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png"
                 >
+                  <span class="text-h6">wangjianwei</span>
                 </v-avatar>
               </template>
               <v-list width="230" density="compact" rounded border="sm">
                 <v-list-item
-                  title="asd"
-                  subtitle="admin"
-                  prepend-avatar="https://demos.themeselection.com/sneat-vuetify-vuejs-admin-template/demo-1/assets/avatar-1-DL1ARROH.png">
+                  title="admin"
+                  subtitle="wangjianwei">
+                <template #prepend>
+                  <v-avatar
+                  color="primary"
+                  class="ml-2"
+                >
+                  <span class="text-h6">wangjianwei</span>
+                </v-avatar>
+                </template>
                 </v-list-item>
                 <v-divider class="my-2"></v-divider>
                 <v-list-item
@@ -128,6 +136,7 @@ async function logout() {
                 </v-list-item>
               </v-list>
             </v-menu>
+            <v-btn v-else text="登录" append-icon="mdi-login" to="/login"></v-btn>
           </div>
         </div>
       </template>

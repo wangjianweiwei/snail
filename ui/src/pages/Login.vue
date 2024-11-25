@@ -1,6 +1,6 @@
 <script setup>
 import {useRoute, useRouter} from 'vue-router'
-import {ref, onMounted} from "vue";
+import {ref, provide} from "vue";
 import {loginApi} from '@/services'
 
 const router = useRouter()
@@ -15,6 +15,7 @@ const Login = async () => {
   loading.value = true
   let data = await loginApi(email.value, otp_code.value)
   console.log(data, "//////")
+  provide('authState', true);
   window.localStorage.setItem("token", data.token)
   loading.value = false
   let from = route.query.from
@@ -63,11 +64,6 @@ const Login = async () => {
             <v-otp-input max-width="100%" class="mt-2" focus-all :length="6"
                          v-model="otp_code"></v-otp-input>
             <v-btn class="mt-8" block text="登陆" @click="Login"></v-btn>
-          </div>
-
-          <v-divider class="mt-8 mb-4"></v-divider>
-          <div class="d-flex justify-end align-center">
-            <v-btn text="创建一个账号？" variant="text" to="/register"></v-btn>
           </div>
         </v-card>
       </v-col>

@@ -9,3 +9,4 @@ class Posts(Model):
     updated_at = fields.DatetimeField(auto_now=True)
     abstract = fields.CharField(max_length=128)
     status = fields.SmallIntField(default=0)
+    wordcount = fields.IntField(default=0)

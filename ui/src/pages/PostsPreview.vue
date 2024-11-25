@@ -6,6 +6,7 @@ import hljs from 'highlight.js';
 
 import {retrievePostApi} from "@/services";
 
+const authState = localStorage.getItem("token")
 const route = useRoute()
 const postId = route.params.id
 const post = ref({})
@@ -34,7 +35,7 @@ onMounted(async () => {
       <v-col cols="11" md="6" sm="10">
         <p class="text-h4 mb-2 hover-transition">{{post.title}}</p>
         <p class="mb-4">🖊️ John Leider • 📅 {{post.created_at}}</p>
-        <div>
+        <div v-if="authState">
           <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/compose/${postId}`">编辑</v-btn>
           <span class="mx-2"></span>
 
