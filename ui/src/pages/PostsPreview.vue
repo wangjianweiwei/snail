@@ -34,7 +34,7 @@ onMounted(async () => {
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="6" sm="10">
         <p class="text-h4 mb-2 hover-transition">{{post.title}}</p>
-        <p class="mb-4">🖊️ John Leider • 📅 {{post.created_at}}</p>
+        <p class="mb-4">📅 {{post.created_at}}</p>
         <div v-if="authState">
           <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/compose/${postId}`">编辑</v-btn>
           <span class="mx-2"></span>

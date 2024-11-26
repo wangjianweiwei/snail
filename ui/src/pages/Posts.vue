@@ -3,13 +3,13 @@
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="6" sm="10">
         <p class="text-h4 mb-2 mt-4 font-weight-black">博客</p>
-        <p>Latest news, updates, and stories about Vuetify.</p>
+        <p>Latest news, updates, and stories about Me.</p>
         <v-divider class="my-6"></v-divider>
         <div :key="post.id" v-for="post in posts">
           <p class="text-h5 mb-2 hover-transition">{{ post.title }}</p>
           <p class="mb-4">
-            <span class="mr-1"> 📅 {{ post.created_at }}</span>
-            <span class="ml-1">🖊️ {{ post.wordcount }}字</span>
+            <span class="mr-1">📅 {{ post.created_at }}</span>
+
           </p>
           <p class="text-medium-emphasis font-weight-light">{{ post.abstract }}</p>
           <div class="text-end pt-4">

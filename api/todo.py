@@ -56,7 +56,6 @@ async def delete(pk: int):
 
 @router.put("/update")
 async def delete(pk: int = Body(embed=True), updated: dict = Body()):
-    print(updated)
     await TodoItem.filter(pk=pk).update(**updated)
     return {
         "data": None,

@@ -12,7 +12,7 @@ const router = useRouter()
 
 async function logout() {
   localStorage.removeItem("token")
-  await router.push("/login")
+  await router.push("/posts/list")
 }
 
 </script>
@@ -86,7 +86,7 @@ async function logout() {
                   <span class="text-h6">wangjianwei</span>
                 </v-avatar>
               </template>
-              <v-list width="230" density="compact" rounded border="sm">
+              <v-list width="230" density="comfortable" border="sm" rounded>
                 <v-list-item
                   title="admin"
                   subtitle="wangjianwei">
@@ -107,9 +107,9 @@ async function logout() {
                   value="Profile"
                   to="Profile">
                   <template #default>
-                    <p class="text-sm-body-2">
-                      <v-icon icon="mdi-account-outline"></v-icon>
-                      <span class="ml-2 text-lg-body-1">&nbsp;&nbsp;Profile</span>
+                    <p class="d-flex justify-start align-center">
+                       <v-icon icon="mdi-account-outline"></v-icon>
+                      <span class="text-body-2 ml-4">个人中心</span>
                     </p>
                   </template>
                 </v-list-item>
@@ -120,13 +120,12 @@ async function logout() {
                   value="child.meta.subMenu"
                   to="child.meta.fullPath">
                   <template #default>
-                    <p class="text-sm-body-2">
+                    <p class="d-flex justify-start align-center">
                       <v-icon icon="mdi-cog-outline"></v-icon>
-                      <span class="ml-2 text-lg-body-1">&nbsp;&nbsp;Settings</span>
+                      <span class="text-body-2 ml-4">设置</span>
                     </p>
                   </template>
                 </v-list-item>
-                <v-divider class="my-2"></v-divider>
                 <v-list-item
                   rounded
                   class="mx-2 my-1"
@@ -134,9 +133,9 @@ async function logout() {
                   value="Logout"
                   @click="logout">
                   <template #default>
-                    <p class="text-sm-body-2">
+                    <p class="d-flex justify-start align-center">
                       <v-icon icon="mdi-logout"></v-icon>
-                      <span class="ml-2 text-lg-body-1">&nbsp;&nbsp;Logout</span>
+                      <span class="text-body-2 ml-4">退出登录</span>
                     </p>
                   </template>
                 </v-list-item>

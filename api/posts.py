@@ -42,7 +42,6 @@ async def query(page: int, size: int):
     count = await posts.count()
     values = ("id", "title", "created_at", "abstract", "wordcount")
     paged = await posts.order_by("-created_at").offset((page - 1) * size).limit(size).values(*values)
-    print(paged)
     return {
         "data": {"count": count,
                  "paged": [PostSchema.from_orm(Posts(**post)) for post in paged],
@@ -126,7 +125,6 @@ async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True), 
     """
     snapshot = Delta(content["ops"])
     document = snapshot.document()
-    print(pk, len(document))
     await Posts.filter(pk=pk).update(content=content, abstract=document[:128], wordcount=len(document))
     return {
         "data": None,
