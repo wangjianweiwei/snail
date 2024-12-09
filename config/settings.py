@@ -29,7 +29,7 @@ class Setting:
         },
         "apps": {
             "models": {
-                "models": ["models.auth", "models.posts", "models.todo", "aerich.models"],
+                "models": ["models.auth", "models.posts", "models.todo", "models.photos", "aerich.models"],
                 "default_connection": "default",
             },
         },
@@ -70,7 +70,7 @@ class ProductionSetting(Setting):
         },
         "apps": {
             "models": {
-                "models": ["models.auth", "models.posts", "models.todo", "aerich.models"],
+                "models": ["models.auth", "models.posts", "models.todo", "models.photos", "aerich.models"],
                 "default_connection": "default",
             },
         },

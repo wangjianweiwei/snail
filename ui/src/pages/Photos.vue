@@ -1,13 +1,16 @@
 <script setup>
 
-import {ref, onMounted} from "vue";
+import {ref, onMounted, reactive, nextTick} from "vue";
 import Viewer from "viewerjs";
 import 'viewerjs/dist/viewer.css';
+import {getPhotosApi, uploadPhotosApi} from "@/services";
 
 const drawer = ref(false)
-const dialog = ref(false)
-
-
+const TimelineDialog = ref(false)
+const UploadDialog = ref(false)
+const UploadLoading = ref(false)
+const event = ref("")
+const files = ref([])
 const years = ref([
   {
     color: 'cyan',
@@ -42,19 +45,44 @@ const years = ref([
     year: '2000',
   },
 ])
+const photos = reactive([])
+let viewer = null
 
-const images = ref(['https://fengyuanchen.github.io/viewerjs/images/tibet-2.jpg', '/src/assets/images/OMG_7801.jpg', '/src/assets/images/OMG_8207.jpg', '/src/assets/thumbnail/OMG_8494.jpeg', '/src/assets/thumbnail/OMG_8318.jpeg', '/src/assets/thumbnail/OMG_8126.jpeg', '/src/assets/thumbnail/OMG_8290.jpeg', '/src/assets/thumbnail/OMG_8083.jpeg', '/src/assets/thumbnail/OMG_8097.jpeg', '/src/assets/thumbnail/OMG_8136.jpeg', '/src/assets/thumbnail/OMG_8384.jpeg', '/src/assets/thumbnail/OMG_8151.jpeg', '/src/assets/thumbnail/OMG_8227.jpeg', '/src/assets/thumbnail/OMG_8345.jpeg', '/src/assets/thumbnail/OMG_8387.jpeg', '/src/assets/thumbnail/OMG_7671.jpeg', '/src/assets/thumbnail/OMG_8220.jpeg', '/src/assets/thumbnail/OMG_8624.jpeg', '/src/assets/thumbnail/OMG_8368.jpeg', '/src/assets/thumbnail/YY__4535.jpeg', '/src/assets/thumbnail/YY__4496.jpeg', '/src/assets/thumbnail/YY__4480.jpeg', '/src/assets/thumbnail/OMG_8009.jpeg', '/src/assets/thumbnail/OMG_7930.jpeg', '/src/assets/thumbnail/OMG_8207.jpeg', '/src/assets/thumbnail/OMG_8603.jpeg', '/src/assets/thumbnail/OMG_8429.jpeg', '/src/assets/thumbnail/OMG_7860.jpeg', '/src/assets/thumbnail/OMG_8012.jpeg', '/src/assets/thumbnail/OMG_8172.jpeg', '/src/assets/thumbnail/OMG_8416.jpeg', '/src/assets/thumbnail/OMG_7898.jpeg', '/src/assets/thumbnail/OMG_8407.jpeg', '/src/assets/thumbnail/OMG_8570.jpeg', '/src/assets/thumbnail/OMG_7736.jpeg', '/src/assets/thumbnail/OMG_7988.jpeg', '/src/assets/thumbnail/OMG_7801.jpeg', '/src/assets/thumbnail/OMG_8298.jpeg', '/src/assets/thumbnail/OMG_8662.jpeg', '/src/assets/thumbnail/OMG_7637.jpeg', '/src/assets/thumbnail/OMG_8673.jpeg', '/src/assets/thumbnail/OMG_8049.jpeg', '/src/assets/thumbnail/OMG_8261.jpeg', '/src/assets/thumbnail/OMG_8275.jpeg', '/src/assets/thumbnail/OMG_8063.jpeg', '/src/assets/thumbnail/YY__4548.jpeg', '/src/assets/thumbnail/OMG_7621.jpeg', '/src/assets/thumbnail/OMG_7806.jpeg'])
+onMounted(async () => {
+  await getPhotos()
+})
 
-onMounted(() => {
-  let preview = document.getElementById("preview")
-  const viewer = new Viewer(document.getElementById('gallery'), {
+async function getPhotos() {
+  photos.push(...await getPhotosApi())
+  await nextTick();
+  initViewer()
+}
+
+function initViewer() {
+  if (viewer) {
+    viewer.destroy()
+  }
+  viewer = new Viewer(document.getElementById('gallery'), {
     inline: false,
     zIndex: 10000,
-    container: preview,
+    container: document.getElementById("preview"),
     fullscreen: false,
-    movable: false
+    movable: false,
+    url(image) {
+      return image.src.replace('_thumbnail_', '_');
+    },
   });
-})
+
+}
+
+async function upload() {
+  UploadLoading.value = true
+  await uploadPhotosApi(event.value, files.value)
+  UploadLoading.value = false
+  UploadDialog.value = false
+  await getPhotos()
+}
+
 </script>
 
 <template>
@@ -64,16 +92,26 @@ onMounted(() => {
     temporary
   >
     <v-list nav>
-      <v-list-item prepend-icon="mdi-cloud-upload-outline" title="上传" value="home"></v-list-item>
-      <v-list-item prepend-icon="mdi-timeline-clock-outline" title="时间线" value="account"
-                   @click="dialog = true"></v-list-item>
-      <v-list-item prepend-icon="mdi-account-group-outline" title="Users" value="users"></v-list-item>
+      <v-list-item prepend-icon="mdi-cloud-upload-outline"
+                   title="上传"
+                   value="home"
+                   @click="UploadDialog = true">
+      </v-list-item>
+      <v-list-item prepend-icon="mdi-timeline-clock-outline"
+                   title="时间线"
+                   value="account"
+                   @click="TimelineDialog = true">
+      </v-list-item>
+      <v-list-item prepend-icon="mdi-account-group-outline"
+                   title="Users"
+                   value="users">
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
   <div id="preview"></div>
   <div id="gallery">
-    <div class="gallery-item" v-for="n in images">
-      <img :src="n" alt="12">
+    <div class="gallery-item" :key="n.id" v-for="n in photos">
+      <img :src="n.thumbnail" alt="12">
     </div>
   </div>
   <v-fab
@@ -85,7 +123,7 @@ onMounted(() => {
     @click="drawer = true"
   ></v-fab>
   <v-dialog
-    v-model="dialog"
+    v-model="TimelineDialog"
     transition="dialog-bottom-transition"
     fullscreen
   >
@@ -93,7 +131,7 @@ onMounted(() => {
       <v-toolbar height="50">
         <v-btn
           icon="mdi-close"
-          @click="dialog = false"
+          @click="TimelineDialog = false"
         ></v-btn>
       </v-toolbar>
       <div class="pa-12">
@@ -123,6 +161,51 @@ onMounted(() => {
           </v-timeline-item>
         </v-timeline>
       </div>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog
+    v-model="UploadDialog"
+    width="30%"
+  >
+    <v-card
+      :loading="UploadLoading"
+      prepend-icon="mdi-cloud-upload-outline"
+      title="上传"
+    >
+      <template v-slot:text>
+        <v-form @submit.prevent>
+          <v-text-field
+            class="my-4"
+            prepend-icon="mdi-draw"
+            variant="outlined"
+            density="compact"
+            v-model="event"
+            label="输入本次照片的主题">
+          </v-text-field>
+          <v-file-input
+            class="my-4"
+            multiple
+            counter
+            show-size
+            chips
+            v-model="files"
+            prepend-icon="mdi-image"
+            variant="outlined"
+            density="compact"
+            accept="image/*"
+            label="选择要上传的照片">
+          </v-file-input>
+        </v-form>
+      </template>
+      <template v-slot:actions>
+        <v-btn
+          class="ms-auto"
+          text="上 传"
+          variant="tonal"
+          @click="upload"
+        ></v-btn>
+      </template>
     </v-card>
   </v-dialog>
 </template>

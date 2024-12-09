@@ -67,3 +67,24 @@ export async function checkInitializationApi() {
   let response = await request.get("/api/auth/check_initialization")
   return response.data.data
 }
+
+
+export async function getPhotosApi() {
+  let response = await request.get("/api/photos/")
+  return response.data.data
+}
+
+export async function uploadPhotosApi(event, files) {
+  const formData = new FormData();
+  formData.append("name", event);
+  for (const file of files) {
+    formData.append("images", file); // 多文件时用相同的键名
+  }
+
+  let response = await request.post("/api/photos/", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  })
+  return response.data.data
+}
