@@ -26,7 +26,8 @@ class PhotosSchema(BaseModel):
 
     @staticmethod
     def format_path(path: str) -> str:
-        return f"http://127.0.0.1:8000/{path}"
+        # return f"http://127.0.0.1:8000/{path}"
+        return f"http://me-api.ifmatch.top/{path}"
 
     @classmethod
     def from_orm(cls, photos: Photos) -> Self:
