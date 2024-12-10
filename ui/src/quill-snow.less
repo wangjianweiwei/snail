@@ -9,6 +9,7 @@
     outline: none;
   }
 
+
   &.ql-toolbar {
     text-align: center;
     border: none;
@@ -63,7 +64,14 @@
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
     border: none;
-    //overflow: visible !important;
+
+    .ql-editor {
+      line-height: 1.9 !important;
+    }
+
+    .ql-size-large {
+      font-weight: bold;
+    }
   }
 
   .ql-code-block-container {
@@ -108,11 +116,14 @@
       content: '删除'
     }
   }
+
   .ql-tooltip.ql-editing {
-      a.ql-action::after {
-        content: '保存'
-      }
+    a.ql-action::after {
+      content: '保存'
     }
-  .ql-tooltip[data-mode=link]::before{
-    content: "输入URL:"}
+  }
+
+  .ql-tooltip[data-mode=link]::before {
+    content: "输入URL:"
+  }
 }

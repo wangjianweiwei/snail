@@ -64,8 +64,10 @@ async def upload(images: List[UploadFile], name: str = Form(), user=Depends(Toke
         generate_thumbnail(original_path, thumbnail_path)
         photo = Photos(thumbnail=thumbnail_path, original=original_path, event=event)
         photos.append(photo)
+        event.count += 1
 
     await Photos.bulk_create(photos)
+    await event.save()
 
     return {
         "data": None,
