@@ -88,3 +88,8 @@ export async function uploadPhotosApi(event, files) {
   })
   return response.data.data
 }
+
+export async function getEventsApi() {
+  let response = await request.get("/api/photos/events")
+  return response.data.data
+}

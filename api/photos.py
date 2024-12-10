@@ -14,6 +14,24 @@ from models.photos import Events, Photos
 router = APIRouter()
 
 
+class EventSchema(BaseModel):
+    id: int
+    title: str
+    count: int
+    created_at: str
+
+    @staticmethod
+    def format_datetime(dt: datetime) -> str:
+        return dt.strftime('%Y.%m.%d %H:%M:%S')  # 自定义时间格式
+
+    @classmethod
+    def from_orm(cls, event: Events) -> Self:
+        return cls(id=event.id,
+                   count=event.count,
+                   title=event.title,
+                   created_at=cls.format_datetime(event.created_at))
+
+
 class PhotosSchema(BaseModel):
     id: int
     original: str
@@ -22,7 +40,7 @@ class PhotosSchema(BaseModel):
 
     @staticmethod
     def format_datetime(dt: datetime) -> str:
-        return dt.strftime('%Y.%m.%d  %H:%M:%S')  # 自定义时间格式
+        return dt.strftime('%Y.%m.%d %H:%M:%S')  # 自定义时间格式
 
     @staticmethod
     def format_path(path: str) -> str:
@@ -83,6 +101,17 @@ async def list_images(user=Depends(Token.user)):
 
     return {
         "data": [PhotosSchema.from_orm(Photos(**photo)) for photo in photos],
+        "status": True,
+        "msg": None
+    }
+
+
+@router.get("/events")
+async def events():
+    queryset = await Events.filter()
+
+    return {
+        "data": [EventSchema.from_orm(event) for event in queryset],
         "status": True,
         "msg": None
     }

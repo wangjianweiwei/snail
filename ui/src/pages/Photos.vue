@@ -3,7 +3,7 @@
 import {ref, onMounted, reactive, nextTick} from "vue";
 import Viewer from "viewerjs";
 import 'viewerjs/dist/viewer.css';
-import {getPhotosApi, uploadPhotosApi} from "@/services";
+import {getPhotosApi, uploadPhotosApi, getEventsApi} from "@/services";
 
 const drawer = ref(false)
 const TimelineDialog = ref(false)
@@ -11,40 +11,7 @@ const UploadDialog = ref(false)
 const UploadLoading = ref(false)
 const event = ref("")
 const files = ref([])
-const years = ref([
-  {
-    color: 'cyan',
-    year: '1960',
-  },
-  {
-    color: 'green',
-    year: '1970',
-  },
-  {
-    color: 'pink',
-    year: '1980',
-  },
-  {
-    color: 'amber',
-    year: '1990',
-  },
-  {
-    color: 'orange',
-    year: '2000',
-  },
-  {
-    color: 'orange',
-    year: '2000',
-  },
-  {
-    color: 'orange',
-    year: '2000',
-  },
-  {
-    color: 'orange',
-    year: '2000',
-  },
-])
+const events = ref([])
 const photos = reactive([])
 let viewer = null
 
@@ -58,6 +25,15 @@ async function getPhotos() {
   initViewer()
 }
 
+async function getEvents() {
+  events.value = await getEventsApi()
+}
+
+async function openTimelineDialog() {
+  await getEvents()
+  TimelineDialog.value = true
+}
+
 function initViewer() {
   if (viewer) {
     viewer.destroy()
@@ -67,7 +43,7 @@ function initViewer() {
     zIndex: 10000,
     container: document.getElementById("preview"),
     fullscreen: false,
-    movable: false,
+    movable: true,
     url(image) {
       return image.src.replace('_thumbnail_', '_');
     },
@@ -88,23 +64,21 @@ async function upload() {
 <template>
   <v-navigation-drawer
     v-model="drawer"
-    location="bottom"
+    location="right"
     temporary
   >
     <v-list nav>
+      <v-list-subheader>操 作</v-list-subheader>
       <v-list-item prepend-icon="mdi-cloud-upload-outline"
                    title="上传"
-                   value="home"
                    @click="UploadDialog = true">
       </v-list-item>
       <v-list-item prepend-icon="mdi-timeline-clock-outline"
                    title="时间线"
-                   value="account"
-                   @click="TimelineDialog = true">
+                   @click="openTimelineDialog">
       </v-list-item>
       <v-list-item prepend-icon="mdi-account-group-outline"
-                   title="Users"
-                   value="users">
+                   title="Users">
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -128,45 +102,41 @@ async function upload() {
     fullscreen
   >
     <v-card>
-      <v-toolbar height="50">
+      <v-card-title>
         <v-btn
           icon="mdi-close"
+          variant="text"
           @click="TimelineDialog = false"
         ></v-btn>
-      </v-toolbar>
-      <div class="pa-12">
-        <v-timeline align="start">
-          <v-timeline-item
-            v-for="(year, i) in years"
-            :key="i"
-            :dot-color="year.color"
-            size="small"
-          >
-            <template v-slot:opposite>
-              <div
-                :class="`pt-1 headline font-weight-bold text-${year.color}`"
-                v-text="year.year"
-              ></div>
+      </v-card-title>
+      <div class="px-12 py-6">
+        <v-timeline side="end">
+          <v-timeline-item size="large"
+                           v-for="(event, i) in events"
+                           :key="i">
+            <template v-slot:icon>
+              <v-avatar image="https://i.pravatar.cc/64"></v-avatar>
             </template>
-            <div>
-              <h2 :class="`mt-n1 headline font-weight-light mb-4 text-${year.color}`">
-                Lorem ipsum
-              </h2>
-              <div>
-                Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod
-                convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an
-                salutandi sententiae.
-              </div>
-            </div>
+            <template v-slot:opposite>
+              <span>{{ event.title }}({{ event.count }})</span>
+            </template>
+            <v-card>
+              <v-card-title>
+                {{ event.created_at }}
+              </v-card-title>
+              <v-card-text>
+                <v-btn text="查看" variant="text" class="mx-3"></v-btn>
+                <v-btn text="上传" variant="text" class="mx-3"></v-btn>
+              </v-card-text>
+            </v-card>
           </v-timeline-item>
         </v-timeline>
       </div>
     </v-card>
   </v-dialog>
-
   <v-dialog
     v-model="UploadDialog"
-    width="30%"
+    width="40%"
   >
     <v-card
       :loading="UploadLoading"
@@ -216,7 +186,7 @@ async function upload() {
   flex: 1; /* 左侧区域 */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 3px;
+  gap: 1.5px;
   padding: 0;
   overflow-y: auto;
   grid-auto-rows: 150px;
