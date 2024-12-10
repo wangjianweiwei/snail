@@ -1,7 +1,7 @@
 from uvicorn import run
 
 from app import snail
-from config import setting
+from config import settings
 
 if __name__ == '__main__':
-    run(snail, host=setting.host, port=setting.port)
+    run(snail, host=settings.HOST, port=settings.PORT, reload=settings.DEBUG)

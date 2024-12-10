@@ -1,17 +1,17 @@
 import os
 from PIL import Image
 from uuid import uuid4
-from typing import List, Any, Self
+from typing import List, Self
 from datetime import datetime
 
 from pydantic import BaseModel
-from fastapi import APIRouter, UploadFile, Form
+from fastapi import APIRouter, UploadFile, Form, Depends
 
+from util import Token
+from config import settings
 from models.photos import Events, Photos
 
 router = APIRouter()
-O_PATH = "images"
-T_PATH = "images"
 
 
 class PhotosSchema(BaseModel):
@@ -26,8 +26,7 @@ class PhotosSchema(BaseModel):
 
     @staticmethod
     def format_path(path: str) -> str:
-        # return f"http://127.0.0.1:8000/{path}"
-        return f"http://me-api.ifmatch.top/{path}"
+        return f"{settings.SERVER_NAME}/{path}"
 
     @classmethod
     def from_orm(cls, photos: Photos) -> Self:
@@ -43,8 +42,6 @@ def generate_thumbnail(input_path, output_path):
         with Image.open(input_path) as img:
             # 保持原比例生成缩略图
             img.thumbnail((350.0, 350.0))
-            # 确保输出目录存在
-
             # 保存缩略图
             img.save(output_path)
             print(f"缩略图已保存到: {output_path}")
@@ -53,30 +50,32 @@ def generate_thumbnail(input_path, output_path):
 
 
 @router.post("/")
-async def upload(images: List[UploadFile], name: str = Form()):
+async def upload(images: List[UploadFile], name: str = Form(), user=Depends(Token.user)):
     event, _ = await Events.get_or_create(title=name)
 
     photos = []
     for image in images:
         uuid = uuid4().hex
-        o_path = os.path.join(O_PATH, f"{uuid}_{image.filename}")
-        with open(o_path, "wb") as f:
+        original_path = os.path.join(settings.ORIGINAL_PATH, f"{uuid}_{image.filename}")
+        with open(original_path, "wb") as f:
             f.write(image.file.read())
 
-        t_path = os.path.join(O_PATH, f"{uuid}_thumbnail_{image.filename}")
-        generate_thumbnail(o_path, t_path)
-        photo = Photos(thumbnail=t_path, original=o_path, event=event)
+        thumbnail_path = os.path.join(settings.THUMBNAIL_PATH, f"{uuid}_thumbnail_{image.filename}")
+        generate_thumbnail(original_path, thumbnail_path)
+        photo = Photos(thumbnail=thumbnail_path, original=original_path, event=event)
         photos.append(photo)
 
     await Photos.bulk_create(photos)
 
     return {
-        "success": True
+        "data": None,
+        "status": True,
+        "msg": None
     }
 
 
 @router.get("/")
-async def list_images():
+async def list_images(user=Depends(Token.user)):
     values = ["id", "thumbnail", "original", "created_at"]
     photos = await Photos.filter().values(*values)
 

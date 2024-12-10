@@ -6,8 +6,8 @@ import {router} from "@/plugins/router";
 // const router = useRouter()
 
 const request = axios.create({
-  // baseURL: "http://me-api.ifmatch.top"
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: "http://me-api.ifmatch.top"
+  // baseURL: "http://127.0.0.1:8000",
 })
 request.interceptors.request.use(config => {
   // 1.从缓存中获取到token,这里的Authorization时登录时你给用户设置token的键值

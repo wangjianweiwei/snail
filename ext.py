@@ -3,11 +3,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from tortoise import Tortoise  # noqa
 
-from config import setting
+from config.aerich import TORTOISE_CONFIG
 
 
 async def init_db() -> None:
-    await Tortoise.init(setting.tortoise_orm)
+    await Tortoise.init(TORTOISE_CONFIG)
 
 
 @asynccontextmanager

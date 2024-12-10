@@ -1,2 +1,1 @@
-from config.const import Const
-from config.settings import setting
+from config.settings import settings

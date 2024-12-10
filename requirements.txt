@@ -13,3 +13,6 @@ qrcode==8.0
 pillow==11.0.0
 cryptography==43.0.3
 python-multipart==0.0.19
+typing_extensions~=4.12.2
+pydantic~=2.10.2
+pydantic-settings==2.6.1
