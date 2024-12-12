@@ -66,11 +66,24 @@
     border: none;
 
     .ql-editor {
+      padding: 20px 0 !important;
       line-height: 1.9 !important;
+
+      a {
+        text-decoration: revert;
+        color: #fff;
+      }
+
+      a:before {
+        content: '🔗 ';
+      }
     }
 
     .ql-size-large {
       font-weight: bold;
+      border-bottom: #44474a solid thin;
+      display: block;
+      margin-bottom: 6px;
     }
   }
 
