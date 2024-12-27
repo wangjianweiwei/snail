@@ -1,9 +1,8 @@
 import request from "@/plugins/axios";
 import {it} from "vuetify/locale";
 
-export async function getTodos(status, time_filter) {
-  console.log(time_filter)
-  let response = await request.get(`/api/todo/?status=${status}&date=${time_filter}`)
+export async function getTodos(page, size, status, date) {
+  let response = await request.get("/api/todo/", {params: {page, size, status, date}})
   return response.data.data
 }
 

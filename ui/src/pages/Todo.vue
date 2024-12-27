@@ -1,8 +1,9 @@
 <script setup>
-import {ref, reactive, onMounted, watch} from "vue";
+import {ref, reactive, onMounted, watch, nextTick} from "vue";
 import {useDate} from "vuetify";
 import {getTodos, updateTodo, createTodo, deleteTodo} from "@/services";
 import 'animate.css';
+import {tr} from "vuetify/locale";
 
 const filter = [
   {name: "全部", status: '', date: () => ""},
@@ -24,8 +25,11 @@ const selectedFilter = ref({name: "全部待办", status: 0, date: () => ""})
 const NewTaskName = ref("")
 const NewTaskLoading = ref(false)
 const planDateDialog = ref({view: false, task: null})
-
+const page = ref(1)
+const size = ref(20)
+const isLastPage = ref(false)
 const tasks = reactive([])
+let infiniteLoad = null
 
 const dataFormats = {
   date: 'YYYY-MM-DD',            // Format date as '2024-08-11'
@@ -33,18 +37,23 @@ const dataFormats = {
   time: 'HH:mm:ss'               // Format time as '14:10:48'
 }
 
-async function fetchTodos() {
-  tasks.splice(0, tasks.length);
-  let todos = await getTodos(selectedFilter.value.status, selectedFilter.value.date())
+async function fetchTodos(reset) {
+  if (reset) {
+    tasks.splice(0, tasks.length);
+    page.value = 1
+    isLastPage.value = false
+    infiniteLoad("ok")
+  }
+  let todos = await getTodos(page.value, size.value, selectedFilter.value.status, selectedFilter.value.date())
   tasks.push(...todos.paged)
+
+  if (todos.page_count <= page.value) {
+    isLastPage.value = true
+  }
 }
 
 onMounted(async () => {
   await fetchTodos()
-})
-
-watch(datePickerVal, (n, o) => {
-  console.log(n, `${n.getFullYear()}-${n.getMonth() + 1}-${n.getDate()}`)
 })
 
 const taskCheckboxUpdate = async (task) => {
@@ -60,12 +69,17 @@ const taskCheckboxUpdate = async (task) => {
   await updateTodo(task.id, {is_completed: task.is_completed, title: task.title})
   task.loading = false
   setTimeout(async () => {
-    await fetchTodos()
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id === task.id) {
+        tasks.splice(i, 1)
+      }
+    }
   }, 3000)
 
 }
 
-const addTask = async () => {
+const addTask = async (event) => {
+  if (event.isComposing) return;
   if (NewTaskName.value.length > 0) {
     NewTaskLoading.value = true
     let item = await createTodo(NewTaskName.value)
@@ -78,7 +92,6 @@ const addTask = async () => {
 const deleteTask = async (task, index) => {
   task.loading = true
   await deleteTodo(task.id)
-  console.log(tasks[index])
   tasks.splice(index, 1)
 }
 
@@ -100,8 +113,20 @@ const getDate = (date) => {
 }
 
 
-const Load = ({done}) => {
-  done("empty")
+const Load = async ({done}) => {
+  if (!infiniteLoad) {
+    infiniteLoad = done
+  }
+
+  if (isLastPage.value) {
+    done("empty")
+
+  } else {
+    done("loading")
+    page.value++
+    await fetchTodos()
+    done("ok")
+  }
 }
 </script>
 
@@ -120,7 +145,7 @@ const Load = ({done}) => {
                     show-adjacent-months
                     width="100%"
                     v-model="datePickerVal"
-                    @update:modelValue="fetchTodos()"
+                    @update:modelValue="fetchTodos(true)"
                   >
                   </v-date-picker>
                 </v-locale-provider>
@@ -139,7 +164,7 @@ const Load = ({done}) => {
                       mandatory
                       color="#696CFF"
                       variant="flat"
-                      @update:modelValue="fetchTodos()"
+                      @update:modelValue="fetchTodos(true)"
                     >
                       <v-btn :key="i" :value="o" v-for="(o, i) in filter">
                         {{ o.name }}
@@ -166,14 +191,14 @@ const Load = ({done}) => {
                       density="compact"
                       label="添加一个待办事项....."
                       :loading="NewTaskLoading && 'primary'"
-                      @keyup.enter="addTask"
+                      @keydown.enter.exact="addTask"
                       v-model="NewTaskName">
                     </v-text-field>
                   </v-col>
                 </v-row>
                 <v-row style="height: 84%" no-gutters>
                   <v-col cols="12" style="height: 100%;">
-                    <v-infinite-scroll height="100%" @load="Load">
+                    <v-infinite-scroll height="100%" @load="Load" ref="infiniteScrollRef">
                       <v-hover v-for="(task, i) in tasks" :key="task.id" :model-value="task.hover">
                         <template v-slot:default="{ isHovering, props }">
                           <v-list-item
@@ -242,9 +267,9 @@ const Load = ({done}) => {
                           </v-list-item>
                         </template>
                       </v-hover>
-                    <template #empty>
-                      <p class="text-body-2 text-disabled my-8">没有更多啦</p>
-                    </template>
+                      <template #empty>
+                        <p class="text-body-2 text-disabled my-8">没有更多啦</p>
+                      </template>
                     </v-infinite-scroll>
                   </v-col>
                 </v-row>

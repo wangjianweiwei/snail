@@ -1,3 +1,5 @@
+from math import ceil
+
 from fastapi import APIRouter, Body
 
 from datetime import datetime
@@ -7,27 +9,27 @@ router = APIRouter()
 
 
 @router.get("/")
-async def query(status: str = None, date: str = None):
+async def query(page: int = 1, size: int = 20, status: str = None, date: str = None):
     if status == "1":
-        todos = TodoItem.filter(is_completed=True)
+        if date:
+            start = f"{date} {datetime.min.time()}"
+            end = f"{date} {datetime.max.time()}"
+            todos = TodoItem.filter(is_completed=True, completed_at__gte=start, completed_at__lt=end)
+        else:
+            todos = TodoItem.filter(is_completed=True)
     elif status == "0":
-        todos = TodoItem.filter(is_completed=False)
+        if date:
+            todos = TodoItem.filter(is_completed=False, plan_at=date)
+        else:
+            todos = TodoItem.filter(is_completed=False)
     else:
         todos = TodoItem.filter()
 
-    if date:
-        date = datetime.strptime(date, "%Y-%m-%d")
-        if status == "1":
-            todos = todos.filter(completed_at__year=date.year,
-                                 completed_at__month=date.month,
-                                 completed_at__day=date.day)
-        if status == "0":
-            todos = todos.filter(plan_at=date)
-
-    result = await todos.order_by("created_at")
+    count = await todos.count()
+    result = await todos.order_by("created_at").offset((page - 1) * size).limit(size)
 
     return {
-        "data": {"count": 0, "paged": result, "page_count": 0},
+        "data": {"count": count, "paged": result, "page_count": ceil(count / size)},
         "status": True,
         "msg": None
     }
@@ -55,7 +57,10 @@ async def delete(pk: int):
 
 
 @router.put("/update")
-async def delete(pk: int = Body(embed=True), updated: dict = Body()):
+async def update(pk: int = Body(embed=True), updated: dict = Body()):
+    if updated.get("is_completed"):
+        updated["completed_at"] = datetime.now()
+
     await TodoItem.filter(pk=pk).update(**updated)
     return {
         "data": None,

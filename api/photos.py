@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 from uuid import uuid4
-from typing import List, Self
+from typing_extensions import List, Self
 from datetime import datetime
 
 from pydantic import BaseModel
