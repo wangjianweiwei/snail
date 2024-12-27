@@ -112,10 +112,11 @@ async function upload() {
       <div class="px-12 py-6">
         <v-timeline side="end">
           <v-timeline-item size="large"
+                           dot-color="#2B2C40"
                            v-for="(event, i) in events"
                            :key="i">
             <template v-slot:icon>
-              <v-avatar image="https://i.pravatar.cc/64"></v-avatar>
+              <span>📷️</span>
             </template>
             <template v-slot:opposite>
               <span>{{ event.title }}({{ event.count }})</span>

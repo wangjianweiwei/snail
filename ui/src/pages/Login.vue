@@ -76,4 +76,26 @@ const Login = async () => {
 .v-otp-input__content {
   padding: 0.5rem 0 !important;
 }
+
+
+.v-application {
+  background: linear-gradient(
+    270deg,
+    #696CFF, /* 主色调1 */ #2B2C40, /* 主色调2 */ #c27d7d, /* 柔和的对比色 */ #867DF7, /* 温暖浅紫色 */ #1F202E /* 深色补充 */
+  );
+  background-size: 800% 800%;
+  animation: backgroundAnimation 8s ease infinite;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
 </style>
