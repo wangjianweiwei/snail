@@ -1,7 +1,7 @@
 <template>
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
-      <v-col cols="11" md="6" sm="10">
+      <v-col cols="11" md="6" sm="11">
         <p class="text-h4 mb-2 mt-4 font-weight-black">博客</p>
         <p>Latest news, updates, and stories about Me.</p>
         <v-divider class="my-6"></v-divider>

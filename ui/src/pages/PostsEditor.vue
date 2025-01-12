@@ -98,7 +98,7 @@ async function updateTitle() {
       </v-row>
       <v-divider></v-divider>
       <v-row justify="center" no-gutters style="height: calc(100% - 48px)">
-        <v-col id="postsEditor" cols="11" md="6" sm="10" style="height: 100%">
+        <v-col id="postsEditor" cols="11" md="6" sm="11" style="height: 100%">
           <div id="postsEditor" style="height: 100%;width: 100%"></div>
         </v-col>
       </v-row>

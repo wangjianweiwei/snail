@@ -32,7 +32,7 @@ onMounted(async () => {
 <template>
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
-      <v-col cols="11" md="6" sm="10">
+      <v-col cols="11" md="6" sm="11">
         <p class="text-h4 mb-2 hover-transition">{{post.title}}</p>
         <p class="mb-4">📅 {{post.created_at}}</p>
         <div v-if="authState">
