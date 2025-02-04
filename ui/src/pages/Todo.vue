@@ -31,6 +31,14 @@ const isLastPage = ref(false)
 const tasks = reactive([])
 let infiniteLoad = null
 
+const items = reactive([
+  {
+    id: null,
+    name: '全部',
+    children: []
+  }
+])
+
 const dataFormats = {
   date: 'YYYY-MM-DD',            // Format date as '2024-08-11'
   datetime: 'YYYY-MM-DD HH:mm:ss', // Format datetime as '2024-08-11 14:10:48'
@@ -128,6 +136,14 @@ const Load = async ({done}) => {
     done("ok")
   }
 }
+
+import {getCategoryApi} from "@/services";
+
+async function fetchChildren(item) {
+  let children = await getCategoryApi(item.id)
+  item.children = children
+
+}
 </script>
 
 <template>
@@ -138,18 +154,31 @@ const Load = async ({done}) => {
           <v-card style="height: 100%" rounded="lg">
             <v-row no-gutters style="height: 100%">
               <v-col cols="3" class="border-e-sm" style="height: 100%">
-                <v-locale-provider locale="zhHans">
-                  <v-date-picker
-                    :data-format-as="dataFormats"
-                    header="选择一个日期"
-                    show-adjacent-months
-                    width="100%"
-                    v-model="datePickerVal"
-                    @update:modelValue="fetchTodos(true)"
-                  >
-                  </v-date-picker>
-                </v-locale-provider>
-                <v-divider></v-divider>
+                <div style="height: 50%">
+                  <v-locale-provider locale="zhHans">
+                    <v-date-picker
+                      :data-format-as="dataFormats"
+                      header="选择一个日期"
+                      show-adjacent-months
+                      width="100%"
+                      v-model="datePickerVal"
+                      @update:modelValue="fetchTodos(true)"
+                    >
+                    </v-date-picker>
+                  </v-locale-provider>
+                </div>
+                <div class="pa-4 border-t-sm" style="overflow-y: auto;height: 50%">
+                  <div>
+                    添加
+                  </div>
+                  <v-treeview
+                    rounded
+                    item-title="name"
+                    :items="items"
+                    :load-children="fetchChildren"
+                    density="compact"
+                  ></v-treeview>
+                </div>
               </v-col>
               <v-col cols="9" style="height: 100%">
                 <v-row no-gutters style="height: 16%">

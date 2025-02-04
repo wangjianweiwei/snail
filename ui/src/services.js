@@ -92,3 +92,14 @@ export async function getEventsApi() {
   let response = await request.get("/api/photos/events")
   return response.data.data
 }
+
+
+export async function getCategoryApi(parent) {
+  let response = await request.get("/api/todo/category", {params: {parent}})
+  return response.data.data
+}
+
+export async function createCategoryApi(parent, name) {
+  let response = await request.post("/api/todo/category", {params: {parent, name}})
+  return response.data.data
+}

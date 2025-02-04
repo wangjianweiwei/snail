@@ -131,7 +131,5 @@ async function updateTitle() {
 </template>
 
 <style scoped>
-#postsEditor {
-  height: auto !important;
-}
+
 </style>

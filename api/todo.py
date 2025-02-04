@@ -1,11 +1,18 @@
 from math import ceil
 
 from fastapi import APIRouter, Body
+from pydantic import BaseModel
 
 from datetime import datetime
-from models.todo import TodoItem
+from models.todo import TodoItem, Category
 
 router = APIRouter()
+
+
+class CategorySchema(BaseModel):
+    id: int
+    name: str
+    children: list = []
 
 
 @router.get("/")
@@ -64,6 +71,29 @@ async def update(pk: int = Body(embed=True), updated: dict = Body()):
     await TodoItem.filter(pk=pk).update(**updated)
     return {
         "data": None,
+        "status": True,
+        "msg": None
+    }
+
+
+@router.get("/category")
+async def category(parent: int = None):
+    objects = await Category.filter(parent_id=parent).values("id", "name")
+
+    return {
+        "data": [CategorySchema(**n) for n in objects],
+        "status": True,
+        "msg": None
+    }
+
+
+@router.post("/category/create")
+async def category(name: str, parent: int = None):
+    obj = Category(parent_id=parent, name=name)
+    await obj.save()
+
+    return {
+        "data": obj,
         "status": True,
         "msg": None
     }
