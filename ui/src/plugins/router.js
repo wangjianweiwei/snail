@@ -69,7 +69,7 @@ const routes = [
         children: [
           {
             path: "email",
-            component: () => import('../pages/Email.vue'),
+            component: () => import('../pages/YuQue.vue'),
             meta: {subMenu: "我的邮箱", subMenuIcon: "mdi-email-check-outline", fullPath: "/apps/email"}
           },
           {

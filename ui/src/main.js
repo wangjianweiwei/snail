@@ -12,6 +12,11 @@ import App from './App.vue'
 
 // Composables
 import { createApp } from 'vue'
+import "@/assets/css/antd.css"
+import "@/assets/css/doc.css"
+import "@/assets/js/react.production.min"
+import "@/assets/js/react-dom.production.min"
+import "@/assets/js/doc.umd"
 
 const app = createApp(App)
 

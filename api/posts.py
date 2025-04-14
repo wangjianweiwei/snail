@@ -147,13 +147,24 @@ async def publish(pk: int, user=Depends(Token.user)):
         "msg": None
     }
 
-# @router.post("/image/upload")
-# async def image_upload(image: Body(embed=True), pk: int = Body()):
-#     """
-#     上传图片
-#
-#     :return:
-#     """
+
+@router.post("/image/upload")
+async def image_upload():
+    """
+    上传图片
+
+    :return:
+    """
+
+    return {
+        "data": {
+            "url": "https://cdn.vuetifyjs.com/images/profiles/marcus.jpg",
+            "size": 100,
+            "filename": "1111.png"
+        },
+        "status": True,
+        "msg": None
+    }
 
 # @router.post("/image/signature")
 # async def image_signature(pk: int = Body(embed=True), path: str = Body(embed=True)):

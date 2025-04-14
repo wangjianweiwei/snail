@@ -1,5 +1,4 @@
 import request from "@/plugins/axios";
-import {it} from "vuetify/locale";
 
 export async function getTodos(page, size, status, date) {
   let response = await request.get("/api/todo/", {params: {page, size, status, date}})
@@ -101,5 +100,15 @@ export async function getCategoryApi(parent) {
 
 export async function createCategoryApi(parent, name) {
   let response = await request.post("/api/todo/category", {params: {parent, name}})
+  return response.data.data
+}
+
+
+export async function imageUpload(formData) {
+  let response = await request.post("/api/posts/image/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  })
   return response.data.data
 }
