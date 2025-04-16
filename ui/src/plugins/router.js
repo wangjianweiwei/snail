@@ -32,7 +32,7 @@ const routes = [
           {
             path: 'compose/:id',
             meta: {requiresAuth: true},
-            component: () => import('../pages/PostsEditor.vue'),
+            component: () => import('../pages/YuQue.vue'),
           },
           {
             path: 'preview/:id',

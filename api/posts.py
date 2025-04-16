@@ -1,4 +1,7 @@
+import os
 import math
+from uuid import uuid4
+from config import settings
 from typing import Any
 from datetime import datetime
 from typing_extensions import Self
@@ -123,9 +126,7 @@ async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True), 
 
     :return:
     """
-    snapshot = Delta(content["ops"])
-    document = snapshot.document()
-    await Posts.filter(pk=pk).update(content=content, abstract=document[:128], wordcount=len(document))
+    await Posts.filter(pk=pk).update(content=content)
     return {
         "data": None,
         "status": True,
@@ -149,18 +150,23 @@ async def publish(pk: int, user=Depends(Token.user)):
 
 
 @router.post("/image/upload")
-async def image_upload():
+async def image_upload(image: UploadFile):
     """
     上传图片
 
     :return:
     """
+    filename = f"{uuid4().hex}_{image.filename}"
+    original_path = os.path.join(settings.ORIGINAL_PATH, filename)
+
+    with open(original_path, "wb") as f:
+        f.write(image.file.read())
 
     return {
         "data": {
-            "url": "https://cdn.vuetifyjs.com/images/profiles/marcus.jpg",
-            "size": 100,
-            "filename": "1111.png"
+            "url": f"{settings.SERVER_NAME}/{original_path}",
+            "size": image.size,
+            "filename": filename
         },
         "status": True,
         "msg": None
