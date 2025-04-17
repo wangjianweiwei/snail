@@ -56,4 +56,7 @@ onMounted(async () => {
 .ne-doc-major-viewer .ne-viewer-layout-mode-adapt {
   padding: 10px 0 !important;
 }
+.ne-viewer-toc-sidebar {
+  background: rgba(var(--v-theme-background)) !important;
+}
 </style>
