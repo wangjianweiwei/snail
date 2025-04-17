@@ -128,7 +128,7 @@ async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True), 
     """
     await Posts.filter(pk=pk).update(content=content)
     return {
-        "data": None,
+        "data": True,
         "status": True,
         "msg": None
     }

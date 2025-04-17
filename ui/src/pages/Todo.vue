@@ -191,7 +191,7 @@ async function fetchChildren(item) {
                       group
                       divided
                       mandatory
-                      color="#696CFF"
+                      color="primary"
                       variant="flat"
                       @update:modelValue="fetchTodos(true)"
                     >
@@ -206,7 +206,7 @@ async function fetchChildren(item) {
                       group
                       divided
                       mandatory
-                      color="#696CFF"
+                      color="primary"
                     >
                       <v-btn>列表</v-btn>
                       <v-btn>天</v-btn>

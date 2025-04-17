@@ -13,7 +13,7 @@
           </p>
           <p class="text-medium-emphasis font-weight-light">{{ post.abstract }}</p>
           <div class="text-end pt-4">
-            <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/preview/${post.id}`"
+            <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
                    text="read more"></v-btn>
           </div>
           <v-divider class="my-6"></v-divider>
@@ -60,8 +60,7 @@ async function getPosts() {
 /*创建新的博客*/
 async function createPost() {
   let data = await createPostApi("心情文章")
-  console.log(data)
-  await router.push(`/posts/compose/${data["id"]}`)
+  await router.push(`/posts/editor/${data["id"]}`)
   // await getPosts()
 }
 

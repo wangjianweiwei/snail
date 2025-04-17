@@ -107,7 +107,7 @@ function doEnter(e) {
                 group
                 divided
                 mandatory
-                color="#696CFF"
+                color="primary"
                 variant="flat"
                 @update:modelValue="fetchTodos()"
               >

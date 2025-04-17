@@ -17,8 +17,11 @@ onMounted(async () => {
   const {createOpenViewer} = window.Doc;
   // 创建阅读器
   const viewer = createOpenViewer(document.getElementById('editor'), {
-    layout: "fixed",
+    layout: "adapt",
     darkMode: true,
+    toc: {
+      enable: true
+    },
   });
   // 设置内容
   viewer.setDocument('json', post.value.content);
@@ -28,13 +31,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="py-lg-12">
+  <div class="py-lg-5">
     <v-row justify="center" no-gutters>
-      <v-col cols="5">
+      <v-col cols="11" md="6">
         <p class="text-h4 mb-2 hover-transition">{{ post.title }}</p>
         <p class="mb-4">📅 {{ post.created_at }}</p>
         <div v-if="authState">
-          <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/compose/${postId}`">编辑</v-btn>
+          <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">编辑</v-btn>
           <span class="mx-2"></span>
 
           <v-btn variant="tonal" append-icon="mdi-publish" color="success">发布</v-btn>
@@ -49,6 +52,8 @@ onMounted(async () => {
 
 </template>
 
-<style scoped lang="sass">
-
+<style>
+.ne-doc-major-viewer .ne-viewer-layout-mode-adapt {
+  padding: 10px 0 !important;
+}
 </style>

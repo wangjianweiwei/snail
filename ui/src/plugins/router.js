@@ -15,29 +15,21 @@ const routes = [
           {
             path: 'list',
             meta: {requiresAuth: false},
-            component: () => import('../pages/Posts.vue'),
-          },
-          {
-            path: 'category',
-            component: () => import('../pages/PostCategory.vue'),
-          },
-          {
-            path: 'tag',
-            component: () => import('../pages/PostTag.vue'),
+            component: () => import('../pages/PostsList.vue'),
           },
           {
             path: 'timeline',
             component: () => import('../pages/PostTimeline.vue'),
           },
           {
-            path: 'compose/:id',
+            path: 'editor/:id',
             meta: {requiresAuth: true},
-            component: () => import('../pages/YuQue.vue'),
+            component: () => import('../pages/PostsEditor.vue'),
           },
           {
-            path: 'preview/:id',
+            path: 'reader/:id',
             meta: {requiresAuth: false},
-            component: () => import('../pages/PostsPreview.vue'),
+            component: () => import('../pages/PostsReader.vue'),
           },
         ]
       },
@@ -69,7 +61,7 @@ const routes = [
         children: [
           {
             path: "email",
-            component: () => import('../pages/YuQue.vue'),
+            component: () => import('../pages/Email.vue'),
             meta: {subMenu: "我的邮箱", subMenuIcon: "mdi-email-check-outline", fullPath: "/apps/email"}
           },
           {

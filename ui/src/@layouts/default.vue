@@ -41,7 +41,7 @@ async function logout() {
                 <v-btn
                   style="font-weight: normal"
                   :variant="route.meta.parentMenu === menu.meta.parentMenu ?'flat': 'text'"
-                  :color="route.meta.parentMenu === menu.meta.parentMenu ?'#696CFF': ''"
+                  :color="route.meta.parentMenu === menu.meta.parentMenu ?'primary': ''"
                   class="text-none text-subtitle-1 mr-2"
                   :prepend-icon="menu.meta.parentMenuIcon"
                   :append-icon="menu.meta.hasSub ? 'mdi-chevron-down': ''"
