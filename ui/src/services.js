@@ -40,8 +40,8 @@ export async function updatePostApi(data) {
   let response = await request.put("/api/posts/update", data)
 }
 
-export async function composePostApi(pk, content) {
-  let response = await request.put("/api/posts/compose", {pk: pk, content: content})
+export async function composePostApi(pk, content, abstract, wordcount) {
+  let response = await request.put("/api/posts/compose", {pk, content, abstract, wordcount})
   return response.data.data
 }
 
@@ -111,4 +111,14 @@ export async function imageUpload(formData) {
     }
   })
   return response.data.data
+}
+
+export async function deletePostApi(pk) {
+  let response = await request.delete("/api/posts/destroy", {data: {pk}})
+  return response.data
+}
+
+export async function publishPostApi(pk, published) {
+  let response = await request.post("/api/posts/publish", {pk, published})
+  return response.data
 }

@@ -1,18 +1,79 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
-import {composePostApi, imageUpload, retrievePostApi} from "@/services";
+import {composePostApi, imageUpload, retrievePostApi, updatePostApi} from "@/services";
 
 const route = useRoute()
 const snackbar = ref(false)
 const snackbarText = ref("")
 const postId = route.params.id
+const titleRef = ref("")
 let editor = null
+
+const HeaderComponent = () => {
+  const React = window.React;
+  const {useState} = React;
+
+  return React.createElement(() => {
+    const [title, setTitle] = useState(titleRef.value);
+
+    const handleSave = async () => {
+      // 调用 Vue 中的保存逻辑，例如：
+      await updatePostApi({pk: postId, title: title});
+      snackbar.value = true;
+      snackbarText.value = "标题保存成功";
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.target.blur(); // 主动触发 blur
+      }
+    };
+
+    return React.createElement(
+      'div',
+      {
+        style: {
+          // padding: '10px 0px',
+          // background: '#1e1e1e',
+          // color: '#fff',
+          borderBottom: '2px solid #333',
+        }
+      },
+      React.createElement('input', {
+        value: title,
+        onChange: (e) => setTitle(e.target.value),
+        onKeyDown: handleKeyDown,
+        placeholder: "请输入标题",
+        className: "doc-title-input",
+        style: {
+          width: '100%',
+          fontSize: '24px',
+          fontWeight: '600',
+          padding: '12px 0px',
+          // backgroundColor: '#1e1e1e',
+          border: '1px solid transparent',
+          borderRadius: '8px',
+          color: '#fff',
+          outline: 'none',
+          transition: 'border-color 0.2s, box-shadow 0.2s',
+        },
+        onBlur: (e) => {
+          handleSave();
+        }
+      })
+    );
+  });
+};
 
 
 async function save() {
   let content = editor.getDocument()
-  let res = await composePostApi(postId, content)
+  let text = editor.getDocument("text/plain")
+  let abstract = text.substring(0, 128)
+
+  let res = await composePostApi(postId, content, abstract, text.length)
   snackbar.value = true
   if (res) {
     snackbarText.value = "保存成功"
@@ -30,9 +91,11 @@ function handleCtrlS(event) {
 
 onMounted(async () => {
   let data = await retrievePostApi(postId)
+  titleRef.value = data.title
   const {createOpenEditor} = window.Doc;
   // 创建编辑器
   editor = createOpenEditor(document.getElementById('editor'), {
+    header: HeaderComponent(),
     darkMode: true,
     layout: "fixed",
     placeholder: {

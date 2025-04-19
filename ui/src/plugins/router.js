@@ -111,8 +111,6 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  console.log(to.fullPath)
-  console.log(to.fullPath)
   if (from.fullPath !== "/login" && to.meta.requiresAuth && !localStorage.getItem("token")) {
     next({path: "/login", query: to.path === '/' ? {} : {from: to.path}})
   } else {

@@ -10,3 +10,4 @@ class Posts(Model):
     abstract = fields.CharField(max_length=128)
     status = fields.SmallIntField(default=0)
     wordcount = fields.IntField(default=0)
+    published = fields.BooleanField(default=False)

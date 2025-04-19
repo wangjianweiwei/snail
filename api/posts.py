@@ -6,9 +6,9 @@ from typing import Any
 from datetime import datetime
 from typing_extensions import Self
 
-from delta import Delta
 from pydantic import BaseModel
-from fastapi import APIRouter, Body, File, UploadFile, Depends
+from fastapi.exceptions import HTTPException
+from fastapi import APIRouter, Body, File, UploadFile, Depends, Header
 
 from util import Token
 from models.posts import Posts
@@ -22,6 +22,7 @@ class PostSchema(BaseModel):
     created_at: str
     abstract: str
     wordcount: int
+    published: bool
     content: Any = None
 
     @staticmethod
@@ -31,19 +32,29 @@ class PostSchema(BaseModel):
     @classmethod
     def from_orm(cls, post: Posts) -> Self:
         return cls(id=post.id, title=post.title, created_at=cls.format_datetime(post.created_at),
-                   abstract=post.abstract, content=post.content, wordcount=post.wordcount)
+                   abstract=post.abstract, content=post.content, wordcount=post.wordcount, published=post.published)
 
 
 @router.get("/")
-async def query(page: int, size: int):
+async def query(page: int, size: int, token: str = Header(default=None)):
     """
     列表页
 
     :return:
     """
-    posts = Posts.filter(status=1)
+    print(token)
+    if token is not None:
+        try:
+            Token.validate(token)
+            posts = Posts.filter(status=1)
+        except HTTPException:
+            print("1111")
+            posts = Posts.filter(published=1)
+    else:
+        posts = Posts.filter(published=1)
+
     count = await posts.count()
-    values = ("id", "title", "created_at", "abstract", "wordcount")
+    values = ("id", "title", "created_at", "abstract", "wordcount", "published")
     paged = await posts.order_by("-created_at").offset((page - 1) * size).limit(size).values(*values)
     return {
         "data": {"count": count,
@@ -94,7 +105,7 @@ async def destroy(pk: int = Body(embed=True), user=Depends(Token.user)):
     :param user:
     :return:
     """
-    await Posts.filter(pk=pk).delete()
+    await Posts.filter(pk=pk).update(status=0)
 
     return {
         "data": None,
@@ -120,13 +131,18 @@ async def create(title: str = Body(embed=True), user=Depends(Token.user)):
 
 
 @router.put("/compose")
-async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True), user=Depends(Token.user)):
+async def compose(
+        content: dict = Body(embed=True),
+        pk: int = Body(embed=True),
+        abstract: str = Body(embed=True),
+        wordcount: int = Body(embed=True),
+        user=Depends(Token.user)):
     """
     保存
 
     :return:
     """
-    await Posts.filter(pk=pk).update(content=content)
+    await Posts.filter(pk=pk).update(content=content, abstract=abstract, wordcount=wordcount)
     return {
         "data": True,
         "status": True,
@@ -134,14 +150,14 @@ async def compose(content: dict = Body(embed=True), pk: int = Body(embed=True), 
     }
 
 
-@router.get("/publish")
-async def publish(pk: int, user=Depends(Token.user)):
+@router.post("/publish")
+async def publish(pk: int = Body(embed=True), published: bool = Body(embed=True), user=Depends(Token.user)):
     """
     发布
 
     :return:
     """
-    await Posts.filter(pk=pk).update(status=1)
+    await Posts.filter(pk=pk).update(published=published)
     return {
         "data": None,
         "status": True,
