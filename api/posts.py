@@ -105,7 +105,7 @@ async def destroy(pk: int = Body(embed=True), user=Depends(Token.user)):
     :param user:
     :return:
     """
-    await Posts.filter(pk=pk).update(status=0)
+    await Posts.filter(pk=pk).update(status=0, published=False)
 
     return {
         "data": None,
