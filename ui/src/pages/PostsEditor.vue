@@ -97,6 +97,7 @@ onMounted(async () => {
   editor = createOpenEditor(document.getElementById('editor'), {
     header: HeaderComponent(),
     darkMode: true,
+    defaultFontsize: 15,
     layout: "fixed",
     placeholder: {
       tip: '请输入文字',

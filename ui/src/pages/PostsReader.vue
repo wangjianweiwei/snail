@@ -19,6 +19,7 @@ onMounted(async () => {
   // 创建阅读器
   const viewer = createOpenViewer(document.getElementById('editor'), {
     layout: "adapt",
+    defaultFontsize: 15,
     darkMode: true,
     toc: {
       enable: true
