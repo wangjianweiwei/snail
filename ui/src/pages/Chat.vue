@@ -664,7 +664,7 @@ const sendMsg = () => {
     <v-layout style="height: 100%">
       <v-row justify="center" no-gutters style="height: 100%">
         <v-col lg="10" xl="9">
-          <v-card rounded="lg" style="height: 100%" >
+          <v-card rounded="lg" style="height: 100%" border>
             <!--头部区域-->
             <v-row no-gutters style="height: 10%" align="center">
               <!--我的头像区域-->
@@ -762,7 +762,7 @@ const sendMsg = () => {
                 </div>
               </v-col>
               <!--空白好友工具栏区域-->
-              <v-col v-else style="background-color: #20202e;height: 100%"></v-col>
+              <v-col v-else style="height: 100%"></v-col>
             </v-row>
             <!--底部区域-->
             <v-row no-gutters style="height: 90%">
@@ -792,7 +792,7 @@ const sendMsg = () => {
               <!--聊天区域-->
               <v-col v-if="friend" cols="9" style="height: 100%">
                 <!--消息记录区域-->
-                <v-row no-gutters style="height: 90%;background-color: #20202e">
+                <v-row no-gutters style="height: 90%">
                   <v-col class="px-3">
                     <v-infinite-scroll height="100%" side="start" @load="load">
                       <template #default>
@@ -832,7 +832,7 @@ const sendMsg = () => {
                   </v-col>
                 </v-row>
                 <!--消息发送区域-->
-                <v-row no-gutters style="height: 10%;background-color: #20202e" align="center">
+                <v-row no-gutters style="height: 10%" align="center">
                   <v-col class="pa-4">
                     <v-sheet>
                       <v-text-field v-model="currentMsg" variant="solo-filled" no-resize
@@ -849,10 +849,10 @@ const sendMsg = () => {
                 </v-row>
               </v-col>
               <!--空白聊天区域-->
-              <v-col v-else cols="9" style="height: 100%;background-color: #20202e"
+              <v-col v-else cols="9" style="height: 100%"
                      class="d-flex flex-column justify-center align-center">
                 <v-icon size="100" icon="mdi-message-question-outline" class="mb-2"></v-icon>
-                <p class="text-grey-darken-1 text-sm-body-2 font-weight-black">通过选择左侧的联系人开始联系</p>
+                <p class="text-grey-darken-1 text-sm-body-2 font-weight-black">选择左侧的联系人开始联系</p>
               </v-col>
             </v-row>
           </v-card>

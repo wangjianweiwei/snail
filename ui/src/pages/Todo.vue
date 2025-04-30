@@ -151,7 +151,7 @@ async function fetchChildren(item) {
     <v-layout style="height: 100%">
       <v-row justify="center" style="height: 100%" no-gutters>
         <v-col lg="10" xl="9" style="height: 100%">
-          <v-card style="height: 100%" rounded="lg">
+          <v-card style="height: 100%" rounded="lg" border>
             <v-row no-gutters style="height: 100%">
               <v-col cols="3" class="border-e-sm" style="height: 100%">
                 <div style="height: 50%">
@@ -167,18 +167,18 @@ async function fetchChildren(item) {
                     </v-date-picker>
                   </v-locale-provider>
                 </div>
-                <div class="pa-4 border-t-sm" style="overflow-y: auto;height: 50%">
-                  <div>
-                    添加
-                  </div>
-                  <v-treeview
-                    rounded
-                    item-title="name"
-                    :items="items"
-                    :load-children="fetchChildren"
-                    density="compact"
-                  ></v-treeview>
-                </div>
+<!--                <div class="pa-4 border-t-sm" style="overflow-y: auto;height: 50%">-->
+<!--                  <div>-->
+<!--                    添加-->
+<!--                  </div>-->
+<!--                  <v-treeview-->
+<!--                    rounded-->
+<!--                    item-title="name"-->
+<!--                    :items="items"-->
+<!--                    :load-children="fetchChildren"-->
+<!--                    density="compact"-->
+<!--                  ></v-treeview>-->
+<!--                </div>-->
               </v-col>
               <v-col cols="9" style="height: 100%">
                 <v-row no-gutters style="height: 16%">
@@ -263,7 +263,7 @@ async function fetchChildren(item) {
                                       <v-btn icon="mdi-dots-vertical" variant="text" size="small"
                                              v-bind="props"></v-btn>
                                     </template>
-                                    <v-list density="compact" rounded>
+                                    <v-list density="compact" rounded border>
                                       <v-list-item
                                         value="1"
                                         rounded

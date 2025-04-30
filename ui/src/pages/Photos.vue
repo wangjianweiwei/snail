@@ -100,6 +100,7 @@ async function upload() {
     v-model="TimelineDialog"
     transition="dialog-bottom-transition"
     fullscreen
+    border
   >
     <v-card>
       <v-card-title>

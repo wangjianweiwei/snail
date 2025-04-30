@@ -21,7 +21,7 @@
             <span class="mr-4">📅 {{ post.created_at }}</span>
             <span>🖊️ {{ post.wordcount }}字</span>
           </p>
-          <p class="text-medium-emphasis ">{{ post.abstract }}</p>
+          <p class="text-medium-emphasis text-body-1">{{ post.abstract }}</p>
           <div class="text-end pt-4">
             <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
                    text="read more"></v-btn>
@@ -43,7 +43,6 @@
         @click="createPost"
       ></v-fab>
     </v-row>
-
   </div>
 
 </template>
