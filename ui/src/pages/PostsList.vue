@@ -19,7 +19,7 @@
           </p>
           <p class="mb-4">
             <span class="mr-4">📅 {{ post.created_at }}</span>
-            <span>🖊️ {{post.wordcount}}字</span>
+            <span>🖊️ {{ post.wordcount }}字</span>
           </p>
           <p class="text-medium-emphasis ">{{ post.abstract }}</p>
           <div class="text-end pt-4">
@@ -30,7 +30,7 @@
         </div>
         <div class="mt-8">
           <v-pagination @update:modelValue="changePage" :model-value="page" variant="text" active-color="primary"
-                        size="x-large" :length="postCount"></v-pagination>
+                        :length="postCount"></v-pagination>
         </div>
       </v-col>
       <v-fab
