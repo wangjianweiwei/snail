@@ -22,9 +22,14 @@
             <span>🖊️ {{ post.wordcount }}字</span>
           </p>
           <p class="text-medium-emphasis text-body-1">{{ post.abstract }}</p>
-          <div class="text-end pt-4">
+          <div class="d-flex justify-space-between justify-center pt-6">
             <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
-                   text="read more"></v-btn>
+                   text="阅读"></v-btn>
+            <span class="text-medium-emphasis">
+              <span><span class="mdi mdi-eye-outline"></span> 1209</span>
+              <span class="ml-4"><span class="mdi mdi-thumb-up-outline"></span> 80</span>
+              <span class="ml-4"><span class="mdi mdi-comment-text-outline"></span> 12</span>
+            </span>
           </div>
           <v-divider class="my-6"></v-divider>
         </div>
