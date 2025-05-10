@@ -23,7 +23,7 @@ async function logout() {
     <v-app-bar class="border-b-sm">
       <template v-slot:prepend>
         <v-btn style="text-transform: none" variant="plain" color="" size="x-large">
-          <h4><h1 style="display: inline">👋</h1>&nbsp;me.discuss.pub</h4>
+          <h1 style="display: inline">👋</h1><h4>&nbsp;me.discuss.pub</h4>
         </v-btn>
       </template>
       <template v-slot:append>
@@ -32,9 +32,9 @@ async function logout() {
             <v-menu
               offset="13"
               open-on-hover
-              open-delay="10"
+              open-delay="7"
               close-delay="10"
-              transition="scroll-y-reverse-transition"
+              transition="scale-transition"
               v-for="menu in routes[0]['children']"
             >
               <template v-slot:activator="{ props }">
@@ -42,13 +42,15 @@ async function logout() {
                   style="font-weight: normal"
                   :variant="route.meta.parentMenu === menu.meta.parentMenu ?'flat': 'text'"
                   :color="route.meta.parentMenu === menu.meta.parentMenu ?'primary': ''"
+                  :active="false"
                   class="text-none text-subtitle-1 mr-2"
                   :prepend-icon="menu.meta.parentMenuIcon"
                   :append-icon="menu.meta.hasSub ? 'mdi-chevron-down': ''"
                   v-bind="props"
                   :to="menu.meta.fullPath"
+                  :text="menu.meta.parentMenu"
                 >
-                  {{ menu.meta.parentMenu }}
+
                 </v-btn>
               </template>
               <v-list v-if="menu.meta.hasSub" density="comfortable" border="sm" rounded width="200px">

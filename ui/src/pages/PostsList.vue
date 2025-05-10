@@ -22,7 +22,7 @@
             <span>🖊️ {{ post.wordcount }}字</span>
           </p>
           <p class="text-medium-emphasis text-body-1">{{ post.abstract }}</p>
-          <div class="d-flex justify-space-between justify-center pt-6">
+          <div class="d-flex justify-space-between justify-center align-center pt-5">
             <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
                    text="阅读"></v-btn>
             <span class="text-medium-emphasis">
@@ -31,7 +31,7 @@
               <span class="ml-4"><span class="mdi mdi-comment-text-outline"></span> 12</span>
             </span>
           </div>
-          <v-divider class="my-6"></v-divider>
+          <v-divider class="my-5"></v-divider>
         </div>
         <div class="mt-8">
           <v-pagination @update:modelValue="changePage" :model-value="page" variant="text" active-color="primary"

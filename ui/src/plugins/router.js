@@ -79,6 +79,11 @@ const routes = [
             component: () => import('../pages/Photos.vue'),
             meta: {subMenu: "我的照片", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos", requiresAuth: true}
           },
+          {
+            path: "password",
+            component: () => import('../pages/PasswordManage.vue'),
+            meta: {subMenu: "密码管理器", subMenuIcon: 'mdi-key-chain', fullPath: '/apps/password', requiresAuth: true}
+          }
         ]
       },
       {
