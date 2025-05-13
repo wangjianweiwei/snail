@@ -53,7 +53,7 @@ async function logout() {
 
                 </v-btn>
               </template>
-              <v-list v-if="menu.meta.hasSub" density="comfortable" border="sm" rounded width="200px">
+              <v-list v-if="menu.meta.hasSub" density="compact" border="sm" rounded width="200px">
                 <v-list-item
                   v-for="child in menu.children.filter(n => {return n.meta?.subMenu})"
                   class="mx-2 my-1"
