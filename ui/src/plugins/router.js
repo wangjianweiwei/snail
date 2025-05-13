@@ -34,24 +34,13 @@ const routes = [
         ]
       },
       {
-        path: '/dashboards',
-        redirect: '/dashboards/profile',
-        meta: {parentMenu: "首页", parentMenuIcon: "mdi-home", hasSub: true},
+        path: '/about',
+        redirect: '/about/me',
+        meta: {parentMenu: "关于", parentMenuIcon: "mdi-information-variant", fullPath:"/about", hasSub: false},
         children: [
           {
-            path: "profile",
-            component: () => import('../pages/UserProfile.vue'),
-            meta: {
-              subMenu: "关于我",
-              subMenuIcon: "mdi-account-outline",
-              fullPath: "/dashboards/profile",
-              requiresAuth: true
-            }
-          },
-          {
-            path: "settings",
-            component: () => import('../pages/Settings.vue'),
-            meta: {subMenu: "设置", subMenuIcon: "mdi-cogs", fullPath: "/dashboards/settings"}
+            path: "me",
+            component: () => import('../pages/About.vue'),
           }
         ]
       },

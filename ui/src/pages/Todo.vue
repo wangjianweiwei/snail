@@ -162,6 +162,7 @@ async function fetchChildren(item) {
                       show-adjacent-months
                       width="100%"
                       v-model="datePickerVal"
+                      active="true"
                       @update:modelValue="fetchTodos(true)"
                     >
                     </v-date-picker>
@@ -258,7 +259,7 @@ async function fetchChildren(item) {
                                   </v-icon>
                                 </template>
                                 <template #append>
-                                  <v-menu>
+                                  <v-menu open-on-hover>
                                     <template v-slot:activator="{ props }">
                                       <v-btn icon="mdi-dots-vertical" variant="text" size="small"
                                              v-bind="props"></v-btn>

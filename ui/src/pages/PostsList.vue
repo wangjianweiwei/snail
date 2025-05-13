@@ -1,12 +1,12 @@
 <template>
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
-      <v-col cols="11" md="6" sm="11">
+      <v-col cols="11" md="7" sm="11">
         <p class="text-h4 mb-2 mt-4 font-weight-bold">博客</p>
         <p>Latest news, updates, and stories about Me.</p>
         <v-divider class="my-6"></v-divider>
         <div :key="post.id" v-for="post in posts">
-          <p class="text-h5 mb-2 font-weight-bold">{{ post.title }}
+          <p class="text-h6 mb-2 font-weight-bold">{{ post.title }}
             <v-chip
               v-if="authState && !post.published"
               class="ma-2"
@@ -21,7 +21,7 @@
             <span class="mr-4">📅 {{ post.created_at }}</span>
             <span>🖊️ {{ post.wordcount }}字</span>
           </p>
-          <p class="text-medium-emphasis text-body-1">{{ post.abstract }}</p>
+          <p class="text-medium-emphasis text-body-2">{{ post.abstract }}</p>
           <div class="d-flex justify-space-between justify-center align-center pt-5">
             <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
                    text="阅读"></v-btn>
