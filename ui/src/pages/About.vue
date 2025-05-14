@@ -22,12 +22,12 @@ let items = ref([
     color: 'waning',
     icon: 'mdi-alert-circle',
   },
-    {
+  {
     id: 5,
     color: 'indigo-lighten-5',
     icon: 'mdi-alert-circle',
   },
-    {
+  {
     id: 6,
     color: 'teal-darken-2',
     icon: 'mdi-alert-circle',
@@ -124,68 +124,74 @@ let items = ref([
         <v-row>
           <v-col cols="12">
             <v-card rounded border class="text-medium-emphasis" title="工作经历">
-              <v-timeline side="end">
-                <v-timeline-item
-                  v-for="item in items"
-                  :key="item.id"
-                  :dot-color="item.color"
-                  size="small"
-                >
-                  <v-alert
-                    :color="item.color"
-                    :icon="item.icon"
-                    :value="true"
+              <v-card-text>
+                <v-timeline side="end">
+                  <v-timeline-item
+                    v-for="item in items"
+                    :key="item.id"
+                    :dot-color="item.color"
+                    size="small"
                   >
-                    Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod
-                    convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an
-                    salutandi sententiae.
-                  </v-alert>
-                </v-timeline-item>
-              </v-timeline>
+                    <v-alert
+                      :color="item.color"
+                      :icon="item.icon"
+                      :value="true"
+                    >
+                      Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod
+                      convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an
+                      salutandi sententiae.
+                    </v-alert>
+                  </v-timeline-item>
+                </v-timeline>
+              </v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" md="6">
             <v-card rounded border class="text-medium-emphasis" title="项目经历">
-              <v-timeline side="end">
-                <v-timeline-item
-                  v-for="item in items"
-                  :key="item.id"
-                  :dot-color="item.color"
-                  size="small"
-                >
-                  <v-alert
-                    :color="item.color"
-                    :icon="item.icon"
-                    :value="true"
+              <v-card-text>
+                <v-timeline side="end">
+                  <v-timeline-item
+                    v-for="item in items"
+                    :key="item.id"
+                    :dot-color="item.color"
+                    size="small"
                   >
-                    Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod
-                    convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an
-                    salutandi sententiae.
-                  </v-alert>
-                </v-timeline-item>
-              </v-timeline>
+                    <v-alert
+                      :color="item.color"
+                      :icon="item.icon"
+                      :value="true"
+                    >
+                      Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod
+                      convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an
+                      salutandi sententiae.
+                    </v-alert>
+                  </v-timeline-item>
+                </v-timeline>
+              </v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" md="6">
             <v-card rounded border class="text-medium-emphasis" title="主要成就">
-              <v-timeline side="end">
-                <v-timeline-item
-                  v-for="item in items"
-                  :key="item.id"
-                  :dot-color="item.color"
-                  size="small"
-                >
-                  <v-alert
-                    :color="item.color"
-                    :icon="item.icon"
-                    :value="true"
+              <v-card-text>
+                <v-timeline side="end">
+                  <v-timeline-item
+                    v-for="item in items"
+                    :key="item.id"
+                    :dot-color="item.color"
+                    size="small"
                   >
-                    Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod
-                    convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an
-                    salutandi sententiae.
-                  </v-alert>
-                </v-timeline-item>
-              </v-timeline>
+                    <v-alert
+                      :color="item.color"
+                      :icon="item.icon"
+                      :value="true"
+                    >
+                      Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod
+                      convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an
+                      salutandi sententiae.
+                    </v-alert>
+                  </v-timeline-item>
+                </v-timeline>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
