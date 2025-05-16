@@ -44,22 +44,37 @@ let items = ref([
             height="200"
             src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
           ></v-parallax>
-          <v-card-text class="d-flex justify-start align-start">
-            <v-avatar
-              class="user-profile-avatar"
-              color="grey"
-              rounded
-              size="150"
-            >
-              <v-img src="/src/assets/images/touxiang.png" cover></v-img>
-            </v-avatar>
-            <div class="ml-5">
-              <p class="text-h5">王剑威</p>
-              <p class="d-flex align-center ga-1 mt-3">
-                <v-btn prepend-icon="mdi-xml" text="研发" variant="text" color=""></v-btn>
-                <v-btn prepend-icon="mdi-map-marker-outline" text="北京" variant="text" color=""></v-btn>
-                <v-btn prepend-icon="mdi-calendar-today-outline" text="2025-05-14" variant="text" color=""></v-btn>
-              </p>
+          <v-card-text class="d-flex align-bottom flex-sm-row flex-column ga-6 pa-6">
+            <div class="d-flex h-0">
+              <v-avatar
+                class="user-profile-avatar mx-auto"
+                color="grey"
+                rounded
+                size="130"
+              >
+                <v-img src="/src/assets/images/touxiang.png" cover></v-img>
+              </v-avatar>
+            </div>
+            <div class="mt-16 mt-sm-0 pt-6 pt-sm-0 w-100">
+              <h4 class="mb-2 text-center text-h4 text-sm-start">王剑威</h4>
+              <div class="d-flex align-center justify-center justify-sm-space-between flex-wrap gap-5">
+                <div class="d-flex flex-wrap justify-center justify-sm-start flex-grow-1 ga-2">
+                  <span class="d-flex ga-2 align-center">
+                    <v-icon icon="mdi-xml"></v-icon>
+                    <span class="text-body-2 font-weight-medium">研发</span>
+                  </span>
+
+                  <span class="d-flex ga-2 align-center">
+                    <v-icon icon="mdi-map-marker-outline"></v-icon>
+                    <span class="text-body-2 font-weight-medium">北京</span>
+                  </span>
+
+                  <span class="d-flex ga-2 align-center">
+                    <v-icon icon="mdi-calendar-today-outline"></v-icon>
+                    <span class="text-body-2 font-weight-medium">2025-05-14</span>
+                  </span>
+                  </div>
+              </div>
             </div>
           </v-card-text>
         </v-card>

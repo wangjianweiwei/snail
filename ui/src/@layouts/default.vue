@@ -28,7 +28,7 @@ async function logout() {
         </v-btn>
       </template>
       <template v-slot:append>
-        <v-col class="d-none d-md-flex" cols="auto">
+        <v-col class="d-none d-sm-flex" cols="auto">
           <div class="d-flex align-center">
             <div class="mr-6">
               <v-menu
