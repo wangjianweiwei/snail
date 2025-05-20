@@ -42,7 +42,7 @@ let items = ref([
         <v-card border>
           <v-parallax
             height="200"
-            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+            src="/src/assets/images/material.jpg"
           ></v-parallax>
           <v-card-text class="d-flex align-bottom flex-sm-row flex-column ga-6 pa-6">
             <div class="d-flex h-0">

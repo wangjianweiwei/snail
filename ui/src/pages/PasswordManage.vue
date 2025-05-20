@@ -48,8 +48,9 @@ function copy(text) {
       </v-row>
 
       <v-row class="my-3">
-        <v-expansion-panels bg-color="#202121" focusable rounded="lg">
+        <v-expansion-panels bg-color="grey-50" rounded="lg" elevation="24">
           <v-expansion-panel
+            selected-class="border-sm"
             v-for="i in passwords"
             :key="i.id"
             :title="i.name"
