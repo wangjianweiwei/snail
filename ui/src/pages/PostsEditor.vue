@@ -1,8 +1,10 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import {composePostApi, imageUpload, retrievePostApi, updatePostApi} from "@/services";
+import {useTheme} from 'vuetify'
 
+const theme = useTheme()
 const route = useRoute()
 const snackbar = ref(false)
 const snackbarText = ref("")
@@ -55,7 +57,6 @@ const HeaderComponent = () => {
           // backgroundColor: '#1e1e1e',
           border: '1px solid transparent',
           borderRadius: '8px',
-          color: '#fff',
           outline: 'none',
           transition: 'border-color 0.2s, box-shadow 0.2s',
         },
@@ -137,6 +138,13 @@ onMounted(async () => {
   });
   // 设置内容
   editor.setDocument('json', data.content || {type: "element", name: "#root",});
+  watch(() => theme.global.name.value, (newVal, oldVal) => {
+    if (newVal === "dark") {
+      editor.theme.setActiveTheme("dark-mode")
+    } else {
+      editor.theme.setActiveTheme("default")
+    }
+  })
   // 监听内容变动
   document.addEventListener('keydown', handleCtrlS, true);
 })

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import 'animate.css';
 import {ref} from "vue";
 
 let items = ref([
@@ -48,7 +49,6 @@ let items = ref([
             <div class="d-flex h-0">
               <v-avatar
                 class="user-profile-avatar mx-auto"
-                color="grey"
                 rounded
                 size="130"
               >
@@ -80,7 +80,7 @@ let items = ref([
         </v-card>
       </v-col>
       <v-col class="v-col-md-4 v-col-12">
-        <v-row>
+        <v-row class="animate__animated animate__fadeInLeft">
           <v-col cols="12">
             <v-card rounded border class="text-medium-emphasis" title="基本信息">
               <v-list density="compact">
@@ -136,7 +136,7 @@ let items = ref([
         </v-row>
       </v-col>
       <v-col class="v-col-md-8 v-col-12">
-        <v-row>
+        <v-row class="animate__animated animate__fadeInRight">
           <v-col cols="12">
             <v-card rounded border class="text-medium-emphasis" title="工作经历">
               <v-card-text>
@@ -220,7 +220,7 @@ let items = ref([
 
 <style lang="css">
 .user-profile-avatar {
-  border: 5px solid #141414;
+  border: 3px solid rgb(var(--v-theme-surface));
   inset-block-start: -3rem;
 }
 </style>

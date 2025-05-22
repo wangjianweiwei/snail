@@ -1,8 +1,10 @@
 <script setup>
-import {ref, onMounted} from "vue";
+import {ref, onMounted, watch} from "vue";
+import {useTheme} from 'vuetify'
 import {useRoute, useRouter} from "vue-router";
 import {retrievePostApi, deletePostApi, publishPostApi} from "@/services";
 
+const theme = useTheme()
 const authState = localStorage.getItem("token")
 const route = useRoute()
 const router = useRouter()
@@ -20,13 +22,20 @@ onMounted(async () => {
   const viewer = createOpenViewer(document.getElementById('editor'), {
     layout: "adapt",
     defaultFontsize: 15,
-    darkMode: true,
+    darkMode: theme.global.name.value === "dark",
     toc: {
       enable: true
     },
   });
   // 设置内容
   viewer.setDocument('json', post.value.content);
+  watch(() => theme.global.name.value, (newVal, oldVal) => {
+    if (newVal === "dark") {
+      viewer.theme.setActiveTheme("dark-mode")
+    } else {
+      viewer.theme.setActiveTheme("default")
+    }
+  })
 
 
 })
@@ -63,14 +72,17 @@ async function publishPost(status) {
           <div>
             <p class="text-h4 mb-2 font-weight-bold">{{ post.title }}</p>
             <span class="mr-4">📅 {{ post.created_at }}</span>
-            <span>🖊️ {{post.wordcount}}字</span>
+            <span>🖊️ {{ post.wordcount }}字</span>
           </div>
           <div v-if="authState">
             <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">编辑</v-btn>
             <span class="mx-2"></span>
 
-            <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning" @click="publishPost(false)">取消发布</v-btn>
-            <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">发布</v-btn>
+            <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning"
+                   @click="publishPost(false)">取消发布
+            </v-btn>
+            <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">发布
+            </v-btn>
 
             <span class="mx-2"></span>
             <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">删除</v-btn>
