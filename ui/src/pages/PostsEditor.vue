@@ -40,7 +40,7 @@ const HeaderComponent = () => {
           // padding: '10px 0px',
           // background: '#1e1e1e',
           // color: '#fff',
-          borderBottom: '2px solid #333',
+          borderBottom: '1px solid #333',
         }
       },
       React.createElement('input', {
@@ -53,7 +53,7 @@ const HeaderComponent = () => {
           width: '100%',
           fontSize: '24px',
           fontWeight: '600',
-          padding: '12px 0px',
+          padding: '10px 0px',
           // backgroundColor: '#1e1e1e',
           border: '1px solid transparent',
           borderRadius: '8px',
