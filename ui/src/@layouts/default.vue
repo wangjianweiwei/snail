@@ -1,9 +1,10 @@
 <script setup>
 import {useRoute, useRouter} from 'vue-router'
 import {routes} from "@/plugins/router";
-import {useTheme} from 'vuetify'
+import {useTheme, useLocale} from 'vuetify'
 import {ref} from "vue";
 
+const {t} = useLocale()
 const theme = useTheme()
 const drawer = ref(false)
 const authState = localStorage.getItem("token")
@@ -69,12 +70,10 @@ function toggleTheme(e) {
 
 <template>
   <v-app>
-    <v-app-bar class="border-b-thin" :elevation="0">
-      <template v-slot:prepend>
-        <v-btn active style="text-transform: none" variant="plain" color="">
-          <h3 class="font-weight-black">👋&nbsp;me.discuss.pub</h3>
-        </v-btn>
-      </template>
+    <v-app-bar class="border-b-thin">
+      <v-app-bar-title>
+        <h3 class="font-weight-black">👋&nbsp;me.discuss.pub</h3>
+      </v-app-bar-title>
       <template v-slot:append>
         <v-col class="d-none d-sm-flex" cols="auto">
           <div class="d-flex align-center">
@@ -204,6 +203,7 @@ function toggleTheme(e) {
         ></v-app-bar-nav-icon>
       </template>
     </v-app-bar>
+
     <v-navigation-drawer v-model="drawer" temporary class="d-sm-none">
       <v-list density="comfortable">
         <div v-for="menu in routes[0]?.children">
@@ -312,13 +312,14 @@ function toggleTheme(e) {
       </template>
     </v-navigation-drawer>
 
-
     <v-main scrollable>
-      <v-slide-y-reverse-transition>
-        <router-view></router-view>
-      </v-slide-y-reverse-transition>
-    </v-main>
+      <router-view v-slot="{ Component }">
+        <v-slide-y-reverse-transition>
+          <component :is="Component"/>
+        </v-slide-y-reverse-transition>
 
+      </router-view>
+    </v-main>
   </v-app>
 
 

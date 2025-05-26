@@ -68,27 +68,33 @@ async function publishPost(status) {
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="6">
-        <div class="d-flex justify-space-between align-center">
-          <div>
-            <p class="text-h4 mb-2 font-weight-bold">{{ post.title }}</p>
+        <v-row class="d-flex justify-space-between align-center" dense>
+          <v-col cols="12">
+            <span class="text-h4 font-weight-bold">{{ post.title }}</span>
+          </v-col>
+        </v-row>
+        <v-row class="align-center" dense>
+          <v-col cols="12" md="6">
             <span class="mr-4">📅 {{ post.created_at }}</span>
             <span>🖊️ {{ post.wordcount }}字</span>
-          </div>
-          <div v-if="authState">
-            <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">编辑</v-btn>
-            <span class="mx-2"></span>
+          </v-col>
+          <v-col cols="12" md="6" class="mt-3">
+            <div v-if="authState">
+              <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">编辑</v-btn>
+              <span class="mx-2"></span>
 
-            <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning"
-                   @click="publishPost(false)">取消发布
-            </v-btn>
-            <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">发布
-            </v-btn>
+              <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning"
+                     @click="publishPost(false)">取消发布
+              </v-btn>
+              <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">发布
+              </v-btn>
 
-            <span class="mx-2"></span>
-            <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">删除</v-btn>
-          </div>
-        </div>
-
+              <span class="mx-2"></span>
+              <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">删除
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
         <v-divider class="mt-3"></v-divider>
         <div id="editor" class="ne-doc-major-viewer"></div>
       </v-col>
