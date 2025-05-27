@@ -3,7 +3,9 @@ import {ref, onMounted, watch} from "vue";
 import {useTheme} from 'vuetify'
 import {useRoute, useRouter} from "vue-router";
 import {retrievePostApi, deletePostApi, publishPostApi} from "@/services";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const theme = useTheme()
 const authState = localStorage.getItem("token")
 const route = useRoute()
@@ -46,7 +48,7 @@ async function deletePost() {
   if (data.status) {
     await router.push("/posts/list")
   } else {
-    snackbarText.value = "刪除失敗"
+    snackbarText.value = "刪除失败"
     snackbar.value = true
   }
 }
@@ -76,21 +78,21 @@ async function publishPost(status) {
         <v-row class="align-center" dense>
           <v-col cols="12" md="6">
             <span class="mr-4">📅 {{ post.created_at }}</span>
-            <span>🖊️ {{ post.wordcount }}字</span>
+            <span>🖊️ {{ post.wordcount }} {{t('blog.text.words')}}</span>
           </v-col>
           <v-col cols="12" md="6" class="mt-3">
             <div v-if="authState">
-              <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">编辑</v-btn>
+              <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">{{ t("blog.btn.edit")}}</v-btn>
               <span class="mx-2"></span>
 
               <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning"
-                     @click="publishPost(false)">取消发布
+                     @click="publishPost(false)">{{t('blog.btn.unpublishing')}}
               </v-btn>
-              <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">发布
+              <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">{{t("blog.btn.publish")}}
               </v-btn>
 
               <span class="mx-2"></span>
-              <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">删除
+              <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">{{ t("blog.btn.delete")}}
               </v-btn>
             </div>
           </v-col>

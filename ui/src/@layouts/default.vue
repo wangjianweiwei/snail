@@ -75,9 +75,9 @@ function translate(value) {
 
 <template>
   <v-app>
-    <v-app-bar class="border-b-thin">
+    <v-app-bar class="border-b-thin" elevation="0">
       <v-app-bar-title>
-        <v-btn  style="text-transform: none" variant="plain" color="">
+        <v-btn style="text-transform: none" variant="plain" color="">
           <h2 class="font-weight-black">👋&nbsp;me.discuss.pub</h2>
         </v-btn>
       </v-app-bar-title>
@@ -130,9 +130,9 @@ function translate(value) {
             <div class="mr-6">
               <v-divider vertical></v-divider>
               <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
+              <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
               <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
               <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"></v-btn>
-              <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
               <v-menu open-on-hover>
                 <template v-slot:activator="{ props }">
                   <v-btn
@@ -257,27 +257,27 @@ function translate(value) {
       <template v-slot:prepend>
         <div class="d-flex justify-space-between align-center border-b-thin px-2">
           <v-btn icon="mdi-magnify" variant="text" color="" size="small"></v-btn>
+          <v-btn icon="mdi-bell-outline" variant="text" color="" size="small"></v-btn>
           <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"
                  size="small"></v-btn>
           <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"
                  size="small"></v-btn>
-          <v-btn icon="mdi-bell-outline" variant="text" color="" size="small"></v-btn>
           <v-menu open-on-click>
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    size="small"
-                    color=""
-                    variant="text"
-                    icon="mdi-translate"
-                    v-bind="props"
-                  >
-                  </v-btn>
-                </template>
-                <v-list density="compact" border @update:selected="translate">
-                  <v-list-item title="中文" value="zh"></v-list-item>
-                  <v-list-item title="英文" value="en"></v-list-item>
-                </v-list>
-              </v-menu>
+            <template v-slot:activator="{ props }">
+              <v-btn
+                size="small"
+                color=""
+                variant="text"
+                icon="mdi-translate"
+                v-bind="props"
+              >
+              </v-btn>
+            </template>
+            <v-list density="compact" border @update:selected="translate">
+              <v-list-item title="中文" value="zh"></v-list-item>
+              <v-list-item title="英文" value="en"></v-list-item>
+            </v-list>
+          </v-menu>
           <v-menu v-if="authState" location="bottom">
             <template v-slot:activator="{ props }">
               <v-avatar

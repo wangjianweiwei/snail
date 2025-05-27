@@ -42,7 +42,7 @@ onMounted(async () => {
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="7" sm="11">
         <p class="text-h4 mb-2 mt-4 font-weight-bold">{{t("menu.title.blog")}}</p>
-        <p>{{ t("blog-subtitle")}}</p>
+        <p>{{ t("blog.subtitle")}}</p>
         <v-divider class="my-6"></v-divider>
         <div :key="post.id" v-for="post in posts">
           <p class="text-h6 mb-2 font-weight-bold">{{ post.title }}
@@ -53,17 +53,17 @@ onMounted(async () => {
               color="warning"
               label
             >
-              未发布
+              {{ t("blog.unpublished") }}
             </v-chip>
           </p>
           <p class="mb-4">
             <span class="mr-4">📅 {{ post.created_at }}</span>
-            <span>🖊️ {{ post.wordcount }}字</span>
+            <span>🖊️ {{ post.wordcount }} {{t('blog.text.words')}}</span>
           </p>
           <p class="text-medium-emphasis text-body-2">{{ post.abstract }}</p>
           <div class="d-flex justify-space-between justify-center align-center pt-5">
             <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
-                   text="阅读"></v-btn>
+                   :text="t('blog.read')"></v-btn>
             <span class="text-medium-emphasis">
               <span><span class="mdi mdi-eye-outline"></span> 1209</span>
               <span class="ml-4"><span class="mdi mdi-thumb-up-outline"></span> 80</span>

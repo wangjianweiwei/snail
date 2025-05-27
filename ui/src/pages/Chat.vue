@@ -21,93 +21,93 @@ const friend = ref(null)
 const friends = [
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-    title: 'Gavin Griffith',
+    title: '钢铁侠',
     value: 1,
-    subtitle: "I will purchase it for sure. 👍",
+    subtitle: "弗瑞，你的秘密计划比我的AI管家还多，这很危险。",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-    title: 'Harriet McBride',
+    title: '绿巨人',
     value: 2,
-    subtitle: "If it takes long you can mail me at m",
+    subtitle: "局长，你最好保证这次任务不会让我生气...你知道后果。",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-    title: 'Danny Conner',
+    title: '美国队长',
     value: 3,
-    subtitle: 'Cake pie jelly jelly beans. Marzipan lemon dr',
+    subtitle: "长官，我们需要更透明的行动准则，这不是1940年代了。",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-    title: 'Janie West',
+    title: '黑寡妇',
     value: 4,
-    subtitle: 'Chupa chups candy canes chocolate bar mar',
+    subtitle: "这次任务简报里，你隐瞒的信息比透露的还多吧？",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-    title: 'Albert Underwood',
+    title: '雷神索尔',
     value: 5,
-    subtitle: 'Toffee caramels jelly-o tart gummi bears ca',
+    subtitle: "米德加德人的阴谋诡计让吾王奥丁都感到困惑！",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-    title: 'Gavin Griffith',
+    title: '鹰眼',
     value: 6,
-    subtitle: "I will purchase it for sure. 👍",
+    subtitle: "局长，这次能提前告诉我目标是谁吗？上次的教训够深刻了。",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-    title: 'Harriet McBride',
+    title: '绯红女巫',
     value: 7,
-    subtitle: "If it takes long you can mail me at m",
+    subtitle: "我能读取你的思维...你确定要我说出你在想什么吗？",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-    title: 'Danny Conner',
+    title: '奇异博士',
     value: 8,
-    subtitle: 'Cake pie jelly jelly beans. Marzipan lemon dr',
+    subtitle: "我看了1400万种未来，你的计划在大多数情况下都会失败。",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-    title: 'Janie West',
+    title: '黑豹',
     value: 9,
-    subtitle: 'Chupa chups candy canes chocolate bar mar',
+    subtitle: "瓦坎达不会永远为神盾局的失误善后，局长。",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-    title: 'Albert Underwood',
+    title: '蜘蛛侠',
     value: 10,
-    subtitle: 'Toffee caramels jelly-o tart gummi bears ca',
+    subtitle: "呃...弗瑞先生，斯塔克先生知道您找我吗？这合法吗？",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-    title: 'Gavin Griffith',
+    title: '惊奇队长',
     value: 11,
-    subtitle: "I will purchase it for sure. 👍",
+    subtitle: "我回来不是听你指挥的，尼克。这次又是什么宇宙级危机？",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-    title: 'Harriet McBride',
+    title: '蚁人',
     value: 12,
-    subtitle: "If it takes long you can mail me at m",
+    subtitle: "说真的，你的眼罩是怎么在量子领域都不掉的？",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-    title: 'Danny Conner',
+    title: '冬日战士',
     value: 13,
-    subtitle: 'Cake pie jelly jelly beans. Marzipan lemon dr',
+    subtitle: "...这次任务后，我的档案能彻底清干净吗？",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-    title: 'Janie West',
+    title: '星爵',
     value: 14,
-    subtitle: 'Chupa chups candy canes chocolate bar mar',
+    subtitle: "老兄，你的独眼造型很酷，但建议加个眼罩装饰！",
   },
   {
     prependAvatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-    title: 'Albert Underwood',
+    title: '格鲁特',
     value: 15,
-    subtitle: 'Toffee caramels jelly-o tart gummi bears ca',
+    subtitle: "我是格鲁特。（翻译：你的计划太疯狂了，连树人都看得出来）",
   },
 ]
 const messages = ref({
@@ -689,8 +689,8 @@ const sendMsg = () => {
                       <v-badge dot location="bottom end" :color="currentUser.status">
                         <v-avatar :image="currentUser.avatar" size="70" variant="flat"></v-avatar>
                       </v-badge>
-                      <p class="text-h6">John Doe</p>
-                      <p class="text-capitalize text-body-2 mb-0">develop</p>
+                      <p class="text-h6">弗瑞</p>
+                      <p class="text-capitalize text-body-2 mb-0">Director of S.H.I.E.L.D</p>
                     </div>
                     <div class="mt-5">
                       <p class="text-disabled mb-1">状态</p>
@@ -751,7 +751,7 @@ const sendMsg = () => {
                 <v-list-item
                   :prepend-avatar="friend.prependAvatar"
                   :title="friend.title"
-                  subtitle="UI/UX Designer"
+                  subtitle="Members of S.H.I.E.L.D"
                 >
                 </v-list-item>
                 <div>
