@@ -68,7 +68,7 @@ async function publishPost(status) {
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="6">
-        <v-row class="d-flex justify-space-between align-center" dense>
+        <v-row class="d-flex justify-space-between align-center mt-4" dense>
           <v-col cols="12">
             <span class="text-h4 font-weight-bold">{{ post.title }}</span>
           </v-col>

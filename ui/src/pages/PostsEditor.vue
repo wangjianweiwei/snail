@@ -53,7 +53,7 @@ const HeaderComponent = () => {
           width: '100%',
           fontSize: '24px',
           fontWeight: '600',
-          padding: '10px 0px',
+          padding: '16px 0px 16px 0px',
           // backgroundColor: '#1e1e1e',
           border: '1px solid transparent',
           borderRadius: '8px',

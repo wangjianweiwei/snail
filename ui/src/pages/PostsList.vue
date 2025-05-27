@@ -1,9 +1,48 @@
+<script setup>
+import {onMounted, ref} from "vue";
+import { useI18n } from 'vue-i18n'
+import {getPostsApi, createPostApi} from "@/services";
+import {router} from "@/plugins/router";
+
+const { t } = useI18n()
+const authState = localStorage.getItem("token")
+const posts = ref([])
+const postCount = ref(0)
+const page = ref(1)
+const pageSize = ref(10)
+
+/*获取列表页*/
+async function getPosts() {
+  let data = await getPostsApi(page.value, pageSize.value)
+  posts.value = data['paged']
+  postCount.value = data['page_count']
+}
+
+/*创建新的博客*/
+async function createPost() {
+  let data = await createPostApi("心情文章")
+  await router.push(`/posts/editor/${data["id"]}`)
+  // await getPosts()
+}
+
+/*切换页码*/
+async function changePage(value) {
+  page.value = value
+  await getPosts()
+}
+
+onMounted(async () => {
+  await getPosts()
+})
+
+</script>
+
 <template>
   <div class="py-lg-5">
     <v-row justify="center" no-gutters>
       <v-col cols="11" md="7" sm="11">
-        <p class="text-h4 mb-2 mt-4 font-weight-bold">博客</p>
-        <p>Latest news, updates, and stories about Me.</p>
+        <p class="text-h4 mb-2 mt-4 font-weight-bold">{{t("menu.title.blog")}}</p>
+        <p>{{ t("blog-subtitle")}}</p>
         <v-divider class="my-6"></v-divider>
         <div :key="post.id" v-for="post in posts">
           <p class="text-h6 mb-2 font-weight-bold">{{ post.title }}
@@ -52,42 +91,6 @@
 
 </template>
 
-<script setup>
-import {onMounted, ref} from "vue";
-import {getPostsApi, createPostApi} from "@/services";
-import {router} from "@/plugins/router";
-
-const authState = localStorage.getItem("token")
-const posts = ref([])
-const postCount = ref(0)
-const page = ref(1)
-const pageSize = ref(10)
-
-/*获取列表页*/
-async function getPosts() {
-  let data = await getPostsApi(page.value, pageSize.value)
-  posts.value = data['paged']
-  postCount.value = data['page_count']
-}
-
-/*创建新的博客*/
-async function createPost() {
-  let data = await createPostApi("心情文章")
-  await router.push(`/posts/editor/${data["id"]}`)
-  // await getPosts()
-}
-
-/*切换页码*/
-async function changePage(value) {
-  page.value = value
-  await getPosts()
-}
-
-onMounted(async () => {
-  await getPosts()
-})
-
-</script>
 
 <style>
 

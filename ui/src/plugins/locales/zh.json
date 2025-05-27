@@ -1,0 +1,16 @@
+{
+  "menu.title.blog": "博客",
+  "menu.title.about": "关于",
+  "menu.title.apps": "应用",
+  "menu.subtitle.email": "我的邮箱",
+  "menu.subtitle.chat": "聊天",
+  "menu.subtitle.todo": "待办事项",
+  "menu.subtitle.photos": "我的照片",
+  "menu.subtitle.password": "密码管理器",
+  "menu.title.tools": "工具",
+  "menu.subtitle.base64": "base64",
+  "blog-subtitle": "关于我的最新消息、更新和故事。",
+  "$vuetify": {
+    "close": "关闭"
+  }
+}

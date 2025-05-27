@@ -8,6 +8,7 @@
 import vuetify from './vuetify/index'
 import {router} from "@/plugins/router";
 import "quill/dist/quill.snow.css";
+import i18n from './i18n'
 
 
 import "quill/dist/quill.core.css"
@@ -21,6 +22,7 @@ import "@/assets/js/doc.umd"
 
 
 export function registerPlugins(app) {
+  app.use(i18n)
   app.use(vuetify)
   app.use(router)
 }

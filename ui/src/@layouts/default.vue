@@ -1,10 +1,11 @@
 <script setup>
 import {useRoute, useRouter} from 'vue-router'
 import {routes} from "@/plugins/router";
-import {useTheme, useLocale} from 'vuetify'
+import {useTheme} from 'vuetify'
 import {ref} from "vue";
+import {useI18n} from "vue-i18n"
 
-const {t} = useLocale()
+const {t, locale} = useI18n()
 const theme = useTheme()
 const drawer = ref(false)
 const authState = localStorage.getItem("token")
@@ -65,6 +66,10 @@ function toggleTheme(e) {
 
 }
 
+function translate(value) {
+  locale.value = value[0]
+}
+
 </script>
 
 
@@ -72,7 +77,9 @@ function toggleTheme(e) {
   <v-app>
     <v-app-bar class="border-b-thin">
       <v-app-bar-title>
-        <h3 class="font-weight-black">👋&nbsp;me.discuss.pub</h3>
+        <v-btn  style="text-transform: none" variant="plain" color="">
+          <h2 class="font-weight-black">👋&nbsp;me.discuss.pub</h2>
+        </v-btn>
       </v-app-bar-title>
       <template v-slot:append>
         <v-col class="d-none d-sm-flex" cols="auto">
@@ -97,7 +104,7 @@ function toggleTheme(e) {
                     :append-icon="menu.meta.hasSub ? 'mdi-chevron-down': ''"
                     v-bind="props"
                     :to="menu.meta.fullPath"
-                    :text="menu.meta.parentMenu"
+                    :text="t(menu.meta.parentMenu)"
                   >
 
                   </v-btn>
@@ -112,7 +119,7 @@ function toggleTheme(e) {
                     :to="child.meta.fullPath">
                     <template #default>
                       <p class="d-flex justify-space-between align-center">
-                        <span class="text-body-2">{{ child.meta.subMenu }}</span>
+                        <span class="text-body-2">{{ t(child.meta.subMenu) }}</span>
                         <v-icon :icon="child.meta.subMenuIcon"></v-icon>
                       </p>
                     </template>
@@ -126,6 +133,21 @@ function toggleTheme(e) {
               <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
               <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"></v-btn>
               <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
+              <v-menu open-on-hover>
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                    color=""
+                    variant="text"
+                    icon="mdi-translate"
+                    v-bind="props"
+                  >
+                  </v-btn>
+                </template>
+                <v-list density="compact" border @update:selected="translate">
+                  <v-list-item title="中文" value="zh"></v-list-item>
+                  <v-list-item title="英文" value="en"></v-list-item>
+                </v-list>
+              </v-menu>
             </div>
             <div class="mr-6">
               <v-menu v-if="authState" location="bottom">
@@ -211,7 +233,7 @@ function toggleTheme(e) {
             <template v-slot:activator="{ props }">
               <v-list-item
                 v-bind="props"
-                :title="menu.meta.parentMenu"
+                :title="t(menu.meta.parentMenu)"
               ></v-list-item>
             </template>
             <v-list-item
@@ -220,12 +242,12 @@ function toggleTheme(e) {
               :to="subMenu.meta.fullPath"
               :append-icon="subMenu.meta.subMenuIcon"
             >
-              <v-list-item-title>{{ subMenu.meta.subMenu }}</v-list-item-title>
+              <v-list-item-title>{{ t(subMenu.meta.subMenu) }}</v-list-item-title>
             </v-list-item>
           </v-list-group>
           <v-list-item v-else
                        :to="menu.meta.fullPath"
-                       :title="menu.meta.parentMenu"
+                       :title="t(menu.meta.parentMenu)"
                        :append-icon="menu.meta.parentMenuIcon"
           >
           </v-list-item>
@@ -233,13 +255,29 @@ function toggleTheme(e) {
 
       </v-list>
       <template v-slot:prepend>
-        <div class="d-flex justify-center align-center border-b-thin">
+        <div class="d-flex justify-space-between align-center border-b-thin px-2">
           <v-btn icon="mdi-magnify" variant="text" color="" size="small"></v-btn>
           <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"
                  size="small"></v-btn>
           <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"
                  size="small"></v-btn>
           <v-btn icon="mdi-bell-outline" variant="text" color="" size="small"></v-btn>
+          <v-menu open-on-click>
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                    size="small"
+                    color=""
+                    variant="text"
+                    icon="mdi-translate"
+                    v-bind="props"
+                  >
+                  </v-btn>
+                </template>
+                <v-list density="compact" border @update:selected="translate">
+                  <v-list-item title="中文" value="zh"></v-list-item>
+                  <v-list-item title="英文" value="en"></v-list-item>
+                </v-list>
+              </v-menu>
           <v-menu v-if="authState" location="bottom">
             <template v-slot:activator="{ props }">
               <v-avatar

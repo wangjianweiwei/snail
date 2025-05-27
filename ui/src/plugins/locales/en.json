@@ -1,0 +1,16 @@
+{
+  "menu.title.blog": "Blog",
+  "menu.title.about": "About",
+  "menu.title.apps": "Apps",
+  "menu.subtitle.email": "Email",
+  "menu.subtitle.chat": "Chat",
+  "menu.subtitle.todo": "Todo",
+  "menu.subtitle.photos": "Photo",
+  "menu.subtitle.password": "Password",
+  "menu.title.tools": "Tools",
+  "menu.subtitle.base64": "base64",
+  "blog-subtitle": "Latest news, updates, and stories about Me.",
+  "$vuetify": {
+    "close": "Close"
+  }
+}

@@ -10,7 +10,7 @@ const routes = [
       {
         path: '/posts',
         redirect: '/posts/list',
-        meta: {parentMenu: "博客", parentMenuIcon: "mdi-post-outline", fullPath: "/posts", hasSub: false},
+        meta: {parentMenu: "menu.title.blog", parentMenuIcon: "mdi-post-outline", fullPath: "/posts", hasSub: false},
         children: [
           {
             path: 'list',
@@ -36,7 +36,7 @@ const routes = [
       {
         path: '/about',
         redirect: '/about/me',
-        meta: {parentMenu: "关于", parentMenuIcon: "mdi-information-variant", fullPath:"/about", hasSub: false},
+        meta: {parentMenu: "menu.title.about", parentMenuIcon: "mdi-information-variant", fullPath:"/about", hasSub: false},
         children: [
           {
             path: "me",
@@ -46,43 +46,43 @@ const routes = [
       },
       {
         path: '/apps',
-        meta: {parentMenu: "应用", parentMenuIcon: "mdi-apps", hasSub: true},
+        meta: {parentMenu: "menu.title.apps", parentMenuIcon: "mdi-apps", hasSub: true},
         children: [
           {
             path: "email",
             component: () => import('../pages/Email.vue'),
-            meta: {subMenu: "我的邮箱", subMenuIcon: "mdi-email-check-outline", fullPath: "/apps/email"}
+            meta: {subMenu: "menu.subtitle.email", subMenuIcon: "mdi-email-check-outline", fullPath: "/apps/email"}
           },
           {
             path: "chat",
             component: () => import('../pages/Chat.vue'),
-            meta: {subMenu: "聊会儿天", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: false}
+            meta: {subMenu: "menu.subtitle.chat", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: false}
           },
           {
             path: "todo",
             component: () => import('../pages/Todo.vue'),
-            meta: {subMenu: "待办事项", subMenuIcon: "mdi-calendar-check", fullPath: "/apps/todo", requiresAuth: true}
+            meta: {subMenu: "menu.subtitle.todo", subMenuIcon: "mdi-calendar-check", fullPath: "/apps/todo", requiresAuth: true}
           },
           {
             path: 'photos',
             component: () => import('../pages/Photos.vue'),
-            meta: {subMenu: "我的照片", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos", requiresAuth: true}
+            meta: {subMenu: "menu.subtitle.photos", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos", requiresAuth: true}
           },
           {
             path: "password",
             component: () => import('../pages/PasswordManage.vue'),
-            meta: {subMenu: "密码管理器", subMenuIcon: 'mdi-key-chain', fullPath: '/apps/password', requiresAuth: true}
+            meta: {subMenu: "menu.subtitle.password", subMenuIcon: 'mdi-key-chain', fullPath: '/apps/password', requiresAuth: true}
           }
         ]
       },
       {
         path: '/tools',
-        meta: {parentMenu: "工具", parentMenuIcon: "mdi-toolbox-outline", hasSub: true},
+        meta: {parentMenu: "menu.title.tools", parentMenuIcon: "mdi-toolbox-outline", hasSub: true},
         children: [
           {
             path: "base64",
             component: () => import('../pages/Base64.vue'),
-            meta: {subMenu: "base64", subMenuIcon: "mdi-wrench-clock", fullPath: "/tools/base64"}
+            meta: {subMenu: "menu.subtitle.base64", subMenuIcon: "mdi-wrench-clock", fullPath: "/tools/base64"}
           },
         ]
       },
