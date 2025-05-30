@@ -26,8 +26,8 @@ function copy(text) {
 </script>
 
 <template>
-  <v-row no-gutters justify="center" style="height: 100%;overflow-y: scroll">
-    <v-col cols="11" md="7" sm="11">
+  <v-row justify="center" class="py-4" style="height: 100%;" no-gutters>
+    <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="8" xxl="7" style="height: 100%;">
       <v-row>
         <v-col cols="12">
           <v-text-field
@@ -46,9 +46,8 @@ function copy(text) {
           <v-btn variant="tonal" prepend-icon="mdi-plus" @click="dialog = true">添加</v-btn>
         </v-col>
       </v-row>
-
       <v-row class="my-3">
-        <v-expansion-panels bg-color="grey-50" rounded="lg" elevation="24">
+        <v-expansion-panels rounded="lg" elevation="24">
           <v-expansion-panel
             selected-class="border-sm"
             v-for="i in passwords"
@@ -107,93 +106,95 @@ function copy(text) {
         </v-expansion-panels>
       </v-row>
     </v-col>
-    <v-snackbar
-      v-model="snackbar"
-      color="grey-darken-3"
-      timeout="700"
-      location="top right"
-      variant="elevated"
-      text="snackbarText"
-    >
-      <template v-slot:text>
-        <span class="mdi mdi-check-bold mr-3"></span>
-        <span>复制成功</span>
-      </template>
-    </v-snackbar>
-    <v-dialog
-      v-model="dialog"
-      max-width="600"
-      transition="dialog-bottom-transition"
-    >
-      <v-card
-        prepend-icon="mdi-plus"
-        title="添加密码"
-      >
-        <v-card-text>
-          <v-row dense>
-            <v-col
-              cols="12"
-            >
-              <v-text-field
-                label="备注*"
-                required
-                density="compact"
-                prepend-inner-icon="mdi-format-title"
-              ></v-text-field>
-            </v-col>
-
-            <v-col
-              cols="12"
-              class="mt-3"
-            >
-              <v-text-field
-                label="网址*"
-                required
-                density="compact"
-                prepend-inner-icon="mdi-web"
-              ></v-text-field>
-            </v-col>
-
-            <v-col
-              cols="12"
-              class="mt-3"
-            >
-              <v-text-field
-                label="账号*"
-                required
-                density="compact"
-                prepend-inner-icon="mdi-account-outline"
-              ></v-text-field>
-            </v-col>
-
-            <v-col
-              cols="12"
-              class="mt-3"
-            >
-              <v-text-field
-                label="密码*"
-                required
-                density="compact"
-                prepend-inner-icon="mdi-lock-outline"
-              ></v-text-field>
-            </v-col>
-
-          </v-row>
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-btn
-            color="primary"
-            text="保存"
-            variant="tonal"
-            @click="dialog = false"
-          ></v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-row>
+
+  <v-snackbar
+    v-model="snackbar"
+    color="grey-darken-3"
+    timeout="700"
+    location="top right"
+    variant="elevated"
+    text="snackbarText"
+  >
+    <template v-slot:text>
+      <span class="mdi mdi-check-bold mr-3"></span>
+      <span>复制成功</span>
+    </template>
+  </v-snackbar>
+  <v-dialog
+    v-model="dialog"
+    max-width="600"
+    transition="dialog-bottom-transition"
+  >
+    <v-card
+      prepend-icon="mdi-plus"
+      title="添加密码"
+    >
+      <v-card-text>
+        <v-row dense>
+          <v-col
+            cols="12"
+          >
+            <v-text-field
+              label="备注*"
+              required
+              density="compact"
+              prepend-inner-icon="mdi-format-title"
+            ></v-text-field>
+          </v-col>
+
+          <v-col
+            cols="12"
+            class="mt-3"
+          >
+            <v-text-field
+              label="网址*"
+              required
+              density="compact"
+              prepend-inner-icon="mdi-web"
+            ></v-text-field>
+          </v-col>
+
+          <v-col
+            cols="12"
+            class="mt-3"
+          >
+            <v-text-field
+              label="账号*"
+              required
+              density="compact"
+              prepend-inner-icon="mdi-account-outline"
+            ></v-text-field>
+          </v-col>
+
+          <v-col
+            cols="12"
+            class="mt-3"
+          >
+            <v-text-field
+              label="密码*"
+              required
+              density="compact"
+              prepend-inner-icon="mdi-lock-outline"
+            ></v-text-field>
+          </v-col>
+
+        </v-row>
+      </v-card-text>
+
+      <v-divider></v-divider>
+
+      <v-card-actions>
+        <v-btn
+          color="primary"
+          text="保存"
+          variant="tonal"
+          @click="dialog = false"
+        ></v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
 </template>
 
 <style scoped>

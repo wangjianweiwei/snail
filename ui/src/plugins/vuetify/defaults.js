@@ -1,4 +1,10 @@
+import {ref} from "vue";
+
 export default {
+  VCard: {
+    border: ref(false),
+    rounded: ref("lg")
+  },
   IconBtn: {
     icon: true,
     size: 'small',

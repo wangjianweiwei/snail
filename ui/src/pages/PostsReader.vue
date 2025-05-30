@@ -26,7 +26,7 @@ onMounted(async () => {
     defaultFontsize: 15,
     darkMode: theme.global.name.value === "dark",
     toc: {
-      enable: true
+      enable: false
     },
   });
   // 设置内容
@@ -67,50 +67,54 @@ async function publishPost(status) {
 </script>
 
 <template>
-  <div class="py-lg-5">
-    <v-row justify="center" no-gutters>
-      <v-col cols="11" md="6">
-        <v-row class="d-flex justify-space-between align-center mt-4" dense>
-          <v-col cols="12">
-            <span class="text-h4 font-weight-bold">{{ post.title }}</span>
-          </v-col>
-        </v-row>
-        <v-row class="align-center" dense>
-          <v-col cols="12" md="6">
-            <span class="mr-4">📅 {{ post.created_at }}</span>
-            <span>🖊️ {{ post.wordcount }} {{t('blog.text.words')}}</span>
-          </v-col>
-          <v-col cols="12" md="6" class="mt-3">
-            <div v-if="authState">
-              <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">{{ t("blog.btn.edit")}}</v-btn>
-              <span class="mx-2"></span>
+  <v-row justify="center" class="py-4" style="height: 100%;" no-gutters>
+    <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="8" xxl="7" style="height: 100%;">
+      <v-row class="d-flex justify-space-between align-center mt-4" dense>
+        <v-col cols="12">
+          <span class="text-h4 font-weight-bold">{{ post.title }}</span>
+        </v-col>
+      </v-row>
+      <v-row class="align-center" dense>
+        <v-col cols="12" md="6">
+          <span class="mr-4">📅 {{ post.created_at }}</span>
+          <span>🖊️ {{ post.wordcount }} {{ t('blog.text.words') }}</span>
+        </v-col>
+        <v-col cols="12" md="6" class="mt-3 d-flex justify-sm-start justify-md-end">
+          <div v-if="authState">
+            <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">
+              {{ t("blog.btn.edit") }}
+            </v-btn>
+            <span class="mx-2"></span>
 
-              <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning"
-                     @click="publishPost(false)">{{t('blog.btn.unpublishing')}}
-              </v-btn>
-              <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">{{t("blog.btn.publish")}}
-              </v-btn>
+            <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning"
+                   @click="publishPost(false)">{{ t('blog.btn.unpublishing') }}
+            </v-btn>
+            <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">
+              {{ t("blog.btn.publish") }}
+            </v-btn>
 
-              <span class="mx-2"></span>
-              <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">{{ t("blog.btn.delete")}}
-              </v-btn>
-            </div>
-          </v-col>
-        </v-row>
-        <v-divider class="mt-3"></v-divider>
-        <div id="editor" class="ne-doc-major-viewer"></div>
-      </v-col>
-      <v-snackbar
-        v-model="snackbar"
-        :color="snackbarColor"
-        timeout="1200"
-        location="top right"
-        variant="elevated"
-        :text="snackbarText"
-      >
-      </v-snackbar>
-    </v-row>
-  </div>
+            <span class="mx-2"></span>
+            <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">
+              {{ t("blog.btn.delete") }}
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
+      <v-divider class="mt-3"></v-divider>
+      <div id="editor" class="ne-doc-major-viewer"></div>
+    </v-col>
+  </v-row>
+
+  <v-snackbar
+    v-model="snackbar"
+    :color="snackbarColor"
+    timeout="1200"
+    location="top right"
+    variant="elevated"
+    :text="snackbarText"
+  >
+  </v-snackbar>
+
 
 </template>
 

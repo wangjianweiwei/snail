@@ -77,7 +77,7 @@ function doEnter(e) {
 
 <template>
   <div style="height: 100%" class="pa-6">
-    <v-card rounded="lg" style="height: 100%">
+    <v-card style="height: 100%">
       <div class="d-flex">
         <div style="width: 25%">
           <v-locale-provider locale="zhHans">

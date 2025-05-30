@@ -660,206 +660,206 @@ const sendMsg = () => {
 </script>
 
 <template>
-  <div style="height: 100%" class="py-lg-5">
-    <v-layout style="height: 100%">
-      <v-row justify="center" no-gutters style="height: 100%">
-        <v-col lg="10" xl="9">
-          <v-card rounded="lg" style="height: 100%" border>
-            <!--头部区域-->
-            <v-row no-gutters style="height: 10%" align="center">
-              <!--我的头像区域-->
-              <v-col id="avatarCol"
-                     cols="3"
-                     style="height: 100%"
-                     class="pa-4 border-b-sm d-flex justify-start align-center"
-                     v-resize="updateDrawerWidth">
-                <v-navigation-drawer
-                  absolute
-                  v-model="drawer"
-                  :width="drawerWidth"
-                  temporary
-                >
-                  <div class="px-4 py-3">
-                    <div class="d-flex justify-end">
-                      <v-btn icon="mdi-close"
-                             variant="text"
-                             size="small" @click="drawer = false"></v-btn>
-                    </div>
-                    <div class="text-center">
-                      <v-badge dot location="bottom end" :color="currentUser.status">
-                        <v-avatar :image="currentUser.avatar" size="70" variant="flat"></v-avatar>
-                      </v-badge>
-                      <p class="text-h6">弗瑞</p>
-                      <p class="text-capitalize text-body-2 mb-0">Director of S.H.I.E.L.D</p>
-                    </div>
-                    <div class="mt-5">
-                      <p class="text-disabled mb-1">状态</p>
-                      <v-radio-group v-model="currentUser.status">
-                        <v-radio label="在线" value="success" density="comfortable" color="success"></v-radio>
-                        <v-radio label="离开" value="warning" density="comfortable" color="warning"></v-radio>
-                        <v-radio label="请勿打扰" value="error" density="comfortable" color="error"></v-radio>
-                        <v-radio label="离线" value="grey" density="comfortable" color="grey"></v-radio>
-                      </v-radio-group>
-                    </div>
-                    <div class="mt-5">
-                      <p class="text-disabled mb-1">设置</p>
-                      <div class="d-flex justify-space-between align-center px-2">
-                        <div class="d-flex justify-start">
-                          <v-icon size="small" icon="mdi-lock-outline"></v-icon>
-                          <p class="text-body-1 ml-2 text-high-emphasis">两步验证</p>
-                        </div>
-                        <v-switch density="compact" center-affix v-model="currentUser.settings.two_step"></v-switch>
-                      </div>
-                      <div class="d-flex justify-space-between align-center px-2">
-                        <div class="d-flex justify-start">
-                          <v-icon size="small" icon="mdi-bell-outline"></v-icon>
-                          <p class="text-body-1 ml-2 text-high-emphasis">通知</p>
-                        </div>
-                        <v-switch density="compact" center-affix v-model="currentUser.settings.notify"></v-switch>
-                      </div>
-                      <div class="d-flex justify-space-between align-center px-2">
-                        <div class="d-flex justify-start">
-                          <v-icon size="small" icon="mdi-account-plus-outline"></v-icon>
-                          <p class="text-body-1 ml-2 text-high-emphasis">邀请朋友</p>
-                        </div>
-                        <v-switch style="visibility: hidden" density="compact" center-affix></v-switch>
-                      </div>
-                      <div class="d-flex justify-space-between align-center px-2">
-                        <div class="d-flex justify-start text-subtitle-2">
-                          <v-icon size="small" icon="mdi-delete-outline"></v-icon>
-                          <p class="text-body-1 ml-2 text-high-emphasis">删除账户</p>
-                        </div>
-                        <v-switch style="visibility: hidden" density="compact" center-affix hide-details></v-switch>
-                      </div>
+  <v-layout style="height: 100%">
+    <v-row justify="center" class="py-4" no-gutters style="height: 100%;">
+      <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="8" xxl="7" style="height: 100%;">
 
-                    </div>
-                    <div class="mt-5">
-                      <v-btn block prepend-icon="mdi-logout">退出登录</v-btn>
-                    </div>
+        <v-card style="height: 100%">
+          <!--头部区域-->
+          <v-row no-gutters style="height: 10%" align="center">
+            <!--我的头像区域-->
+            <v-col id="avatarCol"
+                   cols="3"
+                   style="height: 100%"
+                   class="pa-4 border-b-sm d-flex justify-start align-center"
+                   v-resize="updateDrawerWidth">
+              <v-navigation-drawer
+                absolute
+                v-model="drawer"
+                :width="drawerWidth"
+                temporary
+              >
+                <div class="px-4 py-3">
+                  <div class="d-flex justify-end">
+                    <v-btn icon="mdi-close"
+                           variant="text"
+                           size="small" @click="drawer = false"></v-btn>
                   </div>
-                </v-navigation-drawer>
-                <v-badge dot location="bottom end" :color="currentUser.status">
-                  <v-avatar @click="drawer = true" :image="currentUser.avatar"></v-avatar>
-                </v-badge>
-              </v-col>
-              <v-divider vertical></v-divider>
-              <!--好友工具栏区域-->
-              <v-col v-if="friend"
-                     cols="9"
-                     style="height: 100%"
-                     class="border-b-sm pa-4 align-center d-flex justify-space-between">
-                <v-list-item
-                  :prepend-avatar="friend.prependAvatar"
-                  :title="friend.title"
-                  subtitle="Members of S.H.I.E.L.D"
-                >
-                </v-list-item>
-                <div>
-                  <v-btn icon="mdi-phone-outline" variant="text" color=""></v-btn>
-                  <v-btn icon="mdi-video-outline" variant="text" color=""></v-btn>
-                  <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
-                  <v-btn icon="mdi-dots-vertical" variant="text" color=""></v-btn>
-                </div>
-              </v-col>
-              <!--空白好友工具栏区域-->
-              <v-col v-else style="height: 100%"></v-col>
-            </v-row>
-            <!--底部区域-->
-            <v-row no-gutters style="height: 90%">
-              <!--好友列表区域-->
-              <v-col cols="3" style="overflow-y: scroll">
-                <v-list
-                  activatable
-                  :items="friends"
-                  lines="two"
-                  item-props
-                  variant="elevated"
-                  @click:activate="SelectFriend"
-                >
-                  <template v-slot:subtitle="{ subtitle }">
-                    <p class="text-truncate mt-1">{{ subtitle }}</p>
-                  </template>
-                  <template v-slot:append="{ item }">
-                    <div class="d-flex flex-column align-self-start text-center">
-                      <span class="text-disabled" style="font-size: 0.73rem;font-weight: 450">23:30:50</span>
-
-                      <v-badge class="mt-1" v-if="item.value === 1" inline content="99+" color="red-darken-2"></v-badge>
+                  <div class="text-center">
+                    <v-badge dot location="bottom end" :color="currentUser.status">
+                      <v-avatar :image="currentUser.avatar" size="70" variant="flat"></v-avatar>
+                    </v-badge>
+                    <p class="text-h6">弗瑞</p>
+                    <p class="text-capitalize text-body-2 mb-0">Director of S.H.I.E.L.D</p>
+                  </div>
+                  <div class="mt-5">
+                    <p class="text-disabled mb-1">状态</p>
+                    <v-radio-group v-model="currentUser.status">
+                      <v-radio label="在线" value="success" density="comfortable" color="success"></v-radio>
+                      <v-radio label="离开" value="warning" density="comfortable" color="warning"></v-radio>
+                      <v-radio label="请勿打扰" value="error" density="comfortable" color="error"></v-radio>
+                      <v-radio label="离线" value="grey" density="comfortable" color="grey"></v-radio>
+                    </v-radio-group>
+                  </div>
+                  <div class="mt-5">
+                    <p class="text-disabled mb-1">设置</p>
+                    <div class="d-flex justify-space-between align-center px-2">
+                      <div class="d-flex justify-start">
+                        <v-icon size="small" icon="mdi-lock-outline"></v-icon>
+                        <p class="text-body-1 ml-2 text-high-emphasis">两步验证</p>
+                      </div>
+                      <v-switch density="compact" center-affix v-model="currentUser.settings.two_step"></v-switch>
                     </div>
-                  </template>
-                </v-list>
-              </v-col>
-              <v-divider vertical></v-divider>
-              <!--聊天区域-->
-              <v-col v-if="friend" cols="9" style="height: 100%">
-                <!--消息记录区域-->
-                <v-row no-gutters style="height: 90%">
-                  <v-col class="px-3">
-                    <v-infinite-scroll height="100%" side="start" @load="load">
-                      <template #default>
-                        <v-list-item
-                          v-for="(n, i) in messages[friend.value]"
-                          :key="i"
-                          :class="{'text-right': n.user_id === currentUser.id, 'text-left': n.user_id !== currentUser.id}"
+                    <div class="d-flex justify-space-between align-center px-2">
+                      <div class="d-flex justify-start">
+                        <v-icon size="small" icon="mdi-bell-outline"></v-icon>
+                        <p class="text-body-1 ml-2 text-high-emphasis">通知</p>
+                      </div>
+                      <v-switch density="compact" center-affix v-model="currentUser.settings.notify"></v-switch>
+                    </div>
+                    <div class="d-flex justify-space-between align-center px-2">
+                      <div class="d-flex justify-start">
+                        <v-icon size="small" icon="mdi-account-plus-outline"></v-icon>
+                        <p class="text-body-1 ml-2 text-high-emphasis">邀请朋友</p>
+                      </div>
+                      <v-switch style="visibility: hidden" density="compact" center-affix></v-switch>
+                    </div>
+                    <div class="d-flex justify-space-between align-center px-2">
+                      <div class="d-flex justify-start text-subtitle-2">
+                        <v-icon size="small" icon="mdi-delete-outline"></v-icon>
+                        <p class="text-body-1 ml-2 text-high-emphasis">删除账户</p>
+                      </div>
+                      <v-switch style="visibility: hidden" density="compact" center-affix hide-details></v-switch>
+                    </div>
 
-                        >
-                          <template #title>
-                            <v-progress-circular v-if="currentUser.id === n.user_id && n.loading" width="2" size="13"
-                                                 class="mr-2"
-                                                 indeterminate></v-progress-circular>
-                            <p class="text-sm-body-2 rounded-lg pa-2 mb-2 message-content font-weight-medium"
-                               :style="{'background-color': n.user_id === currentUser.id ? '#696CFF': '#2b2c40'}">
-                              {{ n.message.content }}</p>
-                          </template>
-                          <template #append v-if="n.user_id === currentUser.id">
-                            <v-avatar size="small" :image="currentUser.avatar"></v-avatar>
-                          </template>
-                          <template #prepend v-if="n.user_id !== currentUser.id">
-                            <v-avatar size="small" :image="friend.prependAvatar"></v-avatar>
-                          </template>
-                          <template #subtitle>
-                            <div class="text-disabled" style="font-size: 0.73rem;font-weight: 450">
-                              <v-icon v-if="currentUser.id === n.user_id"
-                                      icon="mdi-check-bold"
-                                      color="success"
-                                      class="mr-1"></v-icon>
-                              <span>{{ n.time }}</span>
-                            </div>
+                  </div>
+                  <div class="mt-5">
+                    <v-btn block prepend-icon="mdi-logout">退出登录</v-btn>
+                  </div>
+                </div>
+              </v-navigation-drawer>
+              <v-badge dot location="bottom end" :color="currentUser.status">
+                <v-avatar @click="drawer = true" :image="currentUser.avatar"></v-avatar>
+              </v-badge>
+            </v-col>
+            <v-divider vertical></v-divider>
+            <!--好友工具栏区域-->
+            <v-col v-if="friend"
+                   cols="9"
+                   style="height: 100%"
+                   class="border-b-sm pa-4 align-center d-flex justify-space-between">
+              <v-list-item
+                :prepend-avatar="friend.prependAvatar"
+                :title="friend.title"
+                subtitle="Members of S.H.I.E.L.D"
+              >
+              </v-list-item>
+              <div>
+                <v-btn icon="mdi-phone-outline" variant="text" color=""></v-btn>
+                <v-btn icon="mdi-video-outline" variant="text" color=""></v-btn>
+                <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
+                <v-btn icon="mdi-dots-vertical" variant="text" color=""></v-btn>
+              </div>
+            </v-col>
+            <!--空白好友工具栏区域-->
+            <v-col v-else style="height: 100%"></v-col>
+          </v-row>
+          <!--底部区域-->
+          <v-row no-gutters style="height: 90%">
+            <!--好友列表区域-->
+            <v-col cols="3" style="overflow-y: scroll">
+              <v-list
+                activatable
+                :items="friends"
+                lines="two"
+                item-props
+                variant="elevated"
+                @click:activate="SelectFriend"
+              >
+                <template v-slot:subtitle="{ subtitle }">
+                  <p class="text-truncate mt-1">{{ subtitle }}</p>
+                </template>
+                <template v-slot:append="{ item }">
+                  <div class="d-flex flex-column align-self-start text-center">
+                    <span class="text-disabled" style="font-size: 0.73rem;font-weight: 450">23:30:50</span>
 
-                          </template>
-                        </v-list-item>
-                      </template>
-                    </v-infinite-scroll>
-                  </v-col>
-                </v-row>
-                <!--消息发送区域-->
-                <v-row no-gutters style="height: 10%" align="center">
-                  <v-col class="pa-4">
-                    <v-sheet>
-                      <v-text-field v-model="currentMsg" variant="solo-filled" no-resize
-                                    center-affix @keydown.enter="sendMsg">
-                        <template #append-inner>
-                          <v-btn icon="mdi-microphone-outline" variant="text" color=""></v-btn>
-                          <v-btn icon="mdi-attachment" variant="text" color=""></v-btn>
-                          <v-btn icon="mdi-emoticon-outline" variant="text" color=""></v-btn>
-                          <v-btn icon="mdi-send-outline" variant="text" color=""></v-btn>
+                    <v-badge class="mt-1" v-if="item.value === 1" inline content="99+" color="red-darken-2"></v-badge>
+                  </div>
+                </template>
+              </v-list>
+            </v-col>
+            <v-divider vertical></v-divider>
+            <!--聊天区域-->
+            <v-col v-if="friend" cols="9" style="height: 100%">
+              <!--消息记录区域-->
+              <v-row no-gutters style="height: 90%">
+                <v-col class="px-3">
+                  <v-infinite-scroll height="100%" side="start" @load="load">
+                    <template #default>
+                      <v-list-item
+                        v-for="(n, i) in messages[friend.value]"
+                        :key="i"
+                        :class="{'text-right': n.user_id === currentUser.id, 'text-left': n.user_id !== currentUser.id}"
+
+                      >
+                        <template #title>
+                          <v-progress-circular v-if="currentUser.id === n.user_id && n.loading" width="2" size="13"
+                                               class="mr-2"
+                                               indeterminate></v-progress-circular>
+                          <p class="text-sm-body-2 rounded-lg pa-2 mb-2 message-content font-weight-medium"
+                             :style="{'background-color': n.user_id === currentUser.id ? '#696CFF': '#2b2c40'}">
+                            {{ n.message.content }}</p>
                         </template>
-                      </v-text-field>
-                    </v-sheet>
-                  </v-col>
-                </v-row>
-              </v-col>
-              <!--空白聊天区域-->
-              <v-col v-else cols="9" style="height: 100%"
-                     class="d-flex flex-column justify-center align-center">
-                <v-icon size="100" icon="mdi-message-question-outline" class="mb-2"></v-icon>
-                <p class="text-grey-darken-1 text-sm-body-2 font-weight-black">选择左侧的联系人开始联系</p>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-layout>
-  </div>
+                        <template #append v-if="n.user_id === currentUser.id">
+                          <v-avatar size="small" :image="currentUser.avatar"></v-avatar>
+                        </template>
+                        <template #prepend v-if="n.user_id !== currentUser.id">
+                          <v-avatar size="small" :image="friend.prependAvatar"></v-avatar>
+                        </template>
+                        <template #subtitle>
+                          <div class="text-disabled" style="font-size: 0.73rem;font-weight: 450">
+                            <v-icon v-if="currentUser.id === n.user_id"
+                                    icon="mdi-check-bold"
+                                    color="success"
+                                    class="mr-1"></v-icon>
+                            <span>{{ n.time }}</span>
+                          </div>
+
+                        </template>
+                      </v-list-item>
+                    </template>
+                  </v-infinite-scroll>
+                </v-col>
+              </v-row>
+              <!--消息发送区域-->
+              <v-row no-gutters style="height: 10%" align="center">
+                <v-col class="pa-4">
+                  <v-sheet>
+                    <v-text-field v-model="currentMsg" variant="solo-filled" no-resize
+                                  center-affix @keydown.enter="sendMsg">
+                      <template #append-inner>
+                        <v-btn icon="mdi-microphone-outline" variant="text" color=""></v-btn>
+                        <v-btn icon="mdi-attachment" variant="text" color=""></v-btn>
+                        <v-btn icon="mdi-emoticon-outline" variant="text" color=""></v-btn>
+                        <v-btn icon="mdi-send-outline" variant="text" color=""></v-btn>
+                      </template>
+                    </v-text-field>
+                  </v-sheet>
+                </v-col>
+              </v-row>
+            </v-col>
+            <!--空白聊天区域-->
+            <v-col v-else cols="9" style="height: 100%"
+                   class="d-flex flex-column justify-center align-center">
+              <v-icon size="100" icon="mdi-message-question-outline" class="mb-2"></v-icon>
+              <p class="text-grey-darken-1 text-sm-body-2 font-weight-black">选择左侧的联系人开始联系</p>
+            </v-col>
+          </v-row>
+        </v-card>
+
+      </v-col>
+    </v-row>
+  </v-layout>
 </template>
 
 <style scoped>

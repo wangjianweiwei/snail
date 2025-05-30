@@ -49,7 +49,7 @@ const register = async () => {
   <v-app>
     <v-row no-gutters class="d-flex justify-center">
       <v-col class="pa-10" lg="4" xl="3" sm="8" xs="10" align-self="center">
-        <v-card class="pa-5" :loading="loading" rounded="lg">
+        <v-card class="pa-5" :loading="loading">
           <template v-slot:loader="{ isActive }">
             <v-progress-linear
               :active="isActive"

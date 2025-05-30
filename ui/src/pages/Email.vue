@@ -4,7 +4,7 @@
 
 <template>
   <div style="height: 100%" class="pa-10">
-    <v-card border rounded="lg" style="height: 100%" class="pa-5">
+    <v-card style="height: 100%" class="pa-5">
       <div style="overflow: scroll">
         <p>Email.vue</p>
         <p>Email.vue</p>

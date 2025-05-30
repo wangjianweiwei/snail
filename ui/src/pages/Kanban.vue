@@ -50,8 +50,6 @@ function add_card(stage) {
     <v-row style="flex-wrap: nowrap;overflow-x: scroll;min-height: 100%">
       <v-col xl="2" sm="3" v-for="i in stages" style="height: 100%;overflow-y: scroll">
         <v-card
-          border
-          rounded="lg"
           elevation="24"
           :color="i.color"
         >
@@ -93,8 +91,6 @@ function add_card(stage) {
                       v-bind="props"
                       :color="isHovering ? 'primary' : undefined"
                       elevation="24"
-                      border
-                      rounded="lg"
                     >
                       <div class="d-flex align-center justify-space-between px-2 py-1 pb-0">
                         <h5 class="text-subtitle-2 pr-4 py-2 pr-3">{{ item.title }}</h5>
@@ -108,7 +104,7 @@ function add_card(stage) {
                       </div>
                       <v-dialog activator="parent" max-width="900">
                         <template v-slot:default="{ isActive }">
-                          <v-card rounded="lg" height="800">
+                          <v-card height="800">
                             <v-card-text>
                               <v-row justify="space-between">
                                 <v-col cols="10">
