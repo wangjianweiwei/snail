@@ -31,6 +31,7 @@ export default {
   VBtn: {
     // set v-btn default color to primary
     color: 'primary',
+    variant: ref("text")
   },
   VChip: {
     elevation: 0,

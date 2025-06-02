@@ -41,7 +41,10 @@ onMounted(async () => {
   <v-row justify="center" class="py-4" no-gutters>
     <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="8" xxl="7" style="height: 100%;">
       <p class="text-h4 font-weight-bold">{{ t("menu.title.blog") }}</p>
-      <p>{{ t("blog.subtitle") }}</p>
+      <div class="d-flex justify-space-between align-center">
+        <p>{{ t("blog.subtitle") }}</p>
+        <v-btn v-if="authState" append-icon="mdi-plus" text="新建" @click="createPost"></v-btn>
+      </div>
       <v-divider class="my-6"></v-divider>
       <div :key="post.id" v-for="post in posts">
         <p class="text-h6 mb-2 font-weight-bold">{{ post.title }}
@@ -61,7 +64,7 @@ onMounted(async () => {
         </p>
         <p class="text-medium-emphasis text-body-2">{{ post.abstract }}</p>
         <div class="d-flex justify-space-between justify-center align-center pt-5">
-          <v-btn variant="text" append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
+          <v-btn append-icon="mdi-page-next-outline" :to="`/posts/reader/${post.id}`"
                  :text="t('blog.read')"></v-btn>
           <span class="text-medium-emphasis">
               <span><span class="mdi mdi-eye-outline"></span> 1209</span>
@@ -75,15 +78,6 @@ onMounted(async () => {
         <v-pagination @update:modelValue="changePage" :model-value="page" variant="text" active-color="primary"
                       :length="postCount"></v-pagination>
       </div>
-      <v-fab
-        v-if="authState"
-        icon="mdi-plus"
-        location="bottom right"
-        size="50"
-        app
-        appear
-        @click="createPost"
-      ></v-fab>
     </v-col>
   </v-row>
 

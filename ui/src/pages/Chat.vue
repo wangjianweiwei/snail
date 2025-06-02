@@ -807,7 +807,7 @@ const sendMsg = () => {
                                                class="mr-2"
                                                indeterminate></v-progress-circular>
                           <p class="text-sm-body-2 rounded-lg pa-2 mb-2 message-content font-weight-medium"
-                             :style="{'background-color': n.user_id === currentUser.id ? '#696CFF': '#2b2c40'}">
+                             :style="{'background-color': n.user_id === currentUser.id ? 'rgb(var(--v-theme-primary))': '#2b2c40'}">
                             {{ n.message.content }}</p>
                         </template>
                         <template #append v-if="n.user_id === currentUser.id">

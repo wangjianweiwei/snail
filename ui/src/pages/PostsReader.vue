@@ -81,20 +81,20 @@ async function publishPost(status) {
         </v-col>
         <v-col cols="12" md="6" class="mt-3 d-flex justify-sm-start justify-md-end">
           <div v-if="authState">
-            <v-btn variant="tonal" append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">
+            <v-btn append-icon="mdi-square-edit-outline" :to="`/posts/editor/${postId}`">
               {{ t("blog.btn.edit") }}
             </v-btn>
             <span class="mx-2"></span>
 
-            <v-btn v-if="post.published" variant="tonal" append-icon="mdi-publish-off" color="warning"
+            <v-btn v-if="post.published" append-icon="mdi-publish-off" color="warning"
                    @click="publishPost(false)">{{ t('blog.btn.unpublishing') }}
             </v-btn>
-            <v-btn v-else variant="tonal" append-icon="mdi-publish" color="success" @click="publishPost(true)">
+            <v-btn v-else append-icon="mdi-publish" color="success" @click="publishPost(true)">
               {{ t("blog.btn.publish") }}
             </v-btn>
 
             <span class="mx-2"></span>
-            <v-btn variant="tonal" append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">
+            <v-btn append-icon="mdi-delete-alert-outline" color="error" @click="deletePost">
               {{ t("blog.btn.delete") }}
             </v-btn>
           </div>
