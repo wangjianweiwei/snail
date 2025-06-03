@@ -279,19 +279,16 @@ function ccc() {
       </v-list>
       <template v-slot:append>
         <div class="d-flex justify-space-between align-center px-1 pb-6">
-          <v-btn icon="mdi-magnify" variant="text" color="" size="small"></v-btn>
-          <v-btn icon="mdi-bell-outline" variant="text" color="" size="small"></v-btn>
-          <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"
-                 size="small"></v-btn>
-          <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"
-                 size="small"></v-btn>
-          <v-btn icon="mdi-cog-outline" @click="drawer =false;configDrawer = true"></v-btn>
+          <v-btn icon="mdi-magnify" size="small" color=""></v-btn>
+          <v-btn icon="mdi-bell-outline" size="small" color=""></v-btn>
+          <v-btn v-if="currentDark" icon="mdi-weather-night" size="small" color="" @click="toggleTheme"></v-btn>
+          <v-btn v-else icon="mdi-white-balance-sunny" size="small" color="" @click="toggleTheme"></v-btn>
+          <v-btn icon="mdi-cog-outline" size="small" color="" @click="drawer =false;configDrawer = true"></v-btn>
           <v-menu open-on-click>
             <template v-slot:activator="{ props }">
               <v-btn
                 size="small"
                 color=""
-                variant="text"
                 icon="mdi-translate"
                 v-bind="props"
               >
@@ -373,7 +370,7 @@ function ccc() {
         </div>
       </template>
     </v-navigation-drawer>
-    <v-navigation-drawer v-model="configDrawer" width="400" location="right" temporary>
+    <v-navigation-drawer v-model="configDrawer" mobile location="right" temporary>
       <div class="pa-5">
         <p class="text-h6">Theme Customizer</p>
         <p class="text-body-2 text-disabled">Customize & Preview in Real Time</p>
