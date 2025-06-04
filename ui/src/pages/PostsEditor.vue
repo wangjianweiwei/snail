@@ -178,14 +178,23 @@ onMounted(async () => {
   --lakex-editor-background-primary: rgba(var(--v-theme-background)) !important;
 }
 
-.ne-ui {
-  padding: 0 !important;
+.ne-layout-mode-fixed .ne-editor-wrap-content, .ne-layout-mode-adapt .ne-editor-wrap-content {
+  min-width: 100% !important;
 }
 
-.ne-editor-extra-box {
+.ne-layout-mode-fixed .ne-editor-outer-wrap-box, .ne-layout-mode-adapt .ne-editor-outer-wrap-box {
+  min-width: 100% !important;
+}
+
+.ne-layout-mode-fixed .ne-engine, .ne-layout-mode-adapt .ne-engine {
+  padding: 20px 10px 90px 10px !important;
+}
+
+.ne-doc-major-editor .ne-layout-mode-fixed .ne-editor-extra-box {
   padding: 0 10px !important;
 }
-.ne-layout-mode-fixed .ne-engine {
-  padding: 20px 10px 90px 10px;
+
+.ne-doc-major-editor .ne-layout-mode-fixed .ne-ui {
+  padding: 0 10px !important;
 }
 </style>
