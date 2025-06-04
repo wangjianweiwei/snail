@@ -75,7 +75,7 @@ const works = ref([
 
 <template>
   <v-row justify="center" class="py-4" no-gutters>
-    <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="8" xxl="7">
+    <v-col cols="12" xs="11" sm="11" md="11" lg="8" xl="7" xxl="6" class="px-2 px-md-0">
       <v-row>
         <v-col cols="12">
           <v-card>
@@ -122,7 +122,7 @@ const works = ref([
             <v-col cols="12">
               <v-card :subtitle="t('about.text.basic')">
                 <v-card-text>
-                  <v-list density="compact">
+                  <v-list border="0" density="compact">
                     <v-list-item class="align-center">
                       <v-icon icon="mdi-account" size="small"></v-icon>
                       <span class="ml-1">{{ t("about.text.full_name") }}: {{ t("about.text.name") }}</span>
@@ -162,7 +162,7 @@ const works = ref([
             <v-col cols="12">
               <v-card :subtitle="t('about.text.skill')">
                 <v-card-text>
-                  <v-list density="compact">
+                  <v-list border="0" density="compact">
                     <v-list-subheader class="text-disabled">ABOUT</v-list-subheader>
                     <v-list-item class="align-center">
                       <v-icon icon="mdi-account-outline"></v-icon>

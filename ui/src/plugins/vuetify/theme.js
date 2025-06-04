@@ -8,13 +8,13 @@ const theme = {
     light: {
       dark: false,
       colors: {
-        'primary': primaryColor
+        primary: primaryColor,
       },
     },
     dark: {
       dark: true,
       colors: {
-        'primary': primaryColor
+        primary: primaryColor
       }
     },
   },

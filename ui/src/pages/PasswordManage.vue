@@ -26,8 +26,8 @@ function copy(text) {
 </script>
 
 <template>
-  <v-row justify="center" class="py-4" style="height: 100%;" no-gutters>
-    <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="8" xxl="7" style="height: 100%;">
+  <v-row justify="center" class="py-4" no-gutters>
+    <v-col cols="12" xs="11" sm="11" md="11" lg="8" xl="7" xxl="6" class="px-5 px-md-0" style="height: 100%">
       <v-row>
         <v-col cols="12">
           <v-text-field

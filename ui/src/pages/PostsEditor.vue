@@ -177,4 +177,15 @@ onMounted(async () => {
 .lakex-dark-theme-dark {
   --lakex-editor-background-primary: rgba(var(--v-theme-background)) !important;
 }
+
+.ne-ui {
+  padding: 0 !important;
+}
+
+.ne-editor-extra-box {
+  padding: 0 10px !important;
+}
+.ne-layout-mode-fixed .ne-engine {
+  padding: 20px 10px 90px 10px;
+}
 </style>

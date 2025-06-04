@@ -39,7 +39,7 @@ onMounted(async () => {
 
 <template>
   <v-row justify="center" class="py-4" no-gutters>
-    <v-col cols="11" xs="11" sm="11" md="10" lg="9" xl="8" xxl="7" style="height: 100%;">
+    <v-col cols="12" xs="11" sm="11" md="11" lg="8" xl="7" xxl="6" class="px-2 px-md-0" style="height: 100%">
       <p class="text-h4 font-weight-bold">{{ t("menu.title.blog") }}</p>
       <div class="d-flex justify-space-between align-center">
         <p>{{ t("blog.subtitle") }}</p>

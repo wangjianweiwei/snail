@@ -4,7 +4,7 @@ import {routes} from "@/plugins/router";
 import {useTheme} from 'vuetify'
 import {ref} from "vue";
 import {useI18n} from "vue-i18n"
-import config from "@/plugins/vuetify/defaults"
+import {componentStyleConfig} from "@/plugins/vuetify/defaults"
 import {primaryColor} from "@/plugins/vuetify/theme";
 
 const {t, locale} = useI18n()
@@ -15,7 +15,7 @@ const authState = localStorage.getItem("token")
 const route = useRoute()
 const router = useRouter()
 const currentDark = ref(true)
-const rounded = [0, "xs", "sm", true, "lg", "xl", "pill", "circle", "shaped"]
+const language = ref(["zh"])
 
 async function logout() {
   localStorage.removeItem("token")
@@ -80,7 +80,7 @@ function translate(value) {
 <template>
   <v-app>
     <v-layout>
-      <v-app-bar elevation="1">
+      <v-app-bar flat class="border-b px-3">
         <v-app-bar-nav-icon
           class="d-sm-flex d-md-none"
           @click="drawer = !drawer"
@@ -89,8 +89,8 @@ function translate(value) {
           <h2 class="text-disabled">👋</h2>
         </v-app-bar-title>
         <template v-slot:append>
-          <div class="d-flex align-center ga-3 px-4">
-            <div class="d-none d-md-flex">
+          <div class="d-flex align-center ga-3">
+            <div class="d-none d-md-flex ga-2">
               <v-menu
                 open-on-hover
                 open-delay="7"
@@ -114,7 +114,7 @@ function translate(value) {
 
                   </v-btn>
                 </template>
-                <v-list v-if="menu.meta.hasSub" density="compact" border="sm" rounded width="200px">
+                <v-list v-if="menu.meta.hasSub" density="compact" width="200px">
                   <v-list-item
                     v-for="child in menu.children.filter(n => {return n.meta?.subMenu})"
                     class="mx-2 my-1"
@@ -132,7 +132,7 @@ function translate(value) {
                 </v-list>
               </v-menu>
             </div>
-            <div>
+            <div class="d-flex ga-2">
               <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
               <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
               <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
@@ -147,9 +147,10 @@ function translate(value) {
                   >
                   </v-btn>
                 </template>
-                <v-list density="compact" border @update:selected="translate">
-                  <v-list-item title="中文" value="zh"></v-list-item>
-                  <v-list-item title="英文" value="en"></v-list-item>
+                <v-list selectable density="compact" class="px-2"
+                        v-model:selected="language" @update:selected="translate">
+                  <v-list-item title="中文" value="zh" rounded></v-list-item>
+                  <v-list-item title="English" value="en" rounded></v-list-item>
                 </v-list>
               </v-menu>
               <v-btn icon="mdi-cog-outline" color="" @click="configDrawer = true"></v-btn>
@@ -164,15 +165,15 @@ function translate(value) {
                     <span class="text-h6">will</span>
                   </v-avatar>
                 </template>
-                <v-list width="230" density="comfortable" border="sm" rounded>
+                <v-list width="230" density="comfortable">
                   <v-list-item
                     title="admin"
-                    subtitle="wangjianwei">
+                    subtitle="will">
                     <template #prepend>
                       <v-avatar
                         color="primary"
                       >
-                        <span class="text-h6">wangjianwei</span>
+                        <span class="text-h6">will</span>
                       </v-avatar>
                     </template>
                   </v-list-item>
@@ -241,7 +242,7 @@ function translate(value) {
           <h2 class="text-disabled">👋</h2>
         </div>
       </template>
-      <v-list density="compact"  variant="flat" nav>
+      <v-list density="compact" variant="flat" nav>
         <div v-for="menu in routes[0]?.children">
           <v-list-group v-if="menu.meta.hasSub">
             <template v-slot:activator="{ props }">
@@ -270,19 +271,19 @@ function translate(value) {
 
       </v-list>
     </v-navigation-drawer>
-    <v-navigation-drawer v-model="configDrawer" location="right" temporary>
+    <v-navigation-drawer width="320" v-model="configDrawer" location="right" temporary>
       <div class="pa-5">
-        <p class="text-h6">Theme Customizer</p>
-        <p class="text-body-2 text-disabled">Customize & Preview in Real Time</p>
+        <p class="text-h6">主题定制</p>
+        <p class="text-body-2 text-disabled">实时自定义和预览</p>
       </div>
       <v-divider></v-divider>
       <div class="pa-4">
-        <v-radio-group label="边框" v-model="config.VCard.border.value" density="comfortable">
+        <v-radio-group label="边框" v-model="componentStyleConfig.border" density="comfortable">
           <v-radio label="不显示" :value="false"></v-radio>
           <v-radio label="显示" :value="true"></v-radio>
         </v-radio-group>
         <v-divider class="my-2"></v-divider>
-        <v-radio-group label="圆角" v-model="config.VCard.rounded.value" density="comfortable">
+        <v-radio-group label="圆角" v-model="componentStyleConfig.rounded" density="comfortable">
           <v-radio label="取消" :value="false"></v-radio>
           <v-radio label="lg" value="lg"></v-radio>
           <v-radio label="xl" value="xl"></v-radio>
@@ -316,39 +317,48 @@ function translate(value) {
             </template>
           </v-radio>
         </v-radio-group>
+        <v-color-input variant="underlined" class="ml-3 mt-1" density="compact" v-model="primaryColor"></v-color-input>
         <v-divider class="my-2"></v-divider>
-        <v-radio-group label="按钮样式" v-model="config.VBtn.variant.value" density="comfortable">
+        <v-radio-group label="按钮样式" v-model="componentStyleConfig.btnVariant" density="comfortable">
           <v-radio value="elevated">
             <template v-slot:label>
-              <v-btn variant="elevated" text="elevated"></v-btn>
+              <v-btn variant="elevated" text="example"></v-btn>
             </template>
           </v-radio>
           <v-radio value="flat" class="pt-2">
             <template v-slot:label>
-              <v-btn variant="flat" text="flat"></v-btn>
+              <v-btn variant="flat" text="example"></v-btn>
             </template>
           </v-radio>
           <v-radio value="tonal" class="pt-2">
             <template v-slot:label>
-              <v-btn variant="tonal" text="tonal"></v-btn>
+              <v-btn variant="tonal" text="example"></v-btn>
             </template>
           </v-radio>
           <v-radio value="outlined" class="pt-2">
             <template v-slot:label>
-              <v-btn variant="outlined" text="outlined"></v-btn>
+              <v-btn variant="outlined" text="example"></v-btn>
             </template>
           </v-radio>
           <v-radio value="text" class="pt-2">
             <template v-slot:label>
-              <v-btn variant="text" text="text"></v-btn>
+              <v-btn variant="text" text="example"></v-btn>
             </template>
           </v-radio>
           <v-radio value="plain" class="pt-2">
             <template v-slot:label>
-              <v-btn variant="plain" text="plain"></v-btn>
+              <v-btn variant="plain" text="example"></v-btn>
             </template>
           </v-radio>
         </v-radio-group>
+        <v-divider class="my-2"></v-divider>
+        <div class="text-caption">阴影层级</div>
+        <v-slider
+          v-model="componentStyleConfig.elevation"
+          show-ticks="always"
+          step="2"
+          max="24"
+        ></v-slider>
       </div>
 
     </v-navigation-drawer>

@@ -662,7 +662,7 @@ const sendMsg = () => {
 <template>
   <v-layout style="height: 100%">
     <v-row justify="center" class="py-4" no-gutters style="height: 100%;">
-      <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="8" xxl="7" style="height: 100%;">
+      <v-col cols="11" xs="12" sm="12" md="11" lg="10" xl="7" xxl="6" style="height: 100%;">
 
         <v-card style="height: 100%">
           <!--头部区域-->
@@ -773,6 +773,8 @@ const sendMsg = () => {
                 :items="friends"
                 lines="two"
                 item-props
+                :rounded="false"
+                :border="false"
                 variant="elevated"
                 @click:activate="SelectFriend"
               >
