@@ -77,7 +77,7 @@ const routes = [
       },
       {
         path: '/tools',
-        meta: {parentMenu: "menu.title.tools", parentMenuIcon: "mdi-toolbox-outline", hasSub: true},
+        meta: {parentMenu: "menu.title.tools", parentMenuIcon: "mdi-tools", hasSub: true},
         children: [
           {
             path: "base64",
