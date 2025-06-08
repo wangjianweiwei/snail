@@ -1,33 +1,23 @@
-<script setup>
-
-</script>
-
 <template>
-  <div style="height: 100%" class="pa-10">
-    <v-card style="height: 100%" class="pa-5">
-      <div style="overflow: scroll">
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-        <p>Email.vue</p>
-
-      </div>
-
-    </v-card>
+  <div>
+    <v-btn @click="onClick">click</v-btn>
+    <v-snackbar-queue class="d-flex justify-center" v-model="messages"></v-snackbar-queue>
   </div>
 </template>
 
-<style scoped lang="sass">
+<script setup>
+import {ref} from 'vue'
 
-</style>
+const messages = ref([])
+
+
+function onClick() {
+  messages.value.push({
+    text: "12312",
+    timeout: 2000,
+    variant: "flat",
+    location: "top right"
+  })
+  console.log(messages.value)
+}
+</script>

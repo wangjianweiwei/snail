@@ -808,7 +808,7 @@ const sendMsg = () => {
                           <v-progress-circular v-if="currentUser.id === n.user_id && n.loading" width="2" size="13"
                                                class="mr-2"
                                                indeterminate></v-progress-circular>
-                          <p class="text-sm-body-2 rounded-lg pa-2 mb-2 message-content font-weight-medium"
+                          <p class="text-sm-body-2 rounded-lg pa-2 mb-2 message-content"
                              :style="{'background-color': n.user_id === currentUser.id ? 'rgb(var(--v-theme-primary))': '#2b2c40'}">
                             {{ n.message.content }}</p>
                         </template>
@@ -908,6 +908,10 @@ const sendMsg = () => {
 
 .v-navigation-drawer {
   transition-duration: 0.5s !important; /* 自定义过渡时间 */
+}
+
+.v-list {
+  padding: 0 0 !important;
 }
 </style>
 

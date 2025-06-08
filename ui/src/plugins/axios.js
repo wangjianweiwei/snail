@@ -6,7 +6,7 @@ import {router} from "@/plugins/router";
 // const router = useRouter()
 
 const request = axios.create({
-  baseURL: "http://me-api.ifmatch.top"
+  baseURL: "https://me-api.discuss.pub"
   // baseURL: "http://127.0.0.1:8000",
 })
 request.interceptors.request.use(config => {

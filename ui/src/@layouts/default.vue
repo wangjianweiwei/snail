@@ -2,7 +2,7 @@
 import {useRoute, useRouter} from 'vue-router'
 import {routes} from "@/plugins/router";
 import {useTheme} from 'vuetify'
-import {ref} from "vue";
+import {ref, onMounted, reactive} from "vue";
 import {useI18n} from "vue-i18n"
 import {componentStyleConfig} from "@/plugins/vuetify/defaults"
 import {primaryColor} from "@/plugins/vuetify/theme";
@@ -16,6 +16,14 @@ const route = useRoute()
 const router = useRouter()
 const currentDark = ref(true)
 const language = ref(["zh"])
+const defaultOpenMenus = ref([])
+
+onMounted(() => {
+  routes[0]['children'].forEach((e) => {
+    console.log(e.path)
+    defaultOpenMenus.value.push(e.path)
+  })
+})
 
 async function logout() {
   localStorage.removeItem("token")
@@ -132,8 +140,8 @@ function translate(value) {
             </v-menu>
           </div>
           <div>
-            <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>
-            <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>
+            <!--            <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>-->
+            <!--            <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>-->
             <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
             <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"></v-btn>
             <v-menu>
@@ -146,10 +154,17 @@ function translate(value) {
                 >
                 </v-btn>
               </template>
-              <v-list selectable density="compact" class="px-2"
-                      v-model:selected="language" @update:selected="translate">
-                <v-list-item title="中文" value="zh" rounded></v-list-item>
-                <v-list-item title="English" value="en" rounded></v-list-item>
+              <v-list selectable density="compact" v-model:selected="language" @update:selected="translate">
+                <v-list-item class="mx-2 my-1" value="zh" rounded>
+                  <template #default>
+                    <span class="text-body-2">中文</span>
+                  </template>
+                </v-list-item>
+                <v-list-item class="mx-2 my-1" value="en" rounded>
+                  <template #default>
+                    <span class="text-body-2">English</span>
+                  </template>
+                </v-list-item>
               </v-list>
             </v-menu>
             <v-btn icon="mdi-cog-outline" color="" @click="configDrawer = true"></v-btn>
@@ -164,7 +179,7 @@ function translate(value) {
                   <span class="text-h6">will</span>
                 </v-avatar>
               </template>
-              <v-list width="230" density="comfortable">
+              <v-list width="200" density="compact">
                 <v-list-item
                   title="admin"
                   subtitle="will">
@@ -181,8 +196,7 @@ function translate(value) {
                   rounded
                   class="mx-2 my-1"
                   key="Profile"
-                  value="Profile"
-                  to="Profile">
+                  value="Profile">
                   <template #default>
                     <p class="d-flex justify-start align-center">
                       <v-icon icon="mdi-account-outline"></v-icon>
@@ -192,10 +206,7 @@ function translate(value) {
                 </v-list-item>
                 <v-list-item
                   rounded
-                  class="mx-2 my-1"
-                  key="child.meta.subMenu"
-                  value="child.meta.subMenu"
-                  to="child.meta.fullPath">
+                  class="mx-2 my-1">
                   <template #default>
                     <p class="d-flex justify-start align-center">
                       <v-icon icon="mdi-cog-outline"></v-icon>
@@ -240,9 +251,9 @@ function translate(value) {
           <h2 class="text-disabled">👋</h2>
         </div>
       </template>
-      <v-list density="compact" nav>
+      <v-list density="compact" nav v-model:opened="defaultOpenMenus">
         <div v-for="menu in routes[0]?.children">
-          <v-list-group v-if="menu.meta.hasSub">
+          <v-list-group v-if="menu.meta.hasSub" :value="menu.path">
             <template v-slot:activator="{ props }">
               <v-list-item
                 v-bind="props"

@@ -262,30 +262,36 @@ async function fetchChildren(item) {
                                   <v-btn icon="mdi-dots-vertical" variant="text" size="small"
                                          v-bind="props"></v-btn>
                                 </template>
-                                <v-list density="compact" rounded border>
+                                <v-list density="compact">
                                   <v-list-item
                                     value="1"
                                     rounded
                                     class="mx-2 my-1"
-                                    title="计划"
                                     @click="planDateDialog = {view: true, task: {id: task.id, title: task.title, plan_at: task.plan_at ? new Date(task.plan_at): new Date()}}"
                                     prepend-icon="mdi-update">
+                                    <template #default>
+                                      <span class="text-body-2">计划</span>
+                                    </template>
                                   </v-list-item>
                                   <v-list-item
                                     rounded
                                     class="mx-2 my-1"
                                     value="2"
-                                    title="置顶"
                                     prepend-icon="mdi-format-vertical-align-top">
+                                    <template #default>
+                                      <span class="text-body-2">置顶</span>
+                                    </template>
                                   </v-list-item>
                                   <v-list-item
                                     base-color="error"
                                     rounded
                                     class="mx-2 my-1"
                                     value="3"
-                                    title="删除"
                                     @click="deleteTask(task, i)"
                                     prepend-icon="mdi-trash-can-outline">
+                                    <template #default>
+                                      <span class="text-body-2">删除</span>
+                                    </template>
                                   </v-list-item>
                                 </v-list>
                               </v-menu>
