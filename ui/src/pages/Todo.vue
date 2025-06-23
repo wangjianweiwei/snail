@@ -344,6 +344,8 @@ async function fetchChildren(item) {
 
 </template>
 
-<style scoped>
-
+<style>
+.v-date-picker-month__day-btn.text-primary {
+  color: inherit !important; /* 还原为继承值 */
+}
 </style>
