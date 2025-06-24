@@ -1,23 +1,19 @@
 <template>
   <div>
-    <v-btn @click="onClick">click</v-btn>
-    <v-snackbar-queue class="d-flex justify-center" v-model="messages"></v-snackbar-queue>
+    <v-btn @click="notify">click</v-btn>
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {getCurrentInstance} from 'vue'
 
-const messages = ref([])
+const {proxy} = getCurrentInstance()
 
+function notify() {
 
-function onClick() {
-  messages.value.push({
-    text: "12312",
-    timeout: 2000,
-    variant: "flat",
-    location: "top right"
+  proxy.$message({
+    message: '操作成功',
+    type: 'warning'
   })
-  console.log(messages.value)
 }
 </script>

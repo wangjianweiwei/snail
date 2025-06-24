@@ -4,8 +4,7 @@ import {routes} from "@/plugins/router";
 import {useTheme} from 'vuetify'
 import {ref, onMounted, reactive} from "vue";
 import {useI18n} from "vue-i18n"
-import {componentStyleConfig} from "@/plugins/vuetify/defaults"
-import {primaryColor} from "@/plugins/vuetify/theme";
+import {themeConfig} from "@/plugins/vuetify/theme";
 
 const {t, locale} = useI18n()
 const theme = useTheme()
@@ -14,7 +13,6 @@ const configDrawer = ref(false)
 const authState = localStorage.getItem("token")
 const route = useRoute()
 const router = useRouter()
-const currentDark = ref(true)
 const language = ref(["zh"])
 const defaultOpenMenus = ref([])
 
@@ -32,7 +30,6 @@ async function logout() {
 
 function toggleTheme(e) {
   const isDark = theme.global.current.value.dark;
-  console.log(theme)
 
   // 手动同步 `<html>` 的 dark 类
   if (isDark) {
@@ -42,7 +39,7 @@ function toggleTheme(e) {
   }
   const transition = document.startViewTransition(() => {
     theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
-    currentDark.value = theme.global.name.value === "dark"
+    themeConfig.dark.value = theme.global.name.value === "dark"
   })
   transition.ready.then(() => {
     // 由于我们要从鼠标点击的位置开始做动画，所以我们需要先获取到鼠标的位置
@@ -59,7 +56,6 @@ function toggleTheme(e) {
       `circle(${radius}px at ${clientX}px ${clientY}px)`
     ]
     const isDark = theme.global.name.value === "dark"
-    console.log("isDark", isDark, theme.global.name.value)
     // 自定义动画
     document.documentElement.animate(
       {
@@ -142,7 +138,7 @@ function translate(value) {
           <div>
             <!--            <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>-->
             <!--            <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>-->
-            <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
+            <v-btn v-if="themeConfig.dark.value" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
             <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"></v-btn>
             <v-menu open-on-hover>
               <template v-slot:activator="{ props }">
@@ -154,7 +150,7 @@ function translate(value) {
                 >
                 </v-btn>
               </template>
-              <v-list selectable density="compact" v-model:selected="language" @update:selected="translate">
+              <v-list selectable density="compact" v-model:selected="themeConfig.language" @update:selected="translate">
                 <v-list-item class="mx-2 my-1" value="zh" rounded>
                   <template #default>
                     <span class="text-body-2">中文</span>
@@ -288,19 +284,19 @@ function translate(value) {
       <v-divider></v-divider>
       <div class="px-3">
         <h3 class="text-h6 my-6">边框</h3>
-        <v-radio-group v-model="componentStyleConfig.border" density="default">
+        <v-radio-group v-model="themeConfig.border.value" density="default">
           <v-radio label="不显示" :value="false"></v-radio>
           <v-radio label="显示" :value="true"></v-radio>
         </v-radio-group>
         <h3 class="text-h6 my-6">圆角</h3>
-        <v-radio-group v-model="componentStyleConfig.rounded" density="default">
+        <v-radio-group v-model="themeConfig.rounded.value" density="default">
           <v-radio label="取消" :value="false"></v-radio>
           <v-radio label="lg" value="lg"></v-radio>
           <v-radio label="xl" value="xl"></v-radio>
           <v-radio label="shaped" value="shaped"></v-radio>
         </v-radio-group>
         <h3 class="text-h6 my-6">主题色</h3>
-        <v-radio-group v-model="primaryColor" density="default">
+        <v-radio-group v-model="themeConfig.primaryColor.value" density="default">
           <v-radio label="#696CFF" value="#696CFF">
             <template v-slot:label>
               <strong style="color: #696CFF">#696CFF</strong>
@@ -327,9 +323,9 @@ function translate(value) {
             </template>
           </v-radio>
         </v-radio-group>
-        <v-color-input variant="underlined" class="ml-2 mt-1" density="default" v-model="primaryColor"></v-color-input>
+        <v-color-input variant="underlined" class="ml-2 mt-1" density="default" v-model="themeConfig.primaryColor.value"></v-color-input>
         <h3 class="text-h6 my-6">按钮</h3>
-        <v-radio-group v-model="componentStyleConfig.btnVariant" density="default">
+        <v-radio-group v-model="themeConfig.btnVariant.value" density="default">
           <v-radio value="elevated">
             <template v-slot:label>
               <v-btn variant="elevated" text="example"></v-btn>
@@ -364,7 +360,7 @@ function translate(value) {
         </v-radio-group>
         <h3 class="text-h6 my-6">阴影</h3>
         <v-slider
-          v-model="componentStyleConfig.elevation"
+          v-model="themeConfig.elevation.value"
           show-ticks="always"
           step="2"
           max="24"

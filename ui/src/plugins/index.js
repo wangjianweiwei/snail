@@ -8,6 +8,7 @@
 import vuetify from './vuetify/index'
 import {router} from "@/plugins/router";
 import i18n from './i18n'
+import message from "@/plugins/vuetify/message";
 
 
 import "@/assets/css/doc.css"
@@ -21,5 +22,6 @@ import "@/assets/js/doc.umd"
 export function registerPlugins(app) {
   app.use(i18n)
   app.use(vuetify)
+  app.use(message)
   app.use(router)
 }
