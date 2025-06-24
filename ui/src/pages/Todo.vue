@@ -344,8 +344,12 @@ async function fetchChildren(item) {
 
 </template>
 
-<style>
-.v-date-picker-month__day-btn.text-primary {
-  color: inherit !important; /* 还原为继承值 */
+<style scoped>
+::v-deep(.v-date-picker-month__day-btn.text-primary) {
+  color: inherit !important;
+}
+
+::v-deep(.v-date-picker-month__day-btn.v-btn--icon) {
+  border-radius: 4px !important;
 }
 </style>
