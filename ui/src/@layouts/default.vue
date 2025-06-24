@@ -144,7 +144,7 @@ function translate(value) {
             <!--            <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>-->
             <v-btn v-if="currentDark" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
             <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"></v-btn>
-            <v-menu>
+            <v-menu open-on-hover>
               <template v-slot:activator="{ props }">
                 <v-btn
                   color=""
@@ -245,7 +245,7 @@ function translate(value) {
       </router-view>
 
     </v-main>
-    <v-navigation-drawer v-model="drawer" temporary class="d-sm-flex d-md-none pa-2">
+    <v-navigation-drawer v-model="drawer" temporary elevation="0" class="d-sm-flex d-md-none pa-2">
       <template v-slot:prepend>
         <div class="d-flex justify-center">
           <h2 class="text-disabled">👋</h2>
@@ -280,7 +280,7 @@ function translate(value) {
 
       </v-list>
     </v-navigation-drawer>
-    <v-navigation-drawer width="320" v-model="configDrawer" location="right" temporary>
+    <v-navigation-drawer width="320" v-model="configDrawer" location="right" temporary elevation="0">
       <div class="pa-3">
         <p class="text-h5">主题定制</p>
         <p class="text-body-2 text-disabled">实时自定义和预览</p>

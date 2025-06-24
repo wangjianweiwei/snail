@@ -808,8 +808,8 @@ const sendMsg = () => {
                           <v-progress-circular v-if="currentUser.id === n.user_id && n.loading" width="2" size="13"
                                                class="mr-2"
                                                indeterminate></v-progress-circular>
-                          <p class="text-sm-body-2 rounded-lg pa-2 mb-2 message-content"
-                             :style="{'background-color': n.user_id === currentUser.id ? 'rgb(var(--v-theme-primary))': '#2b2c40'}">
+                          <p class="text-body-2 rounded-lg pa-2 mb-2 message-content"
+                             :style="{'background-color': n.user_id === currentUser.id ? 'rgb(var(--v-theme-primary))': 'rgb(var(--v-theme-background))'}">
                             {{ n.message.content }}</p>
                         </template>
                         <template #append v-if="n.user_id === currentUser.id">
@@ -903,7 +903,6 @@ const sendMsg = () => {
 
 .message-content {
   display: inline-block;
-  color: #dbdbeb;
 }
 
 .v-navigation-drawer {
