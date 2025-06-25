@@ -153,7 +153,6 @@ async function fetchChildren(item) {
         <v-row no-gutters style="height: 100%">
           <v-col cols="3" class="border-e-sm" style="height: 100%">
             <div style="height: 50%">
-              <v-locale-provider locale="zhHans">
                 <v-date-picker
                   :data-format-as="dataFormats"
                   header="选择一个日期"
@@ -164,7 +163,6 @@ async function fetchChildren(item) {
                   @update:modelValue="fetchTodos(true)"
                 >
                 </v-date-picker>
-              </v-locale-provider>
             </div>
             <!--                <div class="pa-4 border-t-sm" style="overflow-y: auto;height: 50%">-->
             <!--                  <div>-->
@@ -317,7 +315,6 @@ async function fetchChildren(item) {
     <template v-slot:default>
       <v-card title="选择一个计划时间">
         <v-card-text>
-          <v-locale-provider locale="zhHans" :dataformatas="dataFormats">
             <v-date-picker
               rounded="lg"
               hide-header
@@ -326,7 +323,6 @@ async function fetchChildren(item) {
               v-model="planDateDialog.task.plan_at"
             >
             </v-date-picker>
-          </v-locale-provider>
         </v-card-text>
 
         <v-card-actions>

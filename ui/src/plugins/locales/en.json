@@ -28,6 +28,16 @@
   "about.text.full_name": "Full name",
   "about.text.status": "Status",
   "about.text.in-service": "In-service",
+  "theme.text.title": "Theme Customizer",
+  "theme.text.subtitle": "Customize & Preview in Real Time",
+  "theme.text.border": "Border",
+  "theme.text.border.display": "display",
+  "theme.text.border.notDisplay": "not display",
+  "theme.text.primaryColor": "Primary Color",
+  "theme.text.rounded": "Rounded",
+  "theme.text.rounded.cancel": "cancel",
+  "theme.text.button": "Button",
+  "theme.text.elevation": "Elevation",
   "$vuetify": {
     "close": "Close"
   }

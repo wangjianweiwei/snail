@@ -28,6 +28,16 @@
   "about.text.full_name": "姓名",
   "about.text.status": "状态",
   "about.text.in-service": "在职",
+  "theme.text.title": "主题定制",
+  "theme.text.subtitle": "实时自定义和预览",
+  "theme.text.border": "边框",
+  "theme.text.border.display": "显示",
+  "theme.text.border.notDisplay": "不显示",
+  "theme.text.primaryColor": "主题色",
+  "theme.text.rounded": "圆角",
+  "theme.text.rounded.cancel": "取消",
+  "theme.text.button": "按钮",
+  "theme.text.elevation": "阴影",
   "$vuetify": {
     "close": "关闭"
   }

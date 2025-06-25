@@ -2,6 +2,7 @@
 import {onMounted} from "vue";
 import {checkInitializationApi} from "@/services";
 import {router} from "@/plugins/router";
+import {themeConfig} from "@/plugins/vuetify/theme";
 
 onMounted(async () => {
   let initialization = await checkInitializationApi()
@@ -14,7 +15,10 @@ onMounted(async () => {
 
 
 <template>
-  <router-view></router-view>
+  <v-locale-provider :locale="themeConfig.language.value[0]">
+    <router-view></router-view>
+  </v-locale-provider>
+
 
 </template>
 

@@ -23,7 +23,6 @@ for (const key in themeConfig) {
   watch(themeConfig[key], (newVal) => {
     const current = JSON.parse(localStorage.getItem('themeConfig') || '{}')
     current[key] = newVal
-    console.log(key, newVal)
     localStorage.setItem('themeConfig', JSON.stringify(current))
   })
 }

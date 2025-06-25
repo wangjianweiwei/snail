@@ -2,7 +2,7 @@
 import {useRoute, useRouter} from 'vue-router'
 import {routes} from "@/plugins/router";
 import {useTheme} from 'vuetify'
-import {ref, onMounted, reactive} from "vue";
+import {ref, onMounted} from "vue";
 import {useI18n} from "vue-i18n"
 import {themeConfig} from "@/plugins/vuetify/theme";
 
@@ -13,7 +13,6 @@ const configDrawer = ref(false)
 const authState = localStorage.getItem("token")
 const route = useRoute()
 const router = useRouter()
-const language = ref(["zh"])
 const defaultOpenMenus = ref([])
 
 onMounted(() => {
@@ -76,6 +75,7 @@ function toggleTheme(e) {
 
 function translate(value) {
   locale.value = value[0]
+  localStorage.setItem('locale', value)
 }
 
 </script>
@@ -150,7 +150,7 @@ function translate(value) {
                 >
                 </v-btn>
               </template>
-              <v-list selectable density="compact" v-model:selected="themeConfig.language" @update:selected="translate">
+              <v-list selectable density="compact" v-model:selected="themeConfig.language.value" @update:selected="translate">
                 <v-list-item class="mx-2 my-1" value="zh" rounded>
                   <template #default>
                     <span class="text-body-2">中文</span>
@@ -247,7 +247,7 @@ function translate(value) {
           <h2 class="text-disabled">👋</h2>
         </div>
       </template>
-      <v-list density="compact" nav v-model:opened="defaultOpenMenus">
+      <v-list density="compact" nav v-model:opened="defaultOpenMenus" border="false">
         <div v-for="menu in routes[0]?.children">
           <v-list-group v-if="menu.meta.hasSub" :value="menu.path">
             <template v-slot:activator="{ props }">
@@ -278,24 +278,24 @@ function translate(value) {
     </v-navigation-drawer>
     <v-navigation-drawer width="320" v-model="configDrawer" location="right" temporary elevation="0">
       <div class="pa-3">
-        <p class="text-h5">主题定制</p>
-        <p class="text-body-2 text-disabled">实时自定义和预览</p>
+        <p class="text-h6">{{t("theme.text.title")}}</p>
+        <p class="text-body-2 text-disabled">{{t("theme.text.subtitle")}}</p>
       </div>
       <v-divider></v-divider>
       <div class="px-3">
-        <h3 class="text-h6 my-6">边框</h3>
+        <h3 class="text-h7 my-6">{{t("theme.text.border")}}</h3>
         <v-radio-group v-model="themeConfig.border.value" density="default">
-          <v-radio label="不显示" :value="false"></v-radio>
-          <v-radio label="显示" :value="true"></v-radio>
+          <v-radio :label='t("theme.text.border.notDisplay")' :value="false"></v-radio>
+          <v-radio :label='t("theme.text.border.display")' :value="true"></v-radio>
         </v-radio-group>
-        <h3 class="text-h6 my-6">圆角</h3>
+        <h3 class="text-h7 my-6">{{t("theme.text.rounded")}}</h3>
         <v-radio-group v-model="themeConfig.rounded.value" density="default">
-          <v-radio label="取消" :value="false"></v-radio>
+          <v-radio :label='t("theme.text.rounded.cancel")' :value="false"></v-radio>
           <v-radio label="lg" value="lg"></v-radio>
           <v-radio label="xl" value="xl"></v-radio>
           <v-radio label="shaped" value="shaped"></v-radio>
         </v-radio-group>
-        <h3 class="text-h6 my-6">主题色</h3>
+        <h3 class="text-h7 my-6">{{t("theme.text.primaryColor")}}</h3>
         <v-radio-group v-model="themeConfig.primaryColor.value" density="default">
           <v-radio label="#696CFF" value="#696CFF">
             <template v-slot:label>
@@ -324,7 +324,7 @@ function translate(value) {
           </v-radio>
         </v-radio-group>
         <v-color-input variant="underlined" class="ml-2 mt-1" density="default" v-model="themeConfig.primaryColor.value"></v-color-input>
-        <h3 class="text-h6 my-6">按钮</h3>
+        <h3 class="text-h7 my-6">{{t("theme.text.button")}}</h3>
         <v-radio-group v-model="themeConfig.btnVariant.value" density="default">
           <v-radio value="elevated">
             <template v-slot:label>
@@ -358,7 +358,7 @@ function translate(value) {
           </v-radio>
 
         </v-radio-group>
-        <h3 class="text-h6 my-6">阴影</h3>
+        <h3 class="text-h7 my-6">{{t("theme.text.elevation")}}</h3>
         <v-slider
           v-model="themeConfig.elevation.value"
           show-ticks="always"
