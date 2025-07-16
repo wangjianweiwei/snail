@@ -128,6 +128,6 @@ async function publishPost(status) {
 }
 
 .ne-viewer ne-card[data-card-type=block] {
-  margin: 14px !important;
+  margin: 14px 0 !important;
 }
 </style>
