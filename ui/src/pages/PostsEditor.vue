@@ -197,4 +197,8 @@ onMounted(async () => {
 .ne-doc-major-editor .ne-layout-mode-fixed .ne-ui {
   padding: 0 10px !important;
 }
+
+.ne-editor ne-card[data-card-type=block] {
+  margin: 14px !important;
+}
 </style>

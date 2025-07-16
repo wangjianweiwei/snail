@@ -126,4 +126,8 @@ async function publishPost(status) {
 .ne-viewer-toc-sidebar {
   background: rgba(var(--v-theme-background)) !important;
 }
+
+.ne-viewer ne-card[data-card-type=block] {
+  margin: 14px !important;
+}
 </style>
