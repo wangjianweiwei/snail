@@ -299,27 +299,27 @@ function translate(value) {
         <v-radio-group v-model="themeConfig.primaryColor.value" density="default">
           <v-radio label="#696CFF" value="#696CFF">
             <template v-slot:label>
-              <strong style="color: #696CFF">#696CFF</strong>
+              <span style="color: #696CFF">#696CFF</span>
             </template>
           </v-radio>
           <v-radio label="#008889" value="#008889" base-color="#008889">
             <template v-slot:label>
-              <strong style="color: #008889">#008889</strong>
+              <span style="color: #008889">#008889</span>
             </template>
           </v-radio>
           <v-radio label="#FFA823" value="#FFA823" base-color="#FFA823">
             <template v-slot:label>
-              <strong style="color: #FFA823">#FFA823</strong>
+              <span style="color: #FFA823">#FFA823</span>
             </template>
           </v-radio>
           <v-radio label="#FF434A" value="#FF434A" base-color="#FF434A">
             <template v-slot:label>
-              <strong style="color: #FF434A">#FF434A</strong>
+              <span style="color: #FF434A">#FF434A</span>
             </template>
           </v-radio>
           <v-radio label="#00ABFC" value="#00ABFC" base-color="#00ABFC">
             <template v-slot:label>
-              <strong style="color: #00ABFC">#00ABFC</strong>
+              <span style="color: #00ABFC">#00ABFC</span>
             </template>
           </v-radio>
         </v-radio-group>

@@ -1,6 +1,6 @@
 {
   "menu.title.blog": "Blog",
-  "menu.title.about": "About",
+  "menu.title.about": "About me",
   "menu.title.apps": "Apps",
   "menu.subtitle.email": "Email",
   "menu.subtitle.chat": "Chat",
@@ -8,7 +8,7 @@
   "menu.subtitle.photos": "Photo",
   "menu.subtitle.password": "Password",
   "menu.title.tools": "Tools",
-  "menu.subtitle.base64": "base64",
+  "menu.subtitle.base64": "Base64",
   "blog.subtitle": "Latest news, updates, and stories about Me.",
   "blog.unpublished": "Unpublished",
   "blog.read": "Read",
@@ -38,6 +38,14 @@
   "theme.text.rounded.cancel": "cancel",
   "theme.text.button": "Button",
   "theme.text.elevation": "Elevation",
+  "todo.text.all": "ALL",
+  "todo.text.allCompleted": "ALL COMPLETED",
+  "todo.text.Completed": "COMPLETED",
+  "todo.text.allPending": "ALL PENDING",
+  "todo.text.Pending": "PENDING",
+  "todo.text.addTask": "Add a to-do list...",
+  "menu.title.demos": "Demos",
+  "menu.subtitle.relationship": "Relationship",
   "$vuetify": {
     "close": "Close"
   }

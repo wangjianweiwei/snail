@@ -76,6 +76,17 @@ const routes = [
         ]
       },
       {
+        path: '/demos',
+        meta: {parentMenu: "menu.title.demos", parentMenuIcon: "mdi-lightbulb-on-outline", hasSub: true},
+        children: [
+          {
+            path: "relationship",
+            component: () => import('../pages/Relationship.vue'),
+            meta: {subMenu: "menu.subtitle.relationship", subMenuIcon: "mdi-graph-outline", fullPath: "/demos/relationship"}
+          }
+        ]
+      },
+      {
         path: '/tools',
         meta: {parentMenu: "menu.title.tools", parentMenuIcon: "mdi-tools", hasSub: true},
         children: [

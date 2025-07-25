@@ -1,6 +1,6 @@
 {
   "menu.title.blog": "博客",
-  "menu.title.about": "关于",
+  "menu.title.about": "关于我",
   "menu.title.apps": "应用",
   "menu.subtitle.email": "我的邮箱",
   "menu.subtitle.chat": "聊天",
@@ -8,7 +8,7 @@
   "menu.subtitle.photos": "我的照片",
   "menu.subtitle.password": "密码管理器",
   "menu.title.tools": "工具",
-  "menu.subtitle.base64": "base64",
+  "menu.subtitle.base64": "Base64",
   "blog.subtitle": "关于我的最新消息、更新和故事。",
   "blog.unpublished": "未发布",
   "blog.read": "阅读",
@@ -38,6 +38,14 @@
   "theme.text.rounded.cancel": "取消",
   "theme.text.button": "按钮",
   "theme.text.elevation": "阴影",
+  "todo.text.all": "全部",
+  "todo.text.allCompleted": "全部完成",
+  "todo.text.Completed": "完成",
+  "todo.text.allPending": "全部待办",
+  "todo.text.Pending": "待办",
+  "todo.text.addTask": "添加一个待办事项...",
+  "menu.title.demos": "案例",
+  "menu.subtitle.relationship": "关系网",
   "$vuetify": {
     "close": "关闭"
   }
