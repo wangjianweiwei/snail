@@ -219,7 +219,7 @@ const hobby = ref(["摄影", "篮球", "毽子", "自驾", "刷美剧"])
                       <span class="ml-1">{{ t("about.text.age") }}: 28</span>
                     </v-list-item>
                     <v-list-item class="align-center">
-                      <v-icon icon="mdi-update" size="small"></v-icon>
+                      <v-icon icon="mdi-timelapse" size="small"></v-icon>
                       <span class="ml-1">{{ t("about.text.experience") }}: 6 {{ t('about.text.year') }}</span>
                     </v-list-item>
                     <v-list-item>
