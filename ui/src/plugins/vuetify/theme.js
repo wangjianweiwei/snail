@@ -2,13 +2,20 @@ import {ref, watch, computed, reactive} from "vue";
 
 
 const themeConfig = {
-  border: ref(false),
+  border: ref(true),
   rounded: ref("lg"),
   btnVariant: ref("tonal"),
   elevation: ref(0),
-  primaryColor: ref("#696CFF"),
+  primaryColor: ref("#268023"),
   dark: ref(true),
-  language: ref(["zh"])
+  language: ref(["en"])
+}
+
+const colors = ["red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "blue-grey", "grey"]
+
+function getRandomColor() {
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
 }
 
 const saved = JSON.parse(localStorage.getItem('themeConfig') || '{}')
@@ -43,5 +50,5 @@ const theme = {
   },
 }
 
-export {theme, themeConfig};
+export {theme, themeConfig, getRandomColor};
 
