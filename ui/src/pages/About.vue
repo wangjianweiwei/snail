@@ -248,7 +248,7 @@ const hobby = ref(["摄影", "篮球", "毽子", "自驾", "美剧"])
                   rounded
                   size="130"
                 >
-                  <v-img src="/src/assets/images/41533289.jpeg" cover></v-img>
+                  <v-img src="/src/assets/images/me.jpeg" cover></v-img>
                 </v-avatar>
               </div>
               <div class="mt-16 mt-sm-0 pt-6 pt-sm-0 w-100">
