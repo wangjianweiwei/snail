@@ -52,6 +52,7 @@ const projects = ref([
   {
     id: 1,
     color: "",
+    role: "技术经理",
     name: "ESDR临床研究数据一体化平台",
     introduction: [
       {
@@ -83,7 +84,8 @@ const projects = ref([
   {
     id: 2,
     color: "",
-    name: "灵犀智能创作分析平台",
+    name: "灵犀-剧本评估",
+    role: "后端研发",
     introduction: [
       {
         name: "责任描述",
@@ -97,10 +99,10 @@ const projects = ref([
         name: "项目简介",
         text: [
           "该系统是公司核心战略和核心产品，提供多类型作品评估，包括电影，电视剧，网络大电影，小说，针对剧情，场次，人设，互动，命运走势等多种维度对剧本分析，大部分采用和业务紧密结合的逻辑算法进行实现，除此之外还有部分算法使用深度学习实现",
-          "编辑器支持多人实时协同编辑，以及剧本大纲，剧本审阅，版本恢复，场次管理，章节管理等特色功能",
-          "系统提供剧本评估，协同写作，拆解，会员，积分，素材，版权存证，小说转剧本，剧本大纲等一系列功能",
-          "该项目自2019年12月对外提供服务，至今共迭代167个版本，提供300+接口",
-          "系统提供包括PC网页，H5，安卓APP，微信公众号H5，微信小程序"]
+          "系统提供剧本评估，拆解，会员，积分，素材，版权存证，小说转剧本，剧本大纲等一系列功能",
+          "该项目自2019年12月对外提供服务，共迭代167个版本，提供300+接口",
+          "系统提供包括PC网页，H5，安卓APP，微信公众号H5，微信小程序"
+        ]
       },
       {
         name: "技术方案",
@@ -108,16 +110,14 @@ const projects = ref([
           "该系统大部分采用阿里云环境，部分自建",
           "采用Django框架，按照领域和公共特性进行模块或者服务划分",
           "采用MySQL，MongoDB作为主要存储",
-          "集成Redis缓存技术，主要用于缓存编辑器相关业务数据",
-          "集成RabbitMQ，用于站内事件分发（event bus），编辑器消息广播，Celery broker等",
+          "集成RabbitMQ，用于站内事件分发(event bus)，Celery broker等",
           "采用ELK+Filebeat进行日志收集，主要收集埋点数据",
           "接入微信公众号体系，例如通过微信Oauth2丰富系统的登录，注册方式等",
           "集成Sentry监控平台，通过Sentry报警以及收集的错误堆栈信息快速定位问题",
           "通过Nginx实现负载均衡，限流等需求",
-          "使用阿里云Oss进行文件存储或者中转",
+          "使用阿里云oss进行文件存储或者中转",
           "接入ELK APM对进系统进行性能监控，包括但不限于接口异常，接口耗时情况，TPM等",
           "算法调度平台使用Flask作为api接口，Celery进行算法任务流调度",
-          "编辑器采用Sanic+Socketio+RabbitMQ+Quill实现多人实时写作编辑（历时3个月从0开发）",
           "使用Django-admin搭建管理后台",
           "自建pypi源托管二方包",
           "前端采用React框架，前后端分离",
@@ -129,7 +129,78 @@ const projects = ref([
   {
     id: 3,
     color: "",
-    name: "灵犀数据大盘",
+    role: "后端研发+前端研发",
+    name: "灵犀-协作剧本创作",
+    introduction: [
+      {
+        name: "责任描述",
+        text: [
+          "技术调研，架构设计，协同主要功能测试",
+          "功能实现以及前端协同部分主要逻辑实现"
+        ]
+      },
+      {
+        name: "项目简介",
+        text: [
+          "实现类似石墨文档垂直于编剧行业的低延迟协同编辑器，主要功能包括多人实时协同编辑，版本保存，版本恢复，章节管理，场次管理，离线写作及网络恢复后的数据同步等主要功能",
+          "自2021年3月开始技术调研，2021年6月底上线"
+        ]
+      },
+      {
+        name: "技术方案",
+        text: [
+          "技术栈采用Sanic+SocketIO+Redis+MongoDB+RabbitMQ+Celery+Express+Nginx",
+          "利用Sanic+Socketio实现高性能的websocket服务",
+          "使用RabbitMQ实现消息广播，在多用户之间进行消息传递",
+          "使用阿里云oss进行文件存储或者中转",
+          "利用Redis的原子性保证协同时op的顺序一致性",
+          "采用Operational Transformation作为多人同时编辑时的冲突解决方案",
+          "协同编辑器具体细节可以面谈"
+        ]
+      }
+    ]
+  },
+  {
+    id: 4,
+    color: "",
+    name: "灵犀-剧本格式化",
+    role: "后端研发",
+    introduction: [
+      {
+        name: "责任描述",
+        text: [
+          "剧本数据整理，预处理",
+          "特征工程开发",
+          "Web服务开发及部署"
+        ]
+      },
+      {
+        name: "项目简介",
+        text: [
+          "为解决国内市面上复杂多样的剧本格式（主要针对场次标题写作格式五花八门的问题）可以顺利的在评估平台进行评估，降低剧本评估在剧本格式要求的门槛，提高用户剧本评估的成功率",
+          "文本格式转换，例如 word转txt，pdf转txt",
+          "txt文本的预处理，包括繁体转简体，标点符号统一，全半角转换",
+          "特征提取",
+          "模型预测",
+          "对场次标题进行标准格式化",
+        ]
+      },
+      {
+        name: "技术方案",
+        text: [
+          "采用LightGBM实现多分类的机器学习任务",
+          "特征工程中共采用37个特征",
+          "通过windows office进行文档格式转换",
+          "使用Flask对外提供HTTP服务",
+        ]
+      }
+    ]
+  },
+  {
+    id: 5,
+    color: "",
+    role: "后端研发",
+    name: "灵犀-数据大盘",
     introduction: [
       {
         name: "责任描述",
@@ -157,7 +228,7 @@ const projects = ref([
 // 个人技能
 const skills = ref(["Linux", "Python", "Git", "JavaScript", "Vue", "Element-UI", "Vuetifyjs", "多进程", "多线程", "协程", "MySQL", "MongoDB", "Redis", "Elasticsearch", "RabbitMQ", "Kafka", "Minio", "Docker", "Docker-compose", "Kubernetes", "Django", "Flask", "sqlalchemy", "asyncio", "Sanic", "FastAPI", "GitLab", "Jenkins", "Scrum", "http", "websocket", "sse", "TCP/IP", "Celery", "ELK", 'LangChain', "RAG", "Scrapy"])
 // 爱好
-const hobby = ref(["摄影", "篮球", "毽子", "自驾", "刷美剧"])
+const hobby = ref(["摄影", "篮球", "毽子", "自驾", "美剧"])
 </script>
 
 <template>
@@ -262,7 +333,7 @@ const hobby = ref(["摄影", "篮球", "毽子", "自驾", "刷美剧"])
             <v-col cols="12">
               <v-card :subtitle="t('about.text.hobby')">
                 <v-card-text>
-                  <v-chip   variant="tonal" label class="ma-1" v-for="n in hobby" :text="n" color="primary">
+                  <v-chip variant="tonal" label class="ma-1" v-for="n in hobby" :text="n" color="primary">
                   </v-chip>
                 </v-card-text>
               </v-card>
@@ -332,6 +403,9 @@ const hobby = ref(["摄影", "篮球", "毽子", "自驾", "刷美剧"])
                         <v-card class="pa-3">
                           <div class="d-flex justify-space-between align-center gap-2 flex-wrap">
                             <span class="text-body-1 font-weight-bold">{{ project.name }}</span>
+                            <v-chip color="primary" variant="elevated" size="x-small">
+                              {{ project.role }}
+                            </v-chip>
                           </div>
                           <div v-for="n in project.introduction">
                             <v-chip class="mt-2" size="small" label :text="n.name" color="primary"></v-chip>
