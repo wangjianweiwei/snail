@@ -238,7 +238,7 @@ const hobby = ref(["摄影", "篮球", "毽子", "自驾", "美剧"])
         <v-col cols="12" class="animate__animated animate__bounceInDown animate__slow">
           <v-card>
             <v-parallax
-              height="200"
+              height="300"
               src="/src/assets/images/material.jpg"
             ></v-parallax>
             <v-card-text class="d-flex align-bottom flex-sm-row flex-column ga-6 pa-6">
