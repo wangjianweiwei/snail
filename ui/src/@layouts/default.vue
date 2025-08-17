@@ -138,7 +138,8 @@ function translate(value) {
           <div>
             <!--            <v-btn icon="mdi-magnify" variant="text" color=""></v-btn>-->
             <!--            <v-btn icon="mdi-bell-outline" variant="text" color=""></v-btn>-->
-            <v-btn v-if="themeConfig.dark.value" icon="mdi-weather-night" variant="text" color="" @click="toggleTheme"></v-btn>
+            <v-btn v-if="themeConfig.dark.value" icon="mdi-weather-night" variant="text" color=""
+                   @click="toggleTheme"></v-btn>
             <v-btn v-else icon="mdi-white-balance-sunny" variant="text" color="" @click="toggleTheme"></v-btn>
             <v-menu open-on-hover>
               <template v-slot:activator="{ props }">
@@ -150,7 +151,8 @@ function translate(value) {
                 >
                 </v-btn>
               </template>
-              <v-list selectable density="compact" v-model:selected="themeConfig.language.value" @update:selected="translate">
+              <v-list selectable density="compact" v-model:selected="themeConfig.language.value"
+                      @update:selected="translate">
                 <v-list-item class="mx-2 my-1" value="zh" rounded>
                   <template #default>
                     <span class="text-body-2">中文</span>
@@ -278,24 +280,24 @@ function translate(value) {
     </v-navigation-drawer>
     <v-navigation-drawer width="320" v-model="configDrawer" location="right" temporary elevation="0">
       <div class="pa-3">
-        <p class="text-h6">{{t("theme.text.title")}}</p>
-        <p class="text-body-2 text-disabled">{{t("theme.text.subtitle")}}</p>
+        <p class="text-h6">{{ t("theme.text.title") }}</p>
+        <p class="text-body-2 text-disabled">{{ t("theme.text.subtitle") }}</p>
       </div>
       <v-divider></v-divider>
       <div class="px-3">
-        <h3 class="text-h7 my-6">{{t("theme.text.border")}}</h3>
+        <h3 class="text-h7 my-6">{{ t("theme.text.border") }}</h3>
         <v-radio-group v-model="themeConfig.border.value" density="default">
           <v-radio :label='t("theme.text.border.notDisplay")' :value="false"></v-radio>
           <v-radio :label='t("theme.text.border.display")' :value="true"></v-radio>
         </v-radio-group>
-        <h3 class="text-h7 my-6">{{t("theme.text.rounded")}}</h3>
+        <h3 class="text-h7 my-6">{{ t("theme.text.rounded") }}</h3>
         <v-radio-group v-model="themeConfig.rounded.value" density="default">
           <v-radio :label='t("theme.text.rounded.cancel")' :value="false"></v-radio>
           <v-radio label="lg" value="lg"></v-radio>
           <v-radio label="xl" value="xl"></v-radio>
           <v-radio label="shaped" value="shaped"></v-radio>
         </v-radio-group>
-        <h3 class="text-h7 my-6">{{t("theme.text.primaryColor")}}</h3>
+        <h3 class="text-h7 my-6">{{ t("theme.text.primaryColor") }}</h3>
         <v-radio-group v-model="themeConfig.primaryColor.value" density="default">
           <v-radio label="#696CFF" value="#696CFF">
             <template v-slot:label>
@@ -323,8 +325,9 @@ function translate(value) {
             </template>
           </v-radio>
         </v-radio-group>
-        <v-color-input variant="underlined" class="ml-2 mt-1" density="default" v-model="themeConfig.primaryColor.value"></v-color-input>
-        <h3 class="text-h7 my-6">{{t("theme.text.button")}}</h3>
+        <v-color-input variant="underlined" class="ml-2 mt-1" density="default"
+                       v-model="themeConfig.primaryColor.value"></v-color-input>
+        <h3 class="text-h7 my-6">{{ t("theme.text.button") }}</h3>
         <v-radio-group v-model="themeConfig.btnVariant.value" density="default">
           <v-radio value="elevated">
             <template v-slot:label>
@@ -358,7 +361,7 @@ function translate(value) {
           </v-radio>
 
         </v-radio-group>
-        <h3 class="text-h7 my-6">{{t("theme.text.elevation")}}</h3>
+        <h3 class="text-h7 my-6">{{ t("theme.text.elevation") }}</h3>
         <v-slider
           v-model="themeConfig.elevation.value"
           show-ticks="always"
