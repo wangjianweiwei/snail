@@ -440,6 +440,6 @@ const hobby = ref(["摄影", "篮球", "毽子", "自驾", "美剧"])
 .dot-paragraph {
   display: list-item;
   list-style-type: disc;
-  margin-left: 15px; /* 控制缩进 */
+  margin-left: 20px; /* 控制缩进 */
 }
 </style>
