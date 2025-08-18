@@ -7,6 +7,7 @@ from api import auth
 from api import posts
 from api import todo
 from api import photos
+from api import rag
 
 snail = FastAPI(lifespan=startup)
 snail.mount("/images", StaticFiles(directory="images"), name="images")
@@ -23,3 +24,4 @@ snail.include_router(auth.router, prefix="/api/auth")
 snail.include_router(posts.router, prefix="/api/posts")
 snail.include_router(todo.router, prefix="/api/todo")
 snail.include_router(photos.router, prefix="/api/photos")
+snail.include_router(rag.router, prefix="/api/rag")

@@ -83,6 +83,11 @@ const routes = [
             path: "relationship",
             component: () => import('../pages/Relationship.vue'),
             meta: {subMenu: "menu.subtitle.relationship", subMenuIcon: "mdi-graph-outline", fullPath: "/demos/relationship"}
+          },
+          {
+            path: "rag",
+            component: () => import('../pages/Rag.vue'),
+            meta: {subMenu: "menu.subtitle.rag", subMenuIcon: "mdi-forum-plus-outline", fullPath: "/demos/rag"}
           }
         ]
       },

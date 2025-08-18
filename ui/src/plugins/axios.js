@@ -1,13 +1,11 @@
 import axios from "axios";
-import {useRouter} from "vue-router";
 
 import {router} from "@/plugins/router";
+import {baseURL} from "@/config";
 
-// const router = useRouter()
 
 const request = axios.create({
-  baseURL: "https://me-api.discuss.pub"
-  // baseURL: "http://127.0.0.1:8000",
+  baseURL: baseURL
 })
 request.interceptors.request.use(config => {
   // 1.从缓存中获取到token,这里的Authorization时登录时你给用户设置token的键值

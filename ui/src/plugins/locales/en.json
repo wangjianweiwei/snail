@@ -55,6 +55,7 @@
   "todo.text.addTask": "Add a to-do list...",
   "menu.title.demos": "Demos",
   "menu.subtitle.relationship": "Relationship",
+  "menu.subtitle.rag": "RAG",
   "$vuetify": {
     "close": "Close"
   }

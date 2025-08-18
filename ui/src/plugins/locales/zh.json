@@ -55,6 +55,7 @@
   "todo.text.addTask": "添加一个待办事项...",
   "menu.title.demos": "案例",
   "menu.subtitle.relationship": "关系网",
+  "menu.subtitle.rag": "RAG",
   "$vuetify": {
     "close": "关闭"
   }

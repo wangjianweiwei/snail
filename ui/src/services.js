@@ -122,3 +122,8 @@ export async function publishPostApi(pk, published) {
   let response = await request.post("/api/posts/publish", {pk, published})
   return response.data
 }
+
+export async function q(talk_id, q) {
+  let response = await request.get("/api/rag/q", {params: {talk_id, q}})
+  return response.data
+}

@@ -1,6 +1,5 @@
 <script setup>
 import {ref, reactive, nextTick, onMounted} from "vue";
-import {no, tr} from "vuetify/locale";
 import moment from "moment";
 
 moment.locale('zh-cn');
@@ -796,7 +795,7 @@ const sendMsg = () => {
               <!--消息记录区域-->
               <v-row no-gutters style="height: 90%">
                 <v-col class="px-3">
-                  <v-infinite-scroll height="100%" side="start" @load="load">
+                  <v-infinite-scroll height="100%" side="start" @load="load" ref="chatContainer">
                     <template #default>
                       <v-list-item
                         v-for="(n, i) in messages[friend.value]"
