@@ -3,49 +3,7 @@ import {reactive, ref, onMounted, nextTick} from "vue";
 import {q} from '@/services'
 import {baseURL} from "@/config";
 
-const messages = reactive([
-  {
-    user: "1",
-    ai: "2",
-    aiLoading: true,
-    userLoading: true
-  },
-  {
-    user: "1",
-    ai: "2",
-    aiLoading: true,
-    userLoading: true
-  },
-  {
-    user: "1",
-    ai: "2",
-    aiLoading: true,
-    userLoading: true
-  }, {
-    user: "1",
-    ai: "2",
-    aiLoading: true,
-    userLoading: true
-  },
-  {
-    user: "1",
-    ai: "2",
-    aiLoading: true,
-    userLoading: true
-  },
-  {
-    user: "1",
-    ai: "2",
-    aiLoading: true,
-    userLoading: true
-  },
-  {
-    user: "1",
-    ai: "2",
-    aiLoading: true,
-    userLoading: true
-  }
-])
+const messages = reactive([])
 const currentMsg = ref("")
 const talk_id = ref("")
 const chatContainer = ref(null);
@@ -78,6 +36,9 @@ function getCurrentTime() {
 }
 
 async function sendMsg() {
+  if (!currentMsg.value.trim()) {
+    return
+  }
   messages.push({
     user: currentMsg.value,
     ai: "",
@@ -136,56 +97,65 @@ onMounted(() => {
             <!--消息记录区域-->
             <v-row no-gutters style="height: 90%">
               <v-col style="height: 100%;overflow-y: auto" ref="chatContainer">
-                <div v-for="n in messages">
-                  <v-list-item class="text-right">
-                    <template #title>
-                      <v-progress-circular v-if="n.userLoading" width="2" size="13"
-                                           class="mr-2"
-                                           indeterminate></v-progress-circular>
-                      <p class="text-body-2 rounded-lg pa-2 mb-2 message-content"
-                         style="background-color: rgb(var(--v-theme-primary))">
-                        {{ n.user }}</p>
-                    </template>
-                    <template #append>
-                      <v-avatar size="small" text="You" color="primary"></v-avatar>
-                    </template>
-                    <template #prepend>
-                      <v-avatar size="small"></v-avatar>
-                    </template>
-                    <template #subtitle>
-                      <div class="text-disabled" style="font-size: 0.73rem;font-weight: 450">
-                        <v-icon
-                          icon="mdi-check-bold"
-                          color="success"
-                          class="mr-1"></v-icon>
-                        <span>{{ n.userTime }}</span>
-                      </div>
+                <div v-if="messages.length > 0">
+                  <div v-for="n in messages">
+                    <v-list-item class="text-right">
+                      <template #title>
+                        <v-progress-circular v-if="n.userLoading" width="2" size="13"
+                                             class="mr-2"
+                                             indeterminate></v-progress-circular>
+                        <p class="text-body-2 rounded-lg pa-2 mb-2 message-content"
+                           style="background-color: rgb(var(--v-theme-primary))">
+                          {{ n.user }}</p>
+                      </template>
+                      <template #append>
+                        <v-avatar size="small" text="You" color="primary"></v-avatar>
+                      </template>
+                      <template #prepend>
+                        <v-avatar size="small"></v-avatar>
+                      </template>
+                      <template #subtitle>
+                        <div class="text-disabled" style="font-size: 0.73rem;font-weight: 450">
+                          <v-icon
+                            icon="mdi-check-bold"
+                            color="success"
+                            class="mr-1"></v-icon>
+                          <span>{{ n.userTime }}</span>
+                        </div>
 
-                    </template>
-                  </v-list-item>
-                  <v-list-item class="text-left">
-                    <template #title>
-                      <v-progress-circular v-if="n.aiLoading" width="2" size="13"
-                                           class="mr-2"
-                                           indeterminate></v-progress-circular>
-                      <p v-if="n.ai" class="text-body-2 rounded-lg pa-2 mb-2 message-content text-pre-wrap"
-                         style="background-color: rgb(var(--v-theme-background))">
-                        {{ n.ai }}</p>
-                    </template>
-                    <template #prepend>
-                      <v-avatar size="small" text="AI" color="brown"></v-avatar>
-                    </template>
-                    <template #subtitle>
-                      <div class="text-disabled" style="font-size: 0.73rem;font-weight: 450">
-                        <v-icon v-if="!n.aiLoading"
-                                icon="mdi-check-bold"
-                                color="success"
-                                class="mr-1"></v-icon>
-                        <span>{{ n.aiTime }}</span>
-                      </div>
+                      </template>
+                    </v-list-item>
+                    <v-list-item class="text-left">
+                      <template #title>
+                        <v-progress-circular v-if="n.aiLoading" width="2" size="13"
+                                             class="mr-2"
+                                             indeterminate></v-progress-circular>
+                        <p v-if="n.ai" class="text-body-2 rounded-lg pa-2 mb-2 message-content text-pre-wrap"
+                           style="background-color: rgb(var(--v-theme-background))">
+                          {{ n.ai }}</p>
+                      </template>
+                      <template #prepend>
+                        <v-avatar size="small" text="AI" color="brown"></v-avatar>
+                      </template>
+                      <template #subtitle>
+                        <div class="text-disabled" style="font-size: 0.73rem;font-weight: 450">
+                          <v-icon v-if="!n.aiLoading"
+                                  icon="mdi-check-bold"
+                                  color="success"
+                                  class="mr-1"></v-icon>
+                          <span>{{ n.aiTime }}</span>
+                        </div>
 
-                    </template>
-                  </v-list-item>
+                      </template>
+                    </v-list-item>
+                  </div>
+                </div>
+                <div v-else>
+                  <v-empty-state
+                    headline="Whoops, empty"
+                    title="Page is empty"
+                    image="https://vuetifyjs.b-cdn.net/docs/images/logos/v.png"
+                  ></v-empty-state>
                 </div>
               </v-col>
             </v-row>
@@ -194,7 +164,7 @@ onMounted(() => {
               <v-col class="pa-4">
                 <v-sheet>
                   <v-text-field v-model="currentMsg" variant="solo-filled" no-resize
-                                center-affix @keydown.enter="sendMsg">
+                                center-affix @keydown.enter="sendMsg" placeholder="订单信息填写错误怎么办?">
                     <template #append-inner>
                       <v-btn icon="mdi-send-outline" variant="text" color="" @click="sendMsg"></v-btn>
                     </template>
