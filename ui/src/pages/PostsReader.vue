@@ -26,7 +26,7 @@ onMounted(async () => {
     defaultFontsize: 15,
     darkMode: theme.global.name.value === "dark",
     toc: {
-      enable: false
+      enable: true
     },
   });
   // 设置内容

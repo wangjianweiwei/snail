@@ -52,7 +52,7 @@ const projects = ref([
   {
     id: 1,
     color: "",
-    role: "技术经理",
+    role: "研发经理",
     name: "ESDR临床研究数据一体化平台",
     introduction: [
       {

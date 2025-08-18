@@ -105,7 +105,7 @@ onMounted(async () => {
       emptyParagraphTip: '输入 / 唤起更多',
     },
     toc: {
-      enable: false
+      enable: true
     },
     input: {},
     image: {
