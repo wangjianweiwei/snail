@@ -56,7 +56,7 @@ const routes = [
           {
             path: "chat",
             component: () => import('../pages/Chat.vue'),
-            meta: {subMenu: "menu.subtitle.chat", subMenuIcon: "mdi-message-text", fullPath: "/apps/chat", requiresAuth: false}
+            meta: {subMenu: "menu.subtitle.chat", subMenuIcon: "mdi-message-text-outline", fullPath: "/apps/chat", requiresAuth: false}
           },
           {
             path: "todo",
@@ -71,7 +71,7 @@ const routes = [
           {
             path: "password",
             component: () => import('../pages/PasswordManage.vue'),
-            meta: {subMenu: "menu.subtitle.password", subMenuIcon: 'mdi-key-chain', fullPath: '/apps/password', requiresAuth: true}
+            meta: {subMenu: "menu.subtitle.password", subMenuIcon: 'mdi-key-outline', fullPath: '/apps/password', requiresAuth: true}
           }
         ]
       },
