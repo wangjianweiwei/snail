@@ -26,7 +26,7 @@ vector_store = DocArrayInMemorySearch.from_documents(documents, embedding_model)
 template = ChatPromptTemplate.from_messages([("user", """你是美团客服机器人，你的任务是根据下述给定的已知信息回答用户的问题
     已知信息：{context}
     用户问题：{question}
-    如果已知信息中不包含用户问题的答案，或者已知信息不足以回答用户的问题，请直接回复“我无法回答您的问题”。
+    如果已知信息中不包含用户问题的答案，或者已知信息不足以回答用户的问题，可以自由发挥，但是你要告诉用户仅供参考”。
     请用中文回答用户的问题""")])
 
 
