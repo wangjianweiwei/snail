@@ -16,6 +16,9 @@ const snackbar = ref(false)
 const snackbarColor = ref("primary")
 const snackbarText = ref("")
 
+const previewDialog = ref(false)         // 控制 Dialog 显示
+const previewImage = ref('')      // 当前点击的图片 src
+
 
 onMounted(async () => {
   post.value = await retrievePostApi(postId)
@@ -25,6 +28,17 @@ onMounted(async () => {
     layout: "adapt",
     defaultFontsize: 15,
     darkMode: theme.global.name.value === "dark",
+    envAdapter: {
+      previewImgs(imgs, index) {
+        // 取点击的那张图片
+        previewImage.value = imgs[index].src
+        previewDialog.value = true
+      },
+      openLink(url, isExternal) {
+        if (isExternal) window.open(url, "_blank")
+        else window.location.href = url
+      },
+    },
     toc: {
       enable: true
     },
@@ -115,12 +129,27 @@ async function publishPost(status) {
   >
   </v-snackbar>
 
-
+  <v-dialog v-model="previewDialog" fullscreen transition="dialog-bottom-transition">
+    <v-card class="relative">
+      <v-img
+        v-if="previewImage"
+        :src="previewImage"
+        class="preview-image"
+        contain
+      ></v-img>
+    </v-card>
+  </v-dialog>
 </template>
 
 <style>
 .ne-doc-major-viewer .ne-viewer-layout-mode-adapt {
   padding: 10px 0 !important;
+}
+
+ne-column {
+  border: 1px solid var(--lakex-editor-border-primary);
+  border-radius: 6px;
+  padding: 6px;
 }
 
 .ne-viewer-toc-sidebar {

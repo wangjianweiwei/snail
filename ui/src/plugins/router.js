@@ -36,7 +36,12 @@ const routes = [
       {
         path: '/about',
         redirect: '/about/me',
-        meta: {parentMenu: "menu.title.about", parentMenuIcon: "mdi-information-variant", fullPath:"/about", hasSub: false},
+        meta: {
+          parentMenu: "menu.title.about",
+          parentMenuIcon: "mdi-information-variant",
+          fullPath: "/about",
+          hasSub: false
+        },
         children: [
           {
             path: "me",
@@ -56,22 +61,51 @@ const routes = [
           {
             path: "chat",
             component: () => import('../pages/Chat.vue'),
-            meta: {subMenu: "menu.subtitle.chat", subMenuIcon: "mdi-message-text-outline", fullPath: "/apps/chat", requiresAuth: false}
+            meta: {
+              subMenu: "menu.subtitle.chat",
+              subMenuIcon: "mdi-message-text-outline",
+              fullPath: "/apps/chat",
+              requiresAuth: false
+            }
           },
           {
             path: "todo",
             component: () => import('../pages/Todo.vue'),
-            meta: {subMenu: "menu.subtitle.todo", subMenuIcon: "mdi-calendar-check", fullPath: "/apps/todo", requiresAuth: true}
+            meta: {
+              subMenu: "menu.subtitle.todo",
+              subMenuIcon: "mdi-calendar-check",
+              fullPath: "/apps/todo",
+              requiresAuth: true
+            }
           },
           {
             path: 'photos',
             component: () => import('../pages/Photos.vue'),
-            meta: {subMenu: "menu.subtitle.photos", subMenuIcon: "mdi-camera-outline", fullPath: "/apps/photos", requiresAuth: true}
+            meta: {
+              subMenu: "menu.subtitle.photos",
+              subMenuIcon: "mdi-camera-outline",
+              fullPath: "/apps/photos",
+              requiresAuth: true
+            }
           },
           {
             path: "password",
             component: () => import('../pages/PasswordManage.vue'),
-            meta: {subMenu: "menu.subtitle.password", subMenuIcon: 'mdi-key-outline', fullPath: '/apps/password', requiresAuth: true}
+            meta: {
+              subMenu: "menu.subtitle.password",
+              subMenuIcon: 'mdi-key-outline',
+              fullPath: '/apps/password',
+              requiresAuth: true
+            }
+          },
+          {
+            path: "document",
+            component: () => import('../pages/Document.vue'),
+            meta: {
+              subMenu: "menu.subtitle.document",
+              subMenuIcon: 'mdi-text-box-search-outline',
+              fullPath: '/apps/document',
+            }
           }
         ]
       },
@@ -82,7 +116,11 @@ const routes = [
           {
             path: "relationship",
             component: () => import('../pages/Relationship.vue'),
-            meta: {subMenu: "menu.subtitle.relationship", subMenuIcon: "mdi-graph-outline", fullPath: "/demos/relationship"}
+            meta: {
+              subMenu: "menu.subtitle.relationship",
+              subMenuIcon: "mdi-graph-outline",
+              fullPath: "/demos/relationship"
+            }
           },
           {
             path: "rag",

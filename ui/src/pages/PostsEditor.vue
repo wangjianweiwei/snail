@@ -178,6 +178,12 @@ onMounted(async () => {
   --lakex-editor-background-primary: rgba(var(--v-theme-background)) !important;
 }
 
+ne-column-border {
+  border: 1px solid var(--lakex-editor-border-primary);
+  border-radius: 6px;
+  padding: 6px;
+}
+
 .ne-layout-mode-fixed .ne-editor-wrap-content, .ne-layout-mode-adapt .ne-editor-wrap-content {
   min-width: 100% !important;
 }
